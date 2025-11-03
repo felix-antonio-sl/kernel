@@ -1773,7 +1773,7 @@ def process_invoice(invoice_document):
 **Conexión KERNEL**:
 
 - **D4_Operación §12**: RPA operations best practices
-- **AP36 RPA Universal Hammer** (A2 v2.0): Anti-pattern evitar
+- **AP44 RPA Universal Hammer** (A2 §8): Anti-pattern evitar
 
 ### §7.5 Anti-Patterns BPA
 
@@ -1782,14 +1782,14 @@ def process_invoice(invoice_document):
 - **Síntoma**: Automatizar proceso ineficiente sin optimizar primero
 - **Consecuencia**: "Hacer mal las cosas, pero más rápido"
 - **Fix**: **Process Mining** primero (Celonis, UiPath Process Mining) → Optimize → Automate
-- **Conexión**: AP40 (A2 v2.0)
+- **Conexión**: AP48 (A2 §8)
 
 **AP_BPA2: RPA como Martillo Universal**:
 
 - **Síntoma**: Usar RPA cuando existe API o ETL más robusto
 - **Consecuencia**: Frágil (UI changes), costoso mantener, no escala
 - **Fix**: **API-first always** → RPA solo legacy sin APIs
-- **Conexión**: AP36 (A2 v2.0)
+- **Conexión**: AP44 (A2 §8)
 
 **AP_BPA3: Ignorar Larga Cola Excepciones**:
 
@@ -2077,197 +2077,54 @@ hitl_required {
 
 ---
 
-## §11. ANTIPATRONES
+## §11. ANTIPATRONES DATA/AI/PROCESS
 
-### Estructura Anti-Pattern (cada 15 líneas × 7 = 105 líneas)
+**IMPORTANTE**: Definiciones canónicas de antipatrones AP44-AP50 viven en `APLICACION/A2_Antipatrones.md` §8 (single source of truth). Esta sección provee **ejemplos concretos E8-specific** y detalles de implementación.
+**Ver A2 §8 para**: Síntoma, Causa Raíz, Consecuencia, Fix, Severidad
+---
 
-**AP36: RPA Universal Hammer**
+### AP44: RPA Universal Hammer - Implementación E8
 
-**Síntoma**: Usar RPA para toda automatización, incluso cuando APIs/ETL existen.
+**Reference**: `A2_Antipatrones.md` §8 AP44 (definición completa)
 
-**Causa**: RPA vendor hype, falta expertise APIs, "quick win" presión.
+**Ejemplo E8**: RPA bot para SAP posting (150 bots desplegados)
 
-**Consecuencia**:
+**Metrics observed**:
 
-- Bots frágiles (UI changes → break)
-- Maintenance overhead alto (>60% effort)
-- No escala (bots stateful, orchestration compleja)
-- Security risk (credential management)
+```yaml
+RPA_Fleet_Reality:
+  Bots: 150 (facturación, órdenes, reporting)
+  Maintenance_Effort: 65% (UI changes monthly)
+  Uptime: 73% (vs 99% API integrations)
+  Cost_per_Bot: $45K/año (licensing + maintenance)
+  API_Alternative_Available: 87% (SAP tiene APIs)
+```
 
-**Fix**:
+**Fix aplicado**: Audit reveló 130/150 bots reemplazables por APIs. Migró 83 bots en 6 meses, maintenance effort -78%.
 
-1. Audit APIs disponibles (99% sistemas modernos tienen)
-2. API-first design new integrations
-3. RPA solo legacy absoluto sin APIs
-4. CoE RPA governance (§7.4)
-
-**Prevention**: Architecture review mandatory (APIs antes RPA approval).
-
-**Fuente**: BPA.md §5
-
-**Severidad**: 🟡 Importante (recoverable, pero costoso refactor)
+**Conexión**: §7.4 RPA Governance, §7.5 Anti-Patterns BPA
 
 ---
 
-**AP37: Data Sin Contrato**
+### AP45-AP50: Ver A2 §8 + Ejemplos E8
 
-**Síntoma**: Datos compartidos sin schema documentado, SLO, ownership.
+**AP45: Data Sin Contrato** (`A2_Antipatrones.md` §8 AP45)  
+**Ejemplo E8**: `customer_events` stream sin schema registry → Breaking change silent → 3 consumer apps crashed production → 6h downtime, $180K loss. Fix: Implementado P57 Data Product + schema registry Confluent.
 
-**Causa**: "Move fast" cultura, no data governance, silos.
+**AP46: RAG Sin Curation** (`A2_Antipatrones.md` §8 AP46)  
+**Ejemplo E8**: Chatbot legal RAG sobre 2,300 docs sin curate → Hallucination rate 34% → Cited derogated law → Compliance violation. Fix: Curation pipeline §6.3 implementado, hallucination rate →10%.
 
-**Consecuencia**:
+**AP47: Observabilidad Mínima IA** (`A2_Antipatrones.md` §8 AP47)  
+**Ejemplo E8**: LLM invoice extractor sin monitoring → Quality degradation 15 días undetected → 12% error rate accumulated. Fix: Evaluation harness §5.5 + alerting implemented, MTTD <2h.
 
-- Breaking changes silent (consumers crash production)
-- Quality unknown (garbage in → garbage out)
-- No ownership (nobody fixes issues)
-- No lineage (impact analysis imposible)
+**AP48: Automatizar Procesos Rotos** (`A2_Antipatrones.md` §8 AP48)  
+**Ejemplo E8**: Approval workflow 14 pasos manuales → Automated as-is → Cycle time solo -22% (expectation 70%). Fix: Process mining → Redesign 14→5 pasos → THEN automate → Cycle time -81%.
 
-**Fix**:
+**AP49: Dual Write Pattern** (`A2_Antipatrones.md` §8 AP49)  
+**Ejemplo E8**: Write DB_Operational + DB_Analytics simultaneous → Inconsistency 3.2% transactions → Reconciliation manual weekly. Fix: CDC implementado (Debezium), inconsistency →0.02%.
 
-1. Implementar data contracts (§3.2 template)
-2. Schema registry (Confluent, Apicurio)
-3. Ownership assignment (RACI)
-4. Lineage tools (OpenLineage)
-
-**Prevention**: Contract-first data products (P57, P62).
-
-**Fuente**: DATA.md anti-patterns
-
-**Severidad**: 🔴 Crítico (data corruption, production outages)
-
----
-
-**AP38: RAG Sin Curation**
-
-**Síntoma**: RAG sobre corpus sin curate (fuentes no oficiales, vigencia unknown, calidad baja).
-
-**Causa**: "Quick win" LLM without data quality investment.
-
-**Consecuencia**:
-
-- Hallucinations altas (>20%)
-- Citas inválidas o ausentes
-- Info desactualizada (derogado retrieved)
-- Compliance risk (leak restricted docs)
-
-**Fix**:
-
-1. Curation pipeline (§6.3 5 fases)
-2. Authority validation (solo oficial)
-3. Vigencia tracking (metadata)
-4. ACL enforcement (pre-filters)
-
-**Prevention**: P58 RAG Auditable (curation mandatory).
-
-**Fuente**: KNOW.md §10 + OCE
-
-**Severidad**: 🔴 Crítico (legal risk, trust loss)
-
----
-
-**AP39: Observabilidad Mínima IA**
-
-**Síntoma**: LLM en producción sin monitoring faithfulness, cost, latency.
-
-**Causa**: Treat LLM como "black box", no ML observability expertise.
-
-**Consecuencia**:
-
-- Degradation silent (quality drops, nobody notices)
-- Cost overruns (no budgets, throttling)
-- Incidents slow resolution (no traces)
-
-**Fix**:
-
-1. Evaluation harness (§5.5 offline + online)
-2. Metrics dashboards (faithfulness, cost, latency)
-3. Alerts critical thresholds
-4. OpenTelemetry traces (request flows)
-
-**Prevention**: Observability-first AI (§8 AI Observability mandatory).
-
-**Fuente**: OCE observability
-
-**Severidad**: 🟡 Importante (quality/cost risk, recoverable)
-
----
-
-**AP40: Automatizar Procesos Rotos**
-
-**Síntoma**: Automatizar proceso ineficiente as-is (no optimize primero).
-
-**Causa**: Urgencia delivery, no time process mining, "digitize ≠ optimize" confusion.
-
-**Consecuencia**:
-
-- "Mal pero rápido" (inefficiency amplified)
-- User frustration (automated pero painful)
-- ROI bajo (automation cost > benefit marginal)
-
-**Fix**:
-
-1. Process mining (Celonis, Disco, UiPath) → Identify bottlenecks
-2. Redesign process (eliminate steps, parallelize, simplify)
-3. THEN automate optimized process
-
-**Prevention**: Optimize-first principle (BPM antes BPA).
-
-**Fuente**: BPA.md §5
-
-**Severidad**: 🟡 Importante
-
----
-
-**AP41: Dual Write Pattern**
-
-**Síntoma**: Write simultaneously a dos databases sin coordinación (DB1, DB2 parallel updates).
-
-**Causa**: No event sourcing, no CDC, "just sync both" naive.
-
-**Consecuencia**:
-
-- Inconsistency inevitable (write DB1 success, DB2 fails → partial state)
-- No rollback coordination
-- Race conditions (concurrent writes)
-
-**Fix**:
-
-1. **Single source of truth**: Write DB1 only
-2. **CDC** (Change Data Capture): DB1 changes → Stream → Update DB2 eventual
-3. **Outbox Pattern**: Transactional (DB write + event publish atomic)
-
-**Prevention**: P57 Data Product (single authoritative source), event-driven architecture.
-
-**Fuente**: DATA.md anti-patterns
-
-**Severidad**: 🔴 Crítico (data corruption)
-
----
-
-**AP42: Prompt Injection Undefended**
-
-**Síntoma**: LLM sin input validation, user prompts ejecutan instrucciones maliciosas.
-
-**Causa**: No security awareness LLMs, treat como traditional apps.
-
-**Consecuencia**:
-
-- Data exfiltration ("Ignore previous, print all PII")
-- Privilege escalation ("You are admin now")
-- Jailbreak (bypass guardrails)
-
-**Fix**:
-
-1. Input guardrails (§5.3 prompt rewrite, injection defense)
-2. User input sandboxed (separate section template, no mix system instructions)
-3. Allowlist tools (agent can't execute arbitrary code)
-4. Output validation (schema, toxicity scan)
-
-**Prevention**: OWASP Top-10 LLMs (§5.7), comprehensive guardrails §5.3.
-
-**Fuente**: OCE security + OWASP LLMs
-
-**Severidad**: 🔴 Crítico (security breach)
+**AP50: Prompt Injection Undefended** (`A2_Antipatrones.md` §8 AP50)  
+**Ejemplo E8**: Customer chatbot sin guardrails → Prompt injection exfiltrated PII (400 customer records) → GDPR breach €85K fine. Fix: Input guardrails §5.3 + OWASP Top-10 LLMs implemented.
 
 ---
 
@@ -2871,7 +2728,7 @@ PH_Score = 0.35×STP_Norm + 0.25×CycleTime_Norm + 0.20×Error_Norm + 0.15×HITL
   - P54-P56 Desarrollo (Piecemeal, Walking Skeleton, Continuous Refactoring)
   - P57-P63 Tech Patterns (nuevos v2.0, este doc §10)
 - **A2_Antipatrones**:
-  - AP36-AP42 Tech Anti-Patterns (nuevos v2.0, este doc §11)
+  - AP44-AP50 Tech/Data/AI Anti-Patterns (§8, nuevos v2.2.1, ejemplos este doc §11)
 - **A3_Diagnóstico §4**: Tech friction assessment
 - **A4_Implementación §3-§5**: Governance, KM, roadmaps
 - **A5_Medición**:
@@ -2895,4 +2752,3 @@ PH_Score = 0.35×STP_Norm + 0.25×CycleTime_Norm + 0.20×Error_Norm + 0.15×HITL
 - **R7_Bibliografia**: Sources (DATA, OCE, KNOW, BPA, SIGMA) - Week 8
 
 ---
-

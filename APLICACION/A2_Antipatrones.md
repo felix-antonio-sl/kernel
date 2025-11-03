@@ -7,7 +7,7 @@
 ## §1. TAXONOMÍA ANTIPATRONES
 
 ```yaml
-Total: 40 antipatrones organizados en 8 categorías
+Total: 50 antipatrones organizados en 9 categorías
 
 Categorías:
   - Estructurales (AP01-AP06): Org design, teams, roles
@@ -18,7 +18,7 @@ Categorías:
   - Crisis & Transformation (AP31-AP33): Emergency governance, readiness
   - Seguridad (AP34-AP37): Security by design, response
   - Customer Experience (AP38-AP40): Customer-centricity, value stream
-  - Tecnológicos Especializados (AP41-AP49): Tech/Data/AI/Process (v2.2.1)
+  - Tecnológicos Especializados (AP41-AP50): Tech/Data/AI/Process (v2.2.1)
     - AP41: Premature Microservices (§8)
     - AP42: Frontend-Backend Coupling (§8)
     - AP43: Big Design Up Front (BDUF) (§8)
@@ -28,6 +28,7 @@ Categorías:
     - AP47: Observabilidad Mínima IA (§8)
     - AP48: Automatizar Procesos Rotos (§8)
     - AP49: Dual Write Pattern (§8)
+    - AP50: Prompt Injection Undefended (§8)
 Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 ```
 
@@ -141,6 +142,16 @@ Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 | AP38 (Diseño Inside-Out) | P_CX01 (Flujo Valor Cliente) | Alta |
 | AP39 (Fricción Invisible) | P_CX02 (Eventos como Señales CX) | Alta |
 | AP40 (Tragedia Comunes CX) | P_CX03 (Touchpoint Ownership Explícita) | Alta |
+| AP41 (Premature Microservices) | P54 (Piecemeal Growth) | Alta |
+| AP42 (Frontend-Backend Coupling) | API Gateway + BFF Pattern, Contract-first design | Media |
+| AP43 (BDUF) | P54 (Piecemeal), P55 (Walking Skeleton), P56 (Continuous Refactoring) | Alta |
+| AP44 (RPA Universal Hammer) | API-first architecture review | Media |
+| AP45 (Data Sin Contrato) | P57 (Data Product), P62 (Contract-Driven Evolution) | Alta |
+| AP46 (RAG Sin Curation) | P58 (RAG Auditable) | Alta |
+| AP47 (Observabilidad Mínima IA) | Evaluation harness (E8 §5.5), Observability-first design | Alta |
+| AP48 (Automatizar Procesos Rotos) | Process mining (optimize-first principle) | Media |
+| AP49 (Dual Write Pattern) | P57 (Data Product single source), CDC/Outbox Pattern | Alta |
+| AP50 (Prompt Injection) | Input/output guardrails (E8 §5.3), OWASP Top-10 LLMs | Alta |
 
 **Nota:** Para anti-patrones OKR adicionales (Top-Down Imposition, Linked to Compensation, Estimating OKRs, 100% Expected) ver `D3_Decision.md` §1 Anti-Patrones AP6-AP9. Todos mitigados por P29 + claridad filosófica OKRs.
 

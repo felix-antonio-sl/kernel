@@ -725,74 +725,57 @@ La elección arquitectónica es la decisión con mayor impacto a largo plazo. No
 
 ---
 
-## §10. ANTIPATRONES
+## §10. ANTIPATRONES TECH ENTERPRISE
 
-### AP_TECH1: Premature Microservices
+**IMPORTANTE**: Definiciones canónicas de antipatrones AP41-AP43 viven en `APLICACION/A2_Antipatrones.md` §8 (single source of truth). Esta sección provee **ejemplos concretos E7-specific** y detalles de implementación.
 
-**Síntoma**: Startup 5 engineers comienza con 15 microservicios sin justificar.
+**Ver A2 §8 para**: Síntoma, Causa Raíz, Consecuencia, Fix, Severidad.
 
-**Causa**: Hype-driven architecture, no pain real con monolito.
+---
 
-**Consecuencia**:
+### AP41: Premature Microservices - Implementación E7
 
-- Complejidad operacional >10× (service discovery, distributed tracing, eventual consistency)
-- Dev velocity -70% (setup overhead, debugging cross-service)
-- Team cognitive load insostenible
+**Reference**: `A2_Antipatrones.md` §8 AP41 (definición completa)
 
-**Fix**: Start monolito modular → Extract microservicios cuando **dolor > complejidad** (§2 principio).
+**Ejemplo E7**: Startup 10 engineers, arquitectura target
 
-**Prevention**: Aplicar **P54 Piecemeal Growth** (APLICACION/A1) - grow incrementally.
+**Anti-pattern observado**:
+```yaml
+Startup_Real_Case:
+  Engineers: 10
+  Microservices: 18 (cada bounded context = service)
+  Overhead:
+    - Service discovery: Consul setup 2 semanas
+    - Distributed tracing: Jaeger + instrumentation 3 semanas
+    - API gateway: Kong config 1 semana
+    - Local dev: Docker-compose 25 services, 32GB RAM
+  
+  Velocity_Impact:
+    - Feature delivery: 2 weeks → 6 weeks
+    - Onboarding: 1 semana → 4 semanas (cognitive load)
+    - Debug session: 30min → 4 horas (trace across services)
+```
 
-**Severidad**: 🟡 Importante (recoverable, pero costoso)
+**Fix aplicado (retrospective)**:
+```yaml
+Refactor_Journey:
+  Month_0: Collapse 18 services → 3 módulos monolito
+  Month_3: Velocity recovery +200%
+  Month_12: Extract 2 services críticos (payments, auth)
+  Month_18: Arquitectura óptima: 1 monolito + 2 microservices
+```
 
-### AP_TECH2: Frontend-Backend Coupling
+**Conexión**: §2 Trade-Offs Matrix (cuando microservices correcto), P54 Piecemeal Growth
 
-**Síntoma**: Frontend directamente acopla a backend DB schemas/internal APIs.
+---
 
-**Causa**: No BFF (Backend-for-Frontend) layer, no API contracts estables.
+### AP42-AP43: Ver A2 §8 + Ejemplos E7
 
-**Consecuencia**:
+**AP42: Frontend-Backend Coupling** (`A2_Antipatrones.md` §8 AP42)  
+**Ejemplo E7**: SPA React acopla directamente a Django ORM schemas - Breaking changes cada backend migration, frontend rewrites 3× en 18 meses.
 
-- Deploy dependencies (frontend requiere backend deploy simultáneo)
-- Violates team autonomy (frontend bloqueado por backend changes)
-- API versioning imposible (breaking changes cada deploy)
-
-**Fix**:
-
-- Introducir **API Gateway** con contracts estables (OpenAPI specs)
-- BFF layer para cada client type (web, mobile, partner APIs)
-- **Semantic versioning** APIs (major.minor.patch)
-
-**Prevention**: Contract-first design (API spec antes implementation).
-
-**Severidad**: 🟡 Importante
-
-### AP_TECH3: Big Design Up Front (BDUF)
-
-**Síntoma**: 6 meses diseño arquitectónico detallado antes de escribir código.
-
-**Causa**: Waterfall mindset, fear of refactoring, architecture astronauts.
-
-**Consecuencia**:
-
-- Requirements drift (realidad ≠ diseño cuando finalmente builds)
-- Sunk cost fallacy (inversión diseño → resist change)
-- Time-to-market delay massive
-
-**Fix**: **P54 Piecemeal Growth + P55 Walking Skeleton** (APLICACION/A1 v1.4):
-
-- Walking Skeleton primero (end-to-end mínimo funcional)
-- Iterate con feedback real
-- **P56 Continuous Refactoring** (mantener calidad)
-
-**Mitigación**: Ya mitigado por P54-P56 v1.4 refactorización.
-
-**Severidad**: 🟡 Importante (menos común 2024, pero persiste en orgs tradicionales)
-
-**Conexión KERNEL**:
-
-- **APLICACION/A2**: Antipatrones base (cross-reference)
-- **P54-P56**: Patterns desarrollo que previenen BDUF
+**AP43: Big Design Up Front (BDUF)** (`A2_Antipatrones.md` §8 AP43)  
+**Ejemplo E7**: 6 meses UML/C4 diagrams detallados → Requirements cambió 40% → 4 meses diseño desperdicio. Fix: P55 Walking Skeleton implementado (skeleton funcional semana 1).
 
 ---
 
