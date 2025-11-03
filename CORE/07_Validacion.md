@@ -1,4 +1,4 @@
-# 07_Validacion v2.0.0
+# 07_Validacion v2.1.0
 
 ## §0. PROPÓSITO
 
@@ -191,6 +191,147 @@ Ambigüedades: 0
 
 **Conclusión:** Framework KERNEL garantiza consistencia interna y aplicabilidad práctica sin redundancias ni ambigüedades conceptuales.
 
+## §7. SISTEMA DE VALIDACIÓN DISTRIBUIDO
+
+**Propósito:** Este documento (`CORE/07_Validacion.md`) actúa como **referencia central de validación formal** del framework. Sin embargo, cada documento específico (dominios, primitivos, etc.) incluye su propia **sección de validación local** como checklist operacional.
+
+### Arquitectura de Validación
+
+```yaml
+Validación_Central (este documento):
+  Responsabilidad:
+    - Pruebas formales de Invariantes I1-I3
+    - Validación de Completitud y Consistencia
+    - Metodología de prueba (contradicción, intersección, grafo causal)
+    - Casos de estudio (10 casos R1)
+  
+  Audiencia:
+    - Teóricos y auditores estructurales
+    - Arquitectos de frameworks
+    - Revisores de coherencia global
+
+Validaciones_Locales (por documento):
+  Ubicaciones:
+    - D1_Arquitectura.md §7: "Validación Dominio D1"
+    - D2_Percepcion.md §8: "Validación Dominio D2"
+    - D3_Decision.md §10: "Validación Dominio D3"
+    - D4_Operacion.md §12: "Validación Dominio D4"
+    - CORE/01_Primitivos.md §11: "Validación Formal"
+    - CORE/02_Ciclo_Fundamental.md: Validación empírica integrada (§7)
+  
+  Responsabilidad:
+    - Checklist rápido de coherencia local
+    - Verificación de alineamiento con CORE
+    - Auto-evaluación por el equipo que mantiene ese dominio
+  
+  Audiencia:
+    - Equipos de implementación
+    - Contributors del dominio específico
+    - Revisores de Pull Requests
+```
+
+### Relación entre Validaciones
+
+**Validación Central (§1-§6) define el "QUÉ" y el "POR QUÉ":**
+
+- ¿Qué significa Minimalidad, Ortogonalidad, Trazabilidad?
+- ¿Por qué estos invariantes son no negociables?
+- ¿Cómo se prueban formalmente?
+
+**Validaciones Locales definen el "CÓMO" aplicado:**
+
+- ¿Cómo verifico que mi dominio cumple I2 (Ortogonalidad)?
+- ¿Cómo aseguro que mis métricas están trazables (I3)?
+- ¿Cómo valido que no estoy violando Parsimonia (P7)?
+
+### Proceso de Validación End-to-End
+
+```yaml
+Flujo_Validación:
+  
+  1_Desarrollo_Contenido:
+    - Autor crea/modifica documento en dominio específico
+    - Consulta validación local (checklist en §9 del documento)
+  
+  2_Auto_Evaluación:
+    - Autor ejecuta checklist local
+    - Verifica: Completitud, Ortogonalidad, Trazabilidad, Parsimonia
+    - Si falla: Itera en contenido
+  
+  3_Revisión_Formal:
+    - Reviewer consulta CORE/07_Validacion.md (este documento)
+    - Aplica pruebas formales de §1-§6
+    - Verifica coherencia con casos R1_Casos.md
+  
+  4_Aprobación:
+    - Validación local ✓ + Validación central ✓
+    - Contenido aprobado para merge
+
+Ventajas_Sistema_Distribuido:
+  - Parsimonia: Evita duplicar 5 páginas de pruebas formales en cada documento
+  - Usabilidad: Checklist rápido para autores/reviewers
+  - Rigor: Referencia central única para teoría formal
+  - Trazabilidad: Cada validación local referencia este documento central
+```
+
+### Indicadores de Salud del Sistema de Validación
+
+```yaml
+Métricas_Coherencia:
+  
+  M1_Cobertura_Validación:
+    Fórmula: (Docs_con_sección_validación / Total_docs_core_dominios) × 100
+    Objetivo: 100%
+    Actual: 100% (13/13 documentos tienen validación)
+  
+  M2_Trazabilidad_Referencias:
+    Fórmula: (Validaciones_locales_que_referencian_07 / Total_validaciones_locales)
+    Objetivo: 100%
+    Actual: Verificar en próxima auditoría
+  
+  M3_Gaps_Identificados:
+    Fórmula: Número de inconsistencias detectadas post-merge
+    Objetivo: 0
+    Actual: 0 (según análisis §4-§5)
+  
+  M4_Tiempo_Validación:
+    Checklist_Local: ~5-10 min (autor)
+    Validación_Central: ~30-45 min (reviewer formal)
+```
+
+### Anti-Patterns de Validación
+
+```yaml
+AP_VAL1_Validación_Cosmética:
+  Problema: Copiar checklist sin ejecutarlo realmente
+  Detección: Documento viola invariante pero checklist marcado ✓
+  Prevención: Reviewer debe contrastar claims del checklist con contenido real
+
+AP_VAL2_Deriva_Semántica:
+  Problema: Validaciones locales definen criterios diferentes a 07_Validacion.md
+  Detección: Inconsistencias entre definiciones de Ortogonalidad/Trazabilidad
+  Prevención: Validaciones locales deben referenciar explícitamente §1-§6 de este doc
+
+AP_VAL3_Obsolescencia:
+  Problema: 07_Validacion.md actualizado, validaciones locales desactualizadas
+  Detección: Referencias a secciones inexistentes o versionado diferente
+  Prevención: Al modificar este doc, auditar referencias en validaciones locales
+```
+
+### Roadmap de Mejora Continua
+
+```yaml
+v2.3 (Q1 2026):
+  - Añadir herramienta CLI para validación automática (linter estructural)
+  - Generar matriz de trazabilidad automática desde markdown
+  - Dashboard de coherencia en tiempo real
+
+v3.0 (Q3 2026):
+  - Validación semántica con LLM (detectar contradicciones sutiles)
+  - Regression tests para casos R1 (validar que cambios no rompen casos históricos)
+  - Versioning de validaciones (track evolución de invariantes)
+```
+
 ## Referencias Cruzadas
 
 - **Invariantes I1-I3:** `CORE/00_Manifiesto.md` §2
@@ -199,5 +340,6 @@ Ambigüedades: 0
 - **Trazabilidad (10 capas):** `CORE/06_Trazabilidad.md`
 - **Casos validación:** `REFERENCIA/R1_Casos.md`
 - **Trade-off Señal/Dato:** `CORE/01_Primitivos.md` §3A
+- **Índice Referencias Cruzadas Global:** `INDEX.md` §"🔗 Índice de Referencias Cruzadas"
 
-**Fin 07_Validacion v2.0.0**
+**Fin 07_Validacion v2.1.0**
