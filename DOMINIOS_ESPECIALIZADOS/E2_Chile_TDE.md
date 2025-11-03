@@ -432,7 +432,79 @@
 
 ## §2. ESTRATEGIAS NACIONALES (Detalle 4 Estrategias)
 
-*[Esta sección se encuentra en desarrollo. Se detallarán las 4 estrategias nacionales de Gobierno Digital.]*
+### 1. Estrategia de Gobierno Digital 2030
+
+**Visión**: Para 2030, el sector público chileno superará el promedio de la OCDE en transformación digital, mejorando la calidad de servicios y políticas públicas para aumentar la satisfacción y confianza ciudadana.
+
+**Objetivos Estratégicos (7)**:
+
+- **Experiencia Digital**: Simple, eficiente e inclusiva para personas y empresas.
+- **Estrategia de Datos**: Poner en marcha para facilitar servicios y políticas basadas en evidencia.
+- **Integración de Servicios**: Articular al Estado como una unidad coherente.
+- **Gobernanza Digital**: Consolidar y fortalecer la rectoría de la SGD.
+- **Talento Digital**: Impulsar competencias y retener talento especializado.
+- **Servicios Compartidos**: Desarrollar un modelo escalable y sostenible.
+- **Identidad Digital**: Establecer un sistema nacional seguro con colaboración público-privada.
+
+**Ejes Estratégicos (3 Transformadores + 3 Habilitadores)**:
+
+- **E1 (Transformador)**: Servicios Digitales Centrados en las Personas.
+- **E2 (Transformador)**: Sector Público Eficiente (digitalización, automatización, servicios compartidos).
+- **E3 (Transformador)**: Gestión Inteligente basada en Datos (capacidad analítica y proactiva).
+- **E4 (Habilitador)**: Gobernanza y Rectoría para la Transformación Digital.
+- **E5 (Habilitador)**: Competencias y Talento Digital.
+- **E6 (Habilitador)**: Identidad e Infraestructura Pública Digital.
+
+### 2. Estrategia de Datos del Estado
+
+**Visión**: Para 2030, la Administración del Estado estará impulsada por datos, información y conocimiento para ofrecer servicios proactivos, eficientes y seguros, consolidando a Chile como líder regional.
+
+**Objetivo Estratégico**: Transformar la Administración mediante el uso estratégico de datos para mejorar la calidad de vida, responder a desafíos complejos y generar valor público.
+
+**Ejes Estratégicos (3)**:
+
+- **Eje 1 - Ecosistema**: Establecer una gobernanza de datos multinivel e intersectorial (público, privado, academia, sociedad civil) para gestionar los datos como un activo estratégico.
+  - **Medidas Clave**: Crear Consejo Estratégico de Datos, estandarizar datos maestros, impulsar interoperabilidad.
+- **Eje 2 - Personas**: Desarrollar el talento humano del sector público a través de capacitación continua, gestión del cambio y atracción de perfiles especializados (científicos de datos, analistas).
+  - **Medidas Clave**: Desarrollar certificaciones, apoyar reclutamiento, ofrecer formación en IA e interoperabilidad.
+- **Eje 3 - Tecnología**: Implementar una Infraestructura Pública Digital (IPD) escalable y compartida.
+  - **Medidas Clave**: Fortalecer red de interoperabilidad, mejorar portal de datos abiertos, desarrollar un "lago de datos" y crear un centro de excelencia en IA.
+
+### 3. Estrategia de Identidad Digital (EID)
+
+**Visión**: Para 2030, Chile contará con un ecosistema de identidad digital al servicio de las personas, basado en una sólida colaboración público-privada, posicionándose como líder regional y referente mundial.
+
+**Objetivo Estratégico**: Implementar un nuevo sistema de identidad digital inclusivo, seguro y confiable para el acceso a servicios digitales públicos y privados.
+
+**Modelo Propuesto**: Sistema Híbrido Público-Privado.
+
+- **Fundamento**: Centralizado para la identidad fundacional (rol del Registro Civil y el RUN) y descentralizado en la provisión de servicios de confianza (colaboración público-privada).
+- **Hoja de Ruta (2 Etapas)**:
+  - **Corto Plazo (a 2026)**: Consolidar **ClaveÚnica** como un componente de infraestructura pública, operando como un *broker* de identidad junto a la Cédula Digital. Gobernanza a cargo de un comité ejecutivo (Registro Civil, SGD, ANCI).
+  - **Mediano Plazo (a 2030)**: Expandir el modelo con una autoridad pública única (creada por ley) que acredite a múltiples proveedores de servicios de confianza (públicos y privados).
+
+### 4. Estrategia de Capacitación en Transformación Digital
+
+**Visión**: Funcionarios públicos con las competencias necesarias para liderar y ejecutar la transformación digital, mediante un plan de capacitación accesible, equitativo y gratuito, adaptado a roles específicos.
+
+**Objetivo Estratégico**: Desarrollar e implementar un plan nacional de capacitación que aborde las brechas de talento digital en el Estado, con foco en 7 perfiles prioritarios.
+
+**Perfiles Prioritarios (7)**:
+
+1.  **Cargos directivos y jefaturas**.
+2.  **Coordinador/a de Transformación Digital**.
+3.  **Encargado/a de seguridad y ciberseguridad**.
+4.  **Encargado/a de tecnologías (TIC)**.
+5.  **Encargado/a de Oficina de Partes**.
+6.  **Encargado/a de asuntos legales**.
+7.  **Encargado/a de gestión documental**.
+
+**Ejes del Plan de Acción**:
+
+- **Gobernanza y Articulación**: Definir roles y responsabilidades, con la SGD y el Servicio Civil como coordinadores.
+- **Diseño de Programas**: Crear mallas curriculares por perfil, con rutas de aprendizaje flexibles (cursos base, especialización, electivos).
+- **Implementación y Plataformas**: Utilizar el **Campus del Servicio Civil** como plataforma central, complementado con talleres y webinars.
+- **Comunicación y Adopción**: Campañas de difusión para promover la adhesión y el reconocimiento de las certificaciones.
 
 ---
 

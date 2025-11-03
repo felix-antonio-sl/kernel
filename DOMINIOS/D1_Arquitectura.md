@@ -4,6 +4,39 @@
 
 ---
 
+## REFERENCIAS RÁPIDAS
+
+```yaml
+Patrones_Org_Principales:
+ P01_Feature_Teams: §3.1 - Teams cross-functional 5-9 personas, ownership E2E
+ P02_Platform_Teams: §3.2 - Teams que construyen infra compartida para otros
+ P10_SRE_Model: §3.11 - Site Reliability Engineering (Google), error budgets
+ P23_Feature_Flags: APLICACION/A1_Patrones.md - Deploy código desacoplado de release
+ P55_Walking_Skeleton: D4 §11.1 - Sistema E2E mínimo que funciona
+Conceptos_Core:
+ RACI_Matrix: 1 Accountable único por decisión (P1 Autoridad Única)
+ Conway's_Law: Arquitectura sistema refleja estructura comunicación org (P4)
+ Type_1_vs_Type_2_Decisions: P7 - Irreversible vs reversible (velocidad diferente)
+ Two-Pizza_Teams: 5-9 personas, pueden comer con 2 pizzas (Amazon)
+ Span_of_Control: 5-9 reports directos por manager (target)
+Antipatrones_Críticos:
+ AP1_Matrix_sin_Governance: §4.1 - Dual reporting sin claridad autoridad
+ AP2_Reorg_Perpetuo: §4.2 - Cambio estructura cada 6 meses sin aprendizaje
+ AP3_Team_Topology_Mismatch: §4.3 - Querer microservices con 1 team grande
+ AP4_Span_Extremo: §4.4 - Manager con 25+ reports (insostenible)
+Métricas:
+ A_Score: §5 - Health arquitectura organizacional (0-100)
+ IN1_Velocidad_Decisional: D2 §3.1 - Cycle time decisiones, delegación
+ IN2_Salud_Talento: D2 §3.2 - Engagement, turnover, retention
+Cross-References:
+ CORE/03_Arquitectura.md: Invariantes arquitecturales, A_Score base (A1-A5)
+ CORE/01_Primitivos.md §7: Composición Outside-In (Actor, productos, destinatarios)
+ APLICACION/A1_Patrones.md: 60+ patrones organizacionales detallados
+ APLICACION/A2_Antipatrones.md: Disfunciones comunes y remediation
+```
+
+---
+
 ## Responsabilidad
 
 **ARQUITECTURA define ESTRUCTURA organizacional:** Quién hace qué, cómo se organizan, límites de autoridad, interfaces entre unidades.
@@ -28,6 +61,11 @@ Week_3-4: Claridad Decisional
   ☐ RACI matriz top 10 procesos críticos
   ☐ Decision rights documentados (Type 1 vs Type 2)
   ☐ Escalation path definido (quién decide qué, cuándo escalar)
+  
+  Nota_Decision_Types:
+    Type 1 (Irreversible): C-level approval, análisis profundo, lento OK
+    Type 2 (Reversible): Delegar teams, decidir rápido, ajustar si falla
+    Ver P7 §1 para framework completo
   
 Week_5-6: Interfaces
   ☐ Team boundaries claros (ownership products/services)

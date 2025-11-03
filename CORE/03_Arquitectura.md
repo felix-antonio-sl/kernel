@@ -1,834 +1,397 @@
-# 03_Arquitectura
+# 03_Arquitectura v2.0.0
 
-**Versión:** 2.1.0 | **Estado:** Definitivo | **Audiencia:** Arquitectos, Líderes, Security
+## §0. INVARIANTE
 
----
+**Toda organización ejecutable se estructura en exactamente 4 dominios funcionales ortogonales con responsabilidades no solapadas:**
 
-## Invariante
+**Arquitectura • Percepción • Decisión • Operación**
 
-**Toda organización ejecutable se estructura en exactamente 4 dominios funcionales ortogonales: Arquitectura, Percepción, Decisión, Operación.**
-
----
+**Propiedad I2 (Ortogonalidad):** Responsabilidad(Di) ∩ Responsabilidad(Dj) = ∅ para i≠j.
 
 ## §1. LOS 4 DOMINIOS
 
-### Definición
-
-Los **4 dominios** son subsistemas organizacionales con responsabilidades únicas y sin overlap.
+### Estructura Conceptual
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                  ORGANIZACIÓN                       │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  ┌──────────────┐        ┌──────────────┐         │
-│  │ ARQUITECTURA │───────▶│  PERCEPCIÓN  │         │
-│  │  (Estructura)│        │   (Sensado)  │         │
-│  └──────┬───────┘        └──────┬───────┘         │
-│         │                       │                  │
-│         │                       │                  │
-│         ▼                       ▼                  │
-│  ┌──────────────┐        ┌──────────────┐         │
-│  │   DECISIÓN   │───────▶│  OPERACIÓN   │         │
-│  │ (Estrategia) │        │  (Ejecución) │         │
-│  └──────────────┘        └──────────────┘         │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│         ORGANIZACIÓN                │
+├─────────────────────────────────────┤
+│  ┌──────────┐      ┌──────────┐   │
+│  │ARQUITECT.│─────▶│PERCEPCIÓN│   │
+│  │(Diseña)  │      │(Detecta) │   │
+│  └────┬─────┘      └────┬─────┘   │
+│       │                 │          │
+│       ▼                 ▼          │
+│  ┌──────────┐      ┌──────────┐   │
+│  │DECISIÓN  │─────▶│OPERACIÓN │   │
+│  │(Planifica│      │(Ejecuta) │   │
+│  └──────────┘      └──────────┘   │
+└─────────────────────────────────────┘
 ```
 
----
+### Comparativa Dominios
 
-### D1. ARQUITECTURA
+| Dominio | Responsabilidad | Pregunta Clave | Outputs | Ver Detalle |
+|---------|----------------|----------------|---------|-------------|
+| **D1 Arquitectura** | Diseñar ESTRUCTURA organizacional | ¿Cómo nos organizamos? | Org chart, RACI, team charters, governance model | `D1_Arquitectura.md` |
+| **D2 Percepción** | Detectar ESTADO interno/externo | ¿Cuál es nuestro estado actual? | H_Score, dashboards, alertas, forecasts | `D2_Percepcion.md` |
+| **D3 Decisión** | Planificar EVOLUCIÓN | ¿Qué construir y en qué orden? | OKRs, roadmap, portfolio, investment allocation | `D3_Decision.md` |
+| **D4 Operación** | Ejecutar FLUJOS valor | ¿Cómo entregamos valor continuo? | Features deployed, incidentes resueltos, métricas flow | `D4_Operacion.md` |
+
+### Actividades por Dominio
+
+**D1 ARQUITECTURA:**
 
 ```yaml
-Responsabilidad: Definir ESTRUCTURA organizacional
-Función: Quién hace qué, cómo se organizan, límites autoridad
-
 Actividades:
   - Diseñar topología (jerarquía, equipos, roles)
   - Asignar responsabilidades (RACI)
-  - Definir dominios de decisión
+  - Definir dominios decisión
   - Establecer interfaces entre unidades
   - Resolver conflictos estructurales
-
-Output:
-  - Org chart ejecutable
-  - RACI matrices
-  - Team charters
-  - Governance model
-
-Pregunta clave: "¿Cómo nos organizamos para lograr objetivos?"
 ```
 
-**Ver detalle:** `DOMINIOS/D1_Arquitectura.md`
-
----
-
-### D2. PERCEPCIÓN
+**D2 PERCEPCIÓN:**
 
 ```yaml
-Responsabilidad: DETECTAR estado interno/externo
-Función: Sensado continuo, observables, health monitoring
-
 Actividades:
-  - Instrumentar 16 observables (O1-O8, IN1-IN3, SO1-SO5)
+  - Instrumentar 16 observables (11 base + 5 security)
   - Detectar anomalías y drift
   - Generar insights desde datos
   - Proyectar tendencias futuras
-  - Alertar cuando thresholds violados
-
-Output:
-  - Health Dashboard (H score 0-100)
-  - Alertas tempranas
-  - Reports estado
-  - Forecasts
-
-Pregunta clave: "¿Cuál es nuestro estado actual y hacia dónde vamos?"
+  - Alertar thresholds violados
 ```
 
-**Ver detalle:** `DOMINIOS/D2_Percepcion.md`
-
----
-
-### D3. DECISIÓN
+**D3 DECISIÓN:**
 
 ```yaml
-Responsabilidad: PLANIFICAR evolución organizacional
-Función: Estrategia, priorización, roadmaps, portfolio
-
 Actividades:
   - Definir OKRs (outcomes, no outputs)
   - Priorizar iniciativas (valor/riesgo/costo)
   - Construir roadmaps capability-based
   - Gestionar portfolio activo
   - Preparar transformaciones (R1-R5)
-
-Output:
-  - OKRs cascadeados
-  - Roadmap 3-12 meses
-  - Portfolio priorizado
-  - Investment allocation
-
-Pregunta clave: "¿Qué debemos construir/cambiar y en qué orden?"
 ```
 
-**Ver detalle:** `DOMINIOS/D3_Decision.md`
-
----
-
-### D4. OPERACIÓN
+**D4 OPERACIÓN:**
 
 ```yaml
-Responsabilidad: EJECUTAR flujos valor
-Función: Delivery continuo, teams, excelencia técnica
-
 Actividades:
   - Operar teams estables (5-9 personas)
   - Ejecutar flujos trabajo (Kanban, Scrum)
   - Desplegar continuamente (CI/CD)
   - Mantener activos (tech debt management)
   - Iterar con feedback loops
-
-Output:
-  - Valor entregado a clientes
-  - Features deployed
-  - Incidentes resueltos
-  - Métricas flow (cycle time, throughput)
-
-Pregunta clave: "¿Cómo entregamos valor de forma continua y sostenible?"
 ```
-
-**Ver detalle:** `DOMINIOS/D4_Operacion.md`
-
----
 
 ## §2. ORTOGONALIDAD DE DOMINIOS
 
-### Prueba de No-Overlap
+### Prueba Formal
 
 ```
-Responsabilidad(Arquitectura) ∩ Responsabilidad(Percepción) = ∅
-Responsabilidad(Arquitectura) ∩ Responsabilidad(Decisión) = ∅
-Responsabilidad(Arquitectura) ∩ Responsabilidad(Operación) = ∅
-Responsabilidad(Percepción) ∩ Responsabilidad(Decisión) = ∅
-Responsabilidad(Percepción) ∩ Responsabilidad(Operación) = ∅
-Responsabilidad(Decisión) ∩ Responsabilidad(Operación) = ∅
+∀ i,j ∈ {1,2,3,4}, i≠j:
+  Responsabilidad(Di) ∩ Responsabilidad(Dj) = ∅
 ```
 
-### Tabla de Responsabilidades Únicas
+### Tabla Responsabilidades Únicas
 
-| Pregunta | Dominio Responsable | Otros NO deciden |
-|----------|---------------------|------------------|
-| ¿Cómo nos estructuramos? | **Arquitectura** | Percepción/Decisión/Operación no diseñan org |
-| ¿Cuál es nuestro estado? | **Percepción** | Arquitectura/Decisión/Operación no miden |
-| ¿Qué priorizamos? | **Decisión** | Arquitectura/Percepción/Operación no planifican strategy |
-| ¿Cómo ejecutamos hoy? | **Operación** | Arquitectura/Percepción/Decisión no deliveren |
+| Pregunta | Dominio Owner | Otros NO deciden |
+|----------|---------------|------------------|
+| ¿Cómo estructurarnos? | **D1 Arquitectura** | D2/D3/D4 no diseñan org |
+| ¿Cuál es nuestro estado? | **D2 Percepción** | D1/D3/D4 no miden |
+| ¿Qué priorizamos? | **D3 Decisión** | D1/D2/D4 no planifican strategy |
+| ¿Cómo ejecutamos hoy? | **D4 Operación** | D1/D2/D3 no deliveren |
 
-**Violación ejemplo:**
-- Equipo Operación decide cambiar estructura org → Viola dominio Arquitectura
-- Arquitectura decide qué feature priorizar → Viola dominio Decisión
+**Violaciones típicas:**
 
----
+- ❌ Operación decide cambiar estructura → Viola D1
+- ❌ Arquitectura decide qué feature priorizar → Viola D3
+- ❌ Decisión ejecuta deploys → Viola D4
 
 ## §3. INTERACCIONES ENTRE DOMINIOS
 
 ### Flujos de Información
 
-```
-PERCEPCIÓN → DECISIÓN:
-  Input: Health score bajo (H=65), O2 (Valor) decayendo
-  Output: Decisión priorizar iniciativa mejora valor
-
-DECISIÓN → ARQUITECTURA:
-  Input: Roadmap requiere nueva capability "ML Platform"
-  Output: Arquitectura diseña team MLOps
-
-DECISIÓN → OPERACIÓN:
-  Input: OKRs Q4, portfolio priorizado
-  Output: Operación ejecuta top 5 iniciativas
-
-OPERACIÓN → PERCEPCIÓN:
-  Input: Métricas flow (cycle time, throughput, WIP)
-  Output: Percepción actualiza IN3 (Eficiencia flujo)
-
-ARQUITECTURA → TODOS:
-  Input: Nueva estructura organizacional
-  Output: Percepción/Decisión/Operación operan con nueva topología
-
-PERCEPCIÓN → ARQUITECTURA:
-  Input: IN1 (Velocidad decisional) muy baja
-  Output: Arquitectura diagnostica governance bottleneck
-```
+| Flujo | Input | Output |
+|-------|-------|--------|
+| **D2 → D3** | H_Score bajo (65), O2 decayendo | Priorizar iniciativa mejora valor |
+| **D3 → D1** | Roadmap requiere "ML Platform" | Diseñar team MLOps |
+| **D3 → D4** | OKRs Q4, portfolio priorizado | Ejecutar top 5 iniciativas |
+| **D4 → D2** | Métricas flow (cycle time, WIP) | Actualizar IN3 (Eficiencia flujo) |
+| **D1 → All** | Nueva estructura org | D2/D3/D4 operan con nueva topología |
+| **D2 → D1** | IN1 (Velocidad decisional) muy baja | Diagnosticar governance bottleneck |
 
 ### Ciclo OODA Organizacional
 
 ```
-Observe  (Percepción)  → Estado detectado
+Observe  (D2 Percepción)  → Estado detectado
    ↓
-Orient   (Arquitectura) → Contexto estructural
+Orient   (D1 Arquitectura) → Contexto estructural
    ↓
-Decide   (Decisión)     → Curso acción elegido
+Decide   (D3 Decisión)     → Curso acción elegido
    ↓
-Act      (Operación)    → Valor entregado
+Act      (D4 Operación)    → Valor entregado
    ↓
-→ Loop back to Observe
+Loop back → Observe
 ```
-
----
 
 ## §4. NIVELES DE ABSTRACCIÓN
 
-### L1. Estratégico (3-5 años)
-
-```yaml
-Horizonte: 3-5 años
-Ciclo refresh: Anual
-Foco: Visión, misión, posicionamiento
-
-Por dominio:
-  Arquitectura: Target org model, capabilities estratégicas
-  Percepción: Trends macro (mercado, tech, regulación)
-  Decisión: Strategic intents, North Star metrics
-  Operación: Platforms y tech stack target
-```
-
----
-
-### L2. Táctico (3-12 meses)
-
-```yaml
-Horizonte: 3-12 meses
-Ciclo refresh: Trimestral
-Foco: Roadmaps, OKRs, portfolios
-
-Por dominio:
-  Arquitectura: Cambios estructurales planificados (reorgs, new teams)
-  Percepción: 11 observables monitoreados, H score target
-  Decisión: OKRs anuales, roadmap capability-based
-  Operación: Capacity planning, tech debt budget
-```
-
----
-
-### L3. Operacional (1-4 semanas)
-
-```yaml
-Horizonte: 1-4 semanas (sprints)
-Ciclo refresh: Sprint (2 semanas típico)
-Foco: Ejecución, delivery, resolución problemas
-
-Por dominio:
-  Arquitectura: Ajustes menores roles, resolución conflictos
-  Percepción: Dashboards real-time, alertas
-  Decisión: Sprint planning, backlog priorization
-  Operación: Daily work, features deployed, bugs fixed
-```
-
----
-
-### L4. Inmediato (minutos-horas)
-
-```yaml
-Horizonte: Minutos-horas
-Ciclo refresh: Continuo
-Foco: Respuesta inmediata, automatización
-
-Por dominio:
-  Arquitectura: (Poco activo en este nivel)
-  Percepción: Sensores 24/7, detección anomalías real-time
-  Decisión: Decisiones tácticas (incident response, hotfixes)
-  Operación: CI/CD deploys, incident management, on-call
-```
-
----
+| Nivel | Horizonte | Refresh | D1 Arquitectura | D2 Percepción | D3 Decisión | D4 Operación |
+|-------|-----------|---------|-----------------|---------------|-------------|--------------|
+| **L1 Estratégico** | 3-5 años | Anual | Target org model, capabilities | Trends macro (mercado, tech) | Strategic intents, North Star | Platforms, tech stack target |
+| **L2 Táctico** | 3-12 meses | Trimestral | Reorgs planificados | 11 observables, H_Score | OKRs, roadmap capability | Capacity planning, tech debt budget |
+| **L3 Operacional** | 1-4 semanas | Sprint | Ajustes roles, conflictos | Dashboards real-time, alertas | Sprint planning, backlog | Daily work, features, bugs |
+| **L4 Inmediato** | min-horas | Continuo | (Poco activo) | Sensores 24/7, anomalías | Incident response, hotfixes | CI/CD deploys, on-call |
 
 ## §5. GOBERNANZA CROSS-DOMAIN
 
-### Modelo de Gobernanza
-
-```yaml
-Nivel_Ejecutivo:
-  Responsabilidad: Alignment cross-domain
-  Composición: C-level (CEO, CTO, CFO, COO)
-  Frecuencia: Mensual
-  Decisiones:
-    - Estrategia (L1)
-    - Budget allocation major
-    - Reorgs estructurales
-    - M&A, partnerships
-
-Nivel_Táctico:
-  Responsabilidad: Coordinación roadmaps
-  Composición: VPs, Directors
-  Frecuencia: Quincenal
-  Decisiones:
-    - Priorización portfolio (Decisión)
-    - Resource allocation (Arquitectura)
-    - Escalation de blockers (Operación)
-
-Nivel_Operacional:
-  Responsabilidad: Ejecución diaria
-  Composición: Teams, Tech Leads, Product Owners
-  Frecuencia: Daily (standups)
-  Decisiones:
-    - Sprint planning (Decisión táctica)
-    - Task assignment (Operación)
-    - Technical choices (Operación)
-```
-
----
+| Nivel | Composición | Frecuencia | Responsabilidad | Decisiones Típicas |
+|-------|-------------|-----------|-----------------|-------------------|
+| **Ejecutivo** | C-level (CEO, CTO, CFO, COO) | Mensual | Alignment cross-domain | Estrategia, budget major, reorgs, M&A |
+| **Táctico** | VPs, Directors | Quincenal | Coordinación roadmaps | Priorización portfolio, resource allocation, blockers |
+| **Operacional** | Teams, Tech Leads, POs | Daily | Ejecución diaria | Sprint planning, task assignment, technical choices |
 
 ## §6. SECURITY COMO LÍMITE TRANSVERSAL
 
-**Concepto**: Security no es dominio independiente, sino **límite transversal** (L3) que permea los 4 dominios organizacionales.
+### Concepto
 
-### Límite L3 Security
+**Security NO es dominio independiente (no hay "D5").** Es **límite transversal** (Límite L3) que permea D1-D4.
 
 ```yaml
 Definición:
   Security = Constraints operacionales, regulatorios, reputacionales
-  que restringen decisiones/acciones en todos los dominios.
+             que restringen decisiones/acciones en todos los dominios
 
-Naturaleza_Transversal:
-  - NO es dominio separado (no hay "D5 Security")
-  - ES límite que aplica a D1-D4 simultáneamente
+Naturaleza:
   - Análogo a compliance, ética, legal (también límites L3)
+  - Cruza los 4 dominios simultáneamente
+  - NO tiene responsabilidad funcional única
 
-Diferencia_vs_Dominios:
-  Dominios (D1-D4): Tienen responsabilidad funcional única
-  Límites (L1-L3): Restricciones aplicables a múltiples dominios
+Diferencia_Dominios_vs_Límites:
+  Dominios (D1-D4): Responsabilidad funcional única
+  Límites (L1-L3): Restricciones cross-domain
+```
+
+### Security por Dominio
+
+| Dominio | Foco Security | Patterns | Outputs |
+|---------|---------------|----------|---------|
+| **D1 Arquitectura** | Security by Design | P_SEC01 (Defense in Depth)<br>P_SEC02 (Zero Trust)<br>P_SEC03 (Security as Code) | Threat models, security architecture, policies, data classification |
+| **D2 Percepción** | Security Observability | P38 (Anomaly Detection)<br>P48 (Root Cause Analysis) | SO1-SO5 dashboards, vulnerability reports, incident alerts, H_Score Extended |
+| **D3 Decisión** | Risk-Informed Planning | P31 (RICE + risk)<br>P35 (Readiness R1-R5) | Security-informed roadmaps, risk registers, security OKRs, budget allocation |
+| **D4 Operación** | Secure Execution | P_SEC04 (Shift-Left)<br>P_SEC05 (Incident Response Automation)<br>P42 (Quality Gates)<br>P44 (Auto-Rollback) | Secure deployments, patched systems (<7d MTTP), IR playbooks executed |
+
+### Security Observables (SO1-SO5)
+
+```yaml
+SO1_Vulnerabilidades:
+  Métrica: MTTP (Mean Time to Patch), CVE count
+  Target: MTTP <7 días, Critical CVEs = 0
+
+SO2_Gestión_Secretos:
+  Métrica: Vault adoption %, rotation frequency
+  Target: 100% vaulted, rotation <90 días
+
+SO3_Control_Acceso:
+  Métrica: MFA adoption %, privileged accounts audit
+  Target: MFA 100%, privileged <5% headcount
+
+SO4_Cumplimiento:
+  Métrica: Certifications current, audit findings open
+  Target: SOC2/ISO27001 current, findings <3 open
+
+SO5_Incident_Response:
+  Métrica: MTTD (Detect), MTTC (Contain), MTTR (Resolve)
+  Target: MTTD <1h, MTTC <4h, MTTR <24h
+```
+
+### H_Score Extended (16 Observables)
+
+```yaml
+Base_Formula (11 observables):
+  H_Score = weighted_avg(O1-O8, IN1-IN3)
   
-  Security cruza:
-    - D1 Arquitectura: Secure by design, threat modeling
-    - D2 Percepción: Security observables SO1-SO5
-    - D3 Decisión: Risk assessment en roadmap
-    - D4 Operación: Secure deployment, IR
-```
+Extended_Formula (16 observables):
+  H_Score = 0.90 * H_Score_Base + 0.10 * avg(SO1-SO5)
+  # Aproximación rápida (pesos normalizados):
+  H_Score = 0.72*avg(O1-O8) + 0.18*avg(IN1-IN3) + 0.10*avg(SO1-SO5)
+  # Donde: 0.72 + 0.18 = 0.90 (base), +0.10 (security) = 1.00 total
 
----
+Ajuste_Industry:
+  - Financial/Healthcare: 15-20% security (base 80-85%)
+  - SaaS B2B: 12-15% security (base 85-88%)
+  - B2C low-sensitivity: 5-8% security (base 92-95%)
 
-### Security en cada Dominio
-
-**D1 ARQUITECTURA (Security by Design)**:
-```yaml
-Responsabilidad: Diseñar seguridad en estructura organizacional y técnica
-
-Actividades:
-  - Threat modeling (STRIDE, DREAD) en arquitectura
-  - Define security roles (CISO, SecOps, AppSec)
-  - Establece security governance (policies, standards)
-  - Diseña security architecture (Defense in Depth, Zero Trust)
-  - Define security boundaries (network segmentation, data classification)
-
-Patterns_Aplicables:
-  - P_SEC01: Defense in Depth
-  - P_SEC02: Zero Trust Architecture
-  - P_SEC03: Security as Code
-
-Output:
-  - Security architecture diagrams
-  - Threat models documentados
-  - Security standards/policies
-  - Data classification schemes
-```
-
-**D2 PERCEPCIÓN (Security Observability)**:
-```yaml
-Responsabilidad: Detectar estado security interno/externo
-
-Actividades:
-  - Instrumentar 5 security observables (SO1-SO5)
-  - Monitorear vulnerabilities (CVE tracking)
-  - Detectar anomalías security (SIEM, EDR)
-  - Proyectar security posture trends
-  - Alertar security thresholds violados
-
-Observables_Security:
-  - SO1: Vulnerabilidades (MTTP, CVE count)
-  - SO2: Gestión Secretos (vault adoption, rotation)
-  - SO3: Control Acceso (MFA, privileged accounts)
-  - SO4: Cumplimiento (certifications, audit findings)
-  - SO5: Incident Response (MTTD, MTTC)
-
-Patterns_Aplicables:
-  - P38: Anomaly Detection (security events)
-  - P48: Root Cause Analysis (security incidents)
-
-Output:
-  - Security dashboards (SO1-SO5 scores)
-  - Vulnerability reports
-  - Incident alerts
-  - Security posture H_Score extended
-```
-
-**D3 DECISIÓN (Risk-Informed Planning)**:
-```yaml
-Responsabilidad: Incorporar security risk en decisiones estratégicas/tácticas
-
-Actividades:
-  - Risk assessment en roadmap features
-  - Security vs velocity tradeoffs explícitos
-  - Budget allocation security initiatives
-  - Priorización tech debt security
-  - Compliance deadline planning
-
-Decision_Modes_Security:
-  - Mode D2 (Rule-Based): Compliance automático (SOC2 controls)
-  - Mode D3 (Associative): Risk scoring ML (threat intelligence)
-  - Mode D4 (Analytical): Strategic security planning
-
-Patterns_Aplicables:
-  - P31: RICE Scoring (incluir security risk)
-  - P35: Readiness R1-R5 (security readiness dimension)
-
-Output:
-  - Security-informed roadmaps
-  - Risk registers actualizados
-  - Security OKRs
-  - Budget allocation security
-```
-
-**D4 OPERACIÓN (Secure Execution)**:
-```yaml
-Responsabilidad: Ejecutar operaciones seguras día-a-día
-
-Actividades:
-  - Secure SDLC (SAST, DAST, code scanning)
-  - Secrets management (vault, rotation)
-  - Secure deployment (image scanning, signing)
-  - Incident response execution (SOAR playbooks)
-  - Security drills/exercises
-
-Delegation_Modes:
-  - M4-M5: Automated security gates (CI/CD blocks)
-  - M6: Auto-remediation (patch automation, auto-scaling blockers)
-
-Patterns_Aplicables:
-  - P_SEC04: Shift-Left Security
-  - P_SEC05: Incident Response Automation
-  - P42: Quality Gates Automated (incluye security)
-  - P44: Auto-Rollback (triggered por security threshold)
-
-Output:
-  - Security-compliant deployments
-  - Patched systems (<7 días MTTP)
-  - Incident response playbooks executed
-  - Post-incident action items
-```
-
----
-
-### Integration H_Score Extended
-
-```yaml
-Security_Impact_H_Score:
-  Base_Formula (11 observables):
-    H_Score = weighted_avg(O1-O8, IN1-IN3) con pesos detallados D2 §4
-  
-  Extended_Formula (16 observables):
-    # Ver fórmula detallada completa: D2_Percepcion.md §8
-    H_Score = 0.90 * H_Score_Base + 0.10 * avg(SO1-SO5)
-    
-    # Simplificación aproximada (rápida pero no exacta):
-    H_Score ≈ 0.63 * avg(O1-O8) + 0.18 * avg(IN1-IN3) + 0.10 * avg(SO1-SO5)
-  
-  Rationale:
-    - Security NO es dominio aparte (no "D5")
-    - Security observables (SO1-SO5) complementan base observables
-    - Peso default 10% refleja criticality security enterprise
-    - Adjustable por industry:
-        * Financial/Healthcare: 15-20% (base 80-85%)
-        * SaaS B2B: 12-15% (base 85-88%)
-        * B2C low-sensitivity: 5-8% (base 92-95%)
-
-Crisis_Threshold_Security:
-  IF avg(SO1-SO5) < 30 OR any(SO1, SO2, SO3, SO4, SO5) < 20:
+Crisis_Threshold:
+  IF avg(SO1-SO5) < 30 OR any(SO1-SO5) < 20:
     → Activate Security Crisis Mode
     → Apply P_SEC emergency patterns
-    → Escalate to CISO + C-level
-    → Daily security standup until SO > 30
+    → Escalate CISO + C-level
+    → Daily security standup hasta SO > 30
 ```
 
----
+**Detalle completo:** `DOMINIOS/D2_Percepcion.md` §8
 
-### Governance Security Cross-Domain
+### Governance Security
 
 ```yaml
-Security_Governance_Model:
-  
-  Security_Champions (Distributed):
-    - Embedded en cada team (D1-D4)
-    - 20% time security-focused
-    - Training by central SecOps
-    - Represent security in team decisions
-  
-  Central_Security_Team (Platform):
-    - CISO + SecOps + AppSec (D1 Arquitectura)
-    - Build security platforms/tools (D4 Operación)
-    - Monitor security posture (D2 Percepción)
-    - Define security roadmap (D3 Decisión)
-  
-  Security_Review_Board (Governance):
-    - CISO + CTO + Legal + Risk
-    - Monthly: Review SO1-SO5, incidents, roadmap
-    - Approve high-risk changes (M&A, new markets)
-    - Set security OKRs
+Security_Champions (Distributed):
+  - Embedded en cada team (D1-D4)
+  - 20% time security-focused
+  - Training by central SecOps
 
-Anti-Pattern_Avoid:
-  AP_Security_Silo:
-    - Security como departamento aislado
-    - "No es mi responsabilidad" actitud devs
-    - Security discovered late (post-deployment)
-    → Fix: Security Champions + Shift-Left + SO observables
+Central_Security_Team (Platform):
+  - CISO + SecOps + AppSec
+  - Build platforms/tools, monitor posture, define roadmap
+  - Opera en los 4 dominios
+
+Security_Review_Board:
+  - CISO + CTO + Legal + Risk
+  - Monthly: Review SO1-SO5, incidents, roadmap
+  - Approve high-risk changes
+
+Anti-Pattern:
+  AP_Security_Silo: Security como departamento aislado
+  Fix: Security Champions + Shift-Left + SO observables
 ```
-
----
-
-### Conexión Primitivos KERNEL
-
-```yaml
-Security_Through_Primitives:
-  
-  Límite_L3 (Security Constraint):
-    - Security policies restrict actions
-    - Compliance requirements bound decisions
-    - Ejemplos: "No PII en logs", "MFA mandatory", "SOC2 required"
-  
-  Actor_A (Security Roles):
-    - A2_CISO: Chief Information Security Officer
-    - A2_SecOps: Security Operations team
-    - A2_Security_Champion: Embedded en teams
-  
-  Evento_E (Security Events):
-    - E_CVE_Published: Nueva vulnerabilidad disclosed
-    - E_Security_Incident: Breach o attempt detected
-    - E_Audit_Finding: Compliance gap identified
-  
-  Señal_S (Security Alerts):
-    - S_Vulnerability_Threshold: CVE count >threshold
-    - S_Access_Anomaly: Unusual login pattern
-    - S_Compliance_Risk: Audit due, gaps exist
-  
-  Dato_D (Security Data):
-    - D_Vulnerability_DB: CVE database
-    - D_Audit_Logs: Security events stream
-    - D_Threat_Intelligence: Known attack patterns
-```
-
----
 
 ## §7. PATRONES ESTRUCTURALES
 
-### P1. Federación
-
-```yaml
-Patrón: Federación
-Estructura: Unidades autónomas con governance central mínima
-Aplicable: Organizaciones >500 personas, multi-producto
-
-Arquitectura:
-  - Business units con P&L propio
-  - Central: Estrategia, governance, platforms compartidas
-  - Federadas: Execution, delivery, hiring
-
-Ejemplo: Amazon (Business units como "países independientes")
-```
-
----
-
-### P2. Centralizado
-
-```yaml
-Patrón: Centralizado
-Estructura: Single hierarchy, decisiones top-down
-Aplicable: Startups <50 personas, alta urgencia alignment
-
-Arquitectura:
-  - CEO/CTO decide mayoría decisiones
-  - Teams ejecutan con autonomía limitada
-  - Coordinación fácil, escalabilidad limitada
-
-Ejemplo: Startup pre-product-market-fit
-```
-
----
-
-### P3. Matricial
-
-```yaml
-Patrón: Matricial
-Estructura: Dual reporting (funcional + proyecto/producto)
-Aplicable: Organizaciones 100-500 personas, multi-proyecto
-
-Arquitectura:
-  - Functional departments (Eng, Product, Design)
-  - Cross-functional teams/squads
-  - Conflicts de prioridad requieren governance
-
-Ejemplo: Spotify (Squads + Chapters + Guilds)
-```
-
----
-
-### P4. Business-within-Business
-
-```yaml
-Patrón: Business-within-Business
-Estructura: Mini-empresas end-to-end por value stream
-Aplicable: >200 personas, value streams independientes
-
-Arquitectura:
-  - Cada "business" tiene Eng+Product+Design+Data
-  - Minimal dependencies entre businesses
-  - Platforms compartidas (infra, data, auth)
-
-Ejemplo: Netflix (Content, Streaming, Growth as mini-businesses)
-```
-
----
+| Patrón | Estructura | Aplicable | Arquitectura | Ejemplo |
+|--------|-----------|-----------|--------------|---------|
+| **Federación** | Unidades autónomas con governance central mínima | >500 personas, multi-producto | Business units con P&L propio. Central: estrategia, governance, platforms. Federadas: execution, delivery, hiring. | Amazon (BUs como "países") |
+| **Centralizado** | Single hierarchy, decisiones top-down | <50 personas, alta urgencia alignment | CEO/CTO decide mayoría. Teams con autonomía limitada. Coordinación fácil, escalabilidad limitada. | Startup pre-PMF |
+| **Matricial** | Dual reporting (funcional + proyecto/producto) | 100-500 personas, multi-proyecto | Functional departments (Eng, Product, Design) + Cross-functional teams/squads. Conflicts requieren governance. | Spotify (Squads + Chapters) |
+| **Business-within-Business** | Mini-empresas end-to-end por value stream | >200 personas, value streams independientes | Cada "business" tiene Eng+Product+Design+Data. Minimal dependencies. Platforms compartidas. | Netflix (Content, Streaming, Growth) |
 
 ## §8. EVOLUCIÓN ARQUITECTURAL
 
-### Triggers de Cambio Estructural
+### Triggers de Cambio
+
+| Trigger | Condición | Acción |
+|---------|-----------|--------|
+| **T1 Crecimiento** | Duplicar headcount en 12 meses | Split teams, create management layer |
+| **T2 Performance** | IN1 (Velocidad decisional) <50 persistente | Reducir governance layers, delegar autoridad |
+| **T3 Strategy** | Pivote estratégico (nuevo mercado/producto) | Crear nueva business unit o squad |
+| **T4 Merger** | M&A completa | Integration organizacional (6-18 meses) |
+| **T5 Tech Debt** | O3 (Capacidad) estancada, no escala | Platform teams para reducir dependencies |
+
+### Ciclo de Vida
 
 ```yaml
-Trigger_1_Crecimiento:
-  Condición: Duplicar headcount en 12 meses
-  Acción: Split teams, create new layer management
+1. ESTABLE (60-80% tiempo):
+   - Estructura fija, roles claros, processes establecidos
 
-Trigger_2_Performance:
-  Condición: IN1 (Velocidad decisional) <50/100 persistente
-  Acción: Reducir governance layers, delegar autoridad
+2. TENSIÓN (señales):
+   - IN1 bajo, conflicts autoridad, silos, scalability limits
 
-Trigger_3_Strategy:
-  Condición: Pivote estratégico (nuevo mercado, nuevo producto)
-  Acción: Crear nueva business unit o squad
+3. DISEÑO (2-8 semanas):
+   - Diagnosticar root cause (D1_Arquitectura §2)
+   - Diseñar target state, preparar transición (R1-R5)
 
-Trigger_4_Merger:
-  Condición: M&A completa
-  Acción: Integration organizacional (puede tomar 6-18 meses)
+4. TRANSICIÓN (4-12 semanas):
+   - Anuncio, reassignments, handoffs, training
+   - Monitoreo IN2 (resistance)
 
-Trigger_5_Tech_Debt:
-  Condición: O3 (Capacidad) estancada, no puede escalar
-  Acción: Platform teams para reducir dependencies
-```
-
----
-
-### Ciclo de Vida Arquitectural
-
-```
-1. ESTABLE (60-80% del tiempo)
-   - Estructura fija
-   - Roles claros
-   - Processes establecidos
-
-2. TENSIÓN (señales)
-   - IN1 bajo (decisiones lentas)
-   - Conflicts frecuentes autoridad
-   - Silos patológicos
-   - Scalability limits
-
-3. DISEÑO (2-8 semanas)
-   - Diagnosticar root cause (DOMINIOS/D1_Arquitectura §2)
-   - Diseñar target state
-   - Preparar transición (R1-R5)
-   - Comunicar cambio
-
-4. TRANSICIÓN (4-12 semanas)
-   - Anuncio formal
-   - Reassignments
-   - Handoffs
-   - Training
-   - Monitoreo IN2 (Salud talento) - resistance
-
-5. ESTABILIZACIÓN (4-8 semanas)
-   - Nueva estructura opera
-   - Ajustes menores
-   - Retrospectiva
-   - → Volver a ESTABLE
+5. ESTABILIZACIÓN (4-8 semanas):
+   - Nueva estructura opera, ajustes menores, retrospectiva
 ```
 
 **Principio P7 (Parsimonia):** No reorganizar sin causa estructural clara. Reorgs son costosas (IN2 sufre).
 
----
-
 ## §9. INTEGRACIÓN CON CICLO SDA
 
-### Arquitectura en SDA
-
 ```yaml
-Sense (Percepción):
-  - Detecta: IN1 bajo, conflicts de autoridad, silos
-  - Comprende: Root cause es estructura inadecuada
-  - Proyecta: Si no cambiamos, velocidad seguirá cayendo
-
-Decide (Decisión):
-  - Evalúa: ¿Reorg ahora o esperar?
-  - Considera: R1-R5 (preparación), costo-beneficio, riesgo IN2
-  - Elige: Proceder con patrón "Business-within-Business"
-
-Act (Operación):
-  - Planifica: 12 semanas de transición
-  - Especifica: Nuevo org chart, RACI, team charters
-  - Ejecuta: Anuncio → Reassignments → Stabilization
-  - Monitorea: IN1, IN2, IN3 durante/post transición
+Arquitectura_en_SDA:
+  
+  Sense (D2 Percepción):
+    - Detecta: IN1 bajo, conflicts autoridad, silos
+    - Comprende: Root cause estructura inadecuada
+    - Proyecta: Sin cambio, velocidad seguirá cayendo
+  
+  Decide (D3 Decisión):
+    - Evalúa: ¿Reorg ahora o esperar?
+    - Considera: R1-R5, costo-beneficio, riesgo IN2
+    - Elige: Proceder con patrón "Business-within-Business"
+  
+  Act (D4 Operación):
+    - Planifica: 12 semanas transición
+    - Especifica: Nuevo org chart, RACI, team charters
+    - Ejecuta: Anuncio → Reassignments → Stabilization
+    - Monitorea: IN1, IN2, IN3 durante/post transición
 ```
-
----
 
 ## §10. MÉTRICAS DE ARQUITECTURA
 
-### Health Score Arquitectural
+### A_Score (0-100)
 
 ```yaml
-A_Score (0-100):
-  Componentes:
-    - A1_Clarity: % roles con RACI claro (target >90%)
-    - A2_Balance: Distribución carga work (Gini <0.3)
-    - A3_Authority_Alignment: % decisiones con owner único (target >95%)
-    - A4_Span_Control: Avg reports per manager (target 5-9)
-    - A5_Layers: # niveles jerárquicos (target <5 para <500 personas)
+Componentes:
+  A1_Clarity: % roles con RACI claro (target >90%)
+  A2_Balance: Distribución carga work - Gini <0.3
+  A3_Authority_Alignment: % decisiones con owner único (>95%)
+  A4_Span_Control: Avg reports per manager (target 5-9)
+  A5_Layers: # niveles jerárquicos (<5 para <500 personas)
 
-  Fórmula:
-    A_Score = 0.3*A1 + 0.2*A2 + 0.25*A3 + 0.15*A4 + 0.1*A5
+Fórmula:
+  A_Score = 0.3*A1 + 0.2*A2 + 0.25*A3 + 0.15*A4 + 0.1*A5
 
-  Interpretación:
-    >85: Excelente
-    70-85: Bueno
-    50-70: Atención requerida
-    <50: Crítico - reorg necesaria
+Interpretación:
+  >85: Excelente
+  70-85: Bueno
+  50-70: Atención requerida
+  <50: Crítico - reorg necesaria
 ```
-
----
 
 ## §11. ANTI-PATRONES
 
-### AP1. "Matrix sin Governance"
-
-```yaml
-Síntoma: Dual reporting sin mecanismo resolución conflictos
-Causa: Implementar matricial sin ARB o clear escalation
-Consecuencia: Paralysis decisional, IN1 colapsa
-Fix: Establecer governance explícito (ARB semanal, RACI actualizado)
-```
-
-### AP2. "Silos Profundos"
-
-```yaml
-Síntoma: Departments no colaboran, handoffs eternos
-Causa: Especialización sin interfaces (viola P2)
-Fix: Cross-functional teams temporales, shared OKRs
-```
-
-### AP3. "Span-of-Control Extremo"
-
-```yaml
-Síntoma: Manager con 20+ reports directos
-Causa: Growth sin crear management layer
-Consecuencia: No hay 1:1s, desarrollo talento nulo, IN2 cae
-Fix: Split team, promote leads
-```
-
-### AP4. "Reorg Perpetuo"
-
-```yaml
-Síntoma: Cambio estructura cada 3-6 meses
-Causa: Falta diagnóstico root cause, "reorg como solución mágica"
-Consecuencia: IN2 colapsa (fatiga cambio), no learning organizacional
-Fix: Diagnosticar antes de reorg (DOMINIOS/D1_Arquitectura §2)
-```
-
-### AP5. "Conway Inverse Fallacy"
-
-```yaml
-Síntoma: "Cambiar org para forzar arquitectura tech deseada"
-Causa: Malinterpretar Conway's Law (org → tech, no tech → org)
-Consecuencia: Resistance, fracaso adoption
-Fix: Alinear org con tech actual, evolucionar ambos coordinadamente
-```
-
----
+| Anti-Pattern | Síntoma | Causa | Fix |
+|--------------|---------|-------|-----|
+| **AP_A1: Matrix sin Governance** | Dual reporting sin resolución conflictos | Matricial sin ARB o escalation clara | Governance explícito (ARB semanal, RACI actualizado) |
+| **AP_A2: Silos Profundos** | Departments no colaboran, handoffs eternos | Especialización sin interfaces (viola P2) | Cross-functional teams temporales, shared OKRs |
+| **AP_A3: Span-of-Control Extremo** | Manager con 20+ reports | Growth sin management layer | Split team, promote leads |
+| **AP_A4: Reorg Perpetuo** | Cambio estructura cada 3-6 meses | Falta diagnóstico root cause | Diagnosticar antes de reorg (D1 §2) |
+| **AP_A5: Conway Inverse Fallacy** | "Cambiar org para forzar arquitectura tech" | Malinterpretar Conway's Law | Alinear org con tech actual, evolucionar ambos coordinadamente |
 
 ## §12. VALIDACIÓN
 
 ### Completitud
 
 ```
-¿Toda función organizacional cae en 1 de 4 dominios? → SÍ
-  Arquitectura: Estructura
-  Percepción: Sensing
-  Decisión: Planning
-  Operación: Execution
+¿Toda función org cae en 1 de 4 dominios? → SÍ
+  D1: Estructura | D2: Sensing | D3: Planning | D4: Execution
 
-¿Algo falta? → NO (validado con 10 casos, ver REFERENCIA/R1_Casos.md)
+¿Algo falta? → NO (validado 10 casos, R1_Casos.md)
 ```
 
 ### Ortogonalidad
 
 ```
 ¿Overlaps entre dominios? → NO
-  Test: Cada responsabilidad asignable unívocamente a 1 dominio
+  Test: Cada responsabilidad asignable unívocamente a 1 dominio ✓
 ```
 
 ### Suficiencia
 
 ```
-¿4 dominios suficientes para modelar org completa? → SÍ
+¿4 dominios suficientes modelar org completa? → SÍ
   Evidencia: 10 casos diversos (insurance, airline, gov, tech) modelados exitosamente
 ```
 
----
-
 ## Referencias Cruzadas
 
-- **Dominio Arquitectura detallado:** `DOMINIOS/D1_Arquitectura.md`
-- **Dominio Percepción detallado:** `DOMINIOS/D2_Percepcion.md` (incluye §8 Security Observables SO1-SO5)
-- **Dominio Decisión detallado:** `DOMINIOS/D3_Decision.md`
-- **Dominio Operación detallado:** `DOMINIOS/D4_Operacion.md`
-- **Ciclo SDA:** `CORE/02_Ciclo_Fundamental.md`
-- **Security como límite transversal:** Este documento §6
+- **Manifiesto (I1-I3, A1-A5, P1-P9):** `CORE/00_Manifiesto.md`
+- **Primitivos (7):** `CORE/01_Primitivos.md`
+- **Ciclo SDA + WSLC:** `CORE/02_Ciclo_Fundamental.md`
+- **Delegación (M1-M6):** `CORE/04_Delegacion.md`
+- **D1 Arquitectura detallado:** `DOMINIOS/D1_Arquitectura.md`
+- **D2 Percepción detallado + SO1-SO5:** `DOMINIOS/D2_Percepcion.md` §8
+- **D3 Decisión detallado:** `DOMINIOS/D3_Decision.md`
+- **D4 Operación detallado:** `DOMINIOS/D4_Operacion.md`
 - **Security Patterns:** `APLICACION/A1_Patrones.md` §6.5 (P_SEC01-P_SEC05)
-- **Security practices detalladas:** `DOMINIOS_ESPECIALIZADOS/E7_Enterprise_Technology.md` §6
-- **Patrones org:** `APLICACION/A1_Patrones.md` §7 (patrones estructurales)
+- **Security practices:** `DOMINIOS_ESPECIALIZADOS/E7_Enterprise_Technology.md` §6
+- **Patrones org:** `APLICACION/A1_Patrones.md` §7
 - **Casos aplicados:** `REFERENCIA/R1_Casos.md`
+
+**Fin 03_Arquitectura v2.0.0**

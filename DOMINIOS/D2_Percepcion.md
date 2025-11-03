@@ -4,6 +4,42 @@
 
 ---
 
+## REFERENCIAS RÁPIDAS
+```yaml
+Observables_Principales:
+ O1_Demanda: §2.1 - Backlog, pipeline, market size (target crecimiento 5-10%/Q)
+ O2_Valor: §2.2 - NPS, CSAT, churn (crítico >45, crisis <30)
+ O3_Capacidad: §2.3 - Headcount, utilization, cash runway (crisis <30d)
+ IN1_Velocidad_Decisional: §3.1 - Cycle time decisiones, Type 1 vs Type 2
+ IN2_Salud_Talento: §3.2 - Engagement, turnover, regretted attrition
+ IN3_Eficiencia_Flujo: §3.3 - Cycle time, WIP, throughput, flow efficiency
+ SO1-SO5_Security: §8 - Vulnerabilidades, secretos, acceso, compliance, incidents
+Métricas_Clave:
+ H_Score: §4 - Health organizacional agregado (0-100, promedio ponderado 16 obs)
+ H_Score_Extended: §8 - Incluye SO1-SO5 security (90% base + 10% security)
+ Crisis_Threshold: H<45 (emergency mode), H<30 (existential threat)
+ Typical_Ranges: 90-100 excelente, 75-89 bueno, 60-74 atención, <60 crítico
+Conceptos_Core:
+ Type_1_Decisions: Irreversibles, C-level, <14d target (M&A, reorg mayor)
+ Type_2_Decisions: Reversibles, delegadas, <3d target (features, tech stack)
+ ARB: Architecture Review Board (decision governance body)
+ Flow_Efficiency: % tiempo value-add vs wait (target >25%, world-class >40%)
+ Drift_Detection: H_Score cae >5 pts/trimestre → escalate C-level
+Niveles_Awareness:
+ Level_1_Detect (S1): Capturar facts crudos (M1 Monitor)
+ Level_2_Comprehend (S2): Sintetizar en información meaningful (M2 Inform)
+ Level_3_Project (S3): Predecir estados futuros (M3 Enable)
+Cross-References:
+ CORE/02_Ciclo_Fundamental.md §2: Fase Sense (S1-S3 Detectar/Comprender/Proyectar)
+ CORE/01_Primitivos.md §3A: Primitivo Señal (cómo emitir alertas)
+ D1_Arquitectura.md §5: A_Score, IN1, IN2 componentes
+ D3_Decision.md §1: OKRs vinculados a observables
+ D4_Operacion.md §2: Métricas flujo (IN3 detallado)
+ APLICACION/A5_Medicion.md: Implementación práctica dashboards
+```
+
+---
+
 ## Responsabilidad
 
 **PERCEPCIÓN detecta ESTADO interno/externo:** Sensado continuo de 16 observables (11 base + 5 security), health monitoring, drift detection.
@@ -513,6 +549,13 @@ Indicadores_Vital_Signs:
      - Type 2 (reversible): Cycle time mediana
      - Target: Type 1 <14 días, Type 2 <3 días
   
+    Definición_Types (Bezos-style):
+     - Type 1: Decisiones irreversibles / alto impacto (ej: M&A, reorg mayor)
+     - Requieren análisis profundo, C-level approval, lento es aceptable
+     - Type 2: Decisiones reversibles / bajo impacto (ej: tech stack, feature)
+     - Delegar a teams, decidir rápido, ajustar si falla
+     - Ver: D1_Arquitectura.md P7 y D3_Decision.md §3.1 para framework completo
+ 
   2. Decision_Quality:
      - % decisiones correctas en retrospectiva (6 meses vista)
      - % decisiones requieren reversal mayor
@@ -533,15 +576,17 @@ Ejemplo_Bueno (Score 85):
   - Decisiones Type 2 delegadas: 85%
   - Decision quality: 78% correctas retrospectively
   - Distribution: 75% at manager level o below
-  - ARB backlog: 5 decisiones (manejable)
+  - Decision backlog (ARB): 5 decisiones (manejable)
   → Velocidad alta, empowerment claro, calidad sostenible
+  
+  Nota_ARB: Architecture Review Board o decision governance body equivalente
 
 Ejemplo_Malo (Score 35):
   - Cycle time promedio: 18 días (Type 2: 12d, Type 1: 30d)
   - Decisiones Type 2 escaladas: 70%
   - Decision quality: 45% correctas (muchos reversals)
   - Distribution: 60% at C-level (bottleneck)
-  - ARB backlog: 45 decisiones (bottleneck crítico)
+  - Decision backlog (ARB): 45 decisiones (bottleneck crítico)
   → Paralysis decisional, centralización excesiva, quality pobre
 ```
 
@@ -1257,7 +1302,7 @@ H_Score_Security_Adjusted:
   Fórmula_Extended_Detallada:
     # Renormalizar pesos base a 90% (para dejar 10% a security)
     H_Score = (
-      0.90 * [
+      0.90 * (
         0.12 * O1_Demanda +
         0.15 * O2_Valor +
         0.10 * O3_Capacidad +
@@ -1269,7 +1314,7 @@ H_Score_Security_Adjusted:
         0.08 * IN1_Velocidad_Decisional +
         0.08 * IN2_Salud_Talento +
         0.04 * IN3_Eficiencia_Flujo
-      ] / 100 +
+      ) +
       0.10 * avg(SO1, SO2, SO3, SO4, SO5)
     )
   

@@ -1,56 +1,51 @@
 # A1_Patrones
 
-**Versión:** 2.2.1 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX, Data/AI Engineers
+**Versión:** 2.3.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX, Data/AI Engineers
 
 ---
 
 ## §1. TAXONOMÍA DE PATRONES
 
 ```yaml
-Total: 71 patrones (50 base + 3 emergentes v1.1 + 3 refactored v1.4 + 5 security v2.1 + 3 CX v2.2 + 7 data/AI v2.2.1)
+Total: 72 patrones en 8 categorías ortogonales
 
-Categorías_Base (v1.0):
-  - Estructurales (P01-P12): Organización, equipos, responsabilidades
-  - Procesuales (P13-P20): Workflows, flujos, coordinación
-  - Tecnológicos (P21-P28): Arquitectura técnica, infra, datos
-  - Decisionales (P29-P36): Estrategia, roadmaps, planning
-  - IA (P37-P50): Delegación, agentes, automatización
+Estructura:
+  Base (P01-P56):           56 patrones fundamentales
+  Especializados (P57-P72): 16 patrones dominio-específicos
 
-Patrones_Seguridad (v2.1):
-  - P_SEC01: Defense in Depth (§6.5)
-  - P_SEC02: Zero Trust Architecture (§6.5)
-  - P_SEC03: Security as Code (§6.5)
-  - P_SEC04: Shift-Left Security (§6.5)
-  - P_SEC05: Incident Response Automation (§6.5)
+Categorías:
+  1. Estructurales (P01-P12):       Organización, equipos, roles
+  2. Procesuales (P13-P20):         Workflows, coordinación, ceremonias
+  3. Tecnológicos (P21-P28):        Arquitectura, infra, deployment
+  4. Decisionales (P29-P36):        Strategy, prioritization, roadmaps
+  5. IA_Base (P37-P50):             Automatización, ML, copilots
+  6. Emergentes (P51-P56):          Crisis, orquestación, evolución
+  7. Seguridad (P57-P61):           Defense, compliance, IR
+  8. Datos_IA_Avanzado (P62-P72):   Data products, RAG, multi-agent, CX
 
-Patrones_Customer_Experience (v2.2):
-  - P_CX01: Flujo Valor Cliente (§6.6)
-  - P_CX02: Eventos como Señales CX (§6.6)
-  - P_CX03: Touchpoint Ownership Explícita (§6.6)
+Renumeración (v2.3.0):
+  # Consolidación para eliminar esquemas múltiples
+  P_SEC01-05 → P57-P61  (Seguridad)
+  P57-P64    → P62-P69  (Datos/IA/Procesos)
+  P_CX01-03  → P70-P72  (Customer Experience)
 
-Patrones_Datos_IA_Procesos (v2.2.1):
-  - P57: Data Product Pattern (§15)
-  - P58: RAG Auditable Pattern (§15)
-  - P59: Saga Compensation Pattern (§15)
-  - P60: HITL Checkpoint Pattern (§15)
-  - P61: Multi-Agent Orchestration (§15)
-  - P62: Contract-Driven Evolution (§15)
-  - P63: Hybrid Search Pattern (§15)
-
-Patrones_Emergentes (v1.1):
-  - P51: Carry-Over Management (§11)
-  - P52: Crisis Governance (§12, consolidado CORE/08)
-  - P53: Orchestration Agent (§13)
-
-Patrones_Desarrollo_Evolutivo (v1.4):
-  - P54: Piecemeal Growth (§14 - refactored desde D4)
-  - P55: Walking Skeleton (§14 - refactored desde D4)
-  - P56: Continuous Refactoring (§14 - refactored desde D4)
+Evolución:
+  v1.0:   50 patrones base (P01-P50)
+  v1.1:   +3 emergentes (P51-P53)
+  v1.4:   +3 desarrollo evolutivo (P54-P56)
+  v2.1:   +5 seguridad (P_SEC01-05 → P57-P61)
+  v2.2:   +3 customer experience (P_CX01-03 → P70-P72)
+  v2.2.1: +7 datos/IA, +1 multi-tenant (P57-P64 → P62-P69)
+  v2.3.0: Renumeración unificada, taxonomía ortogonal
 ```
 
 ---
 
 ## §2. PATRONES ESTRUCTURALES (P01-P12)
+
+**Propósito**: Diseño organizacional que habilita entrega de valor. Aplica Inverse Conway (P06) para alinear estructura con arquitectura target.
+
+**Primitivos KERNEL**: Actor (A1-A3 roles), Límite (L1 boundaries organizacionales), Flujo (F1 coordinación)
 
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
 |---|---|---|---|---|---|
@@ -71,6 +66,10 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 
 ## §3. PATRONES PROCESUALES (P13-P20)
 
+**Propósito**: Optimizar flujo de trabajo mediante WIP limits, ceremonies y discovery. Implementa Principio P4 (Flujo Continuo).
+
+**Primitivos KERNEL**: Flujo (F2 workflow), Límite (L2 WIP limits), Estado (ST1 work items)
+
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
 |---|---|---|---|---|---|
 | **P13** | **Dual-Track Agile** | Features nadie usa (no discovery) | Track 1: Discovery (PM/Design), Track 2: Delivery (Eng), parallel | Product teams maduros, B2C, discovery crítico | Resources limitados |
@@ -86,8 +85,12 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 
 ## §4. PATRONES TECNOLÓGICOS (P21-P28)
 
+**Propósito**: Arquitectura técnica resiliente y evolutiva. Habilita deployment continuo y separación deploy/release.
+
+**Primitivos KERNEL**: Recurso (R2-R3 infra/datos), Límite (L2-L3 constraints técnicos), Evento (E1 deployment events)
+
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **P21** | **Strangler Fig Migration** | Big-bang rewrite riesgoso | Migración incremental: nuevo sistema rodea legacy, replacement gradual | Legacy monolito crítico, no puedes parar | Greenfield project |
 | **P22** | **Circuit Breaker** | Cascading failures dependencies | Auto-detecta fallas dependency, circuit abierto evita llamadas | Microservices, dependencias externas críticas | Monolito sin dependencies |
 | **P23** | **Feature Flags** | Deploy ≠ Release, rollback lento | Deploy código disabled, activate remotamente, A/B test, rollback instant | Despliegue continuo, A/B testing, canary | Overhead config no justificado |
@@ -95,29 +98,37 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 | **P25** | **Database per Service** | Microservices comparten DB → coupling | Cada microservice ownership DB propia | Microservices true independence, escala diferenciada | Necesitas transactions cross-service |
 | **P26** | **API Gateway Pattern** | Clients hablan N microservices → complejidad | Single entry point (gateway), routing, auth, rate limit centralizados | Microservices >5, múltiples clients | Monolito o 1-2 services |
 | **P27** | **Event Sourcing** | Estado actual sin historia, debugging difícil | Store events (no state final), rebuild state replaying events | Audit trail crítico, temporal queries necesarios | CRUD simple suficiente |
-| **P28** | **CQRS (Command Query Separation)** | Read/Write mixed → optimization difícil | Separate models: Write optimized differently than Read | High read:write ratio (100:1+), complex queries | Read:write ratio balanceado |
+| **P28** | **CQRS** | Read/Write mixed → optimization difícil | Separate models: Write optimized differently than Read | High read:write ratio (100:1+), complex queries | Read:write ratio balanceado |
 
 ---
 
 ## §5. PATRONES DECISIONALES (P29-P36)
 
+**Propósito**: Frameworks para priorización objetiva y portfolio management. Reduce política, maximiza ROI.
+
+**Primitivos KERNEL**: Dato (D1 métricas), Decisión (modo M2-M3), Límite (L1 constraints portfolio)
+
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **P29** | **OKRs Bottom-Up** | Top-down goals no ownership | Teams proponen OKRs, alignment via negotiation | Org >50, autonomía teams alta | Startup <20, need strong direction |
 | **P30** | **Capability-Based Roadmap** | Project-based planning → no evolution continua | Roadmap por capabilities (evolucionan), no projects (terminan) | Asset thinking, producto continuo | Projects realmente discretos |
 | **P31** | **RICE Scoring** | Priorización subjetiva, politics | Score = (Reach × Impact × Confidence) / Effort, rank descending | Backlog >30 items, need objective prioritization | Factors cualitativos críticos |
 | **P32** | **Time-Value Profiles** | No consideras cuándo se captura valor | Classify initiatives: SPIKE/STEP/GROWTH/DELAYED, portfolio mix | Portfolio planning, value timing crítico | Todos initiatives similar profile |
-| **P33** | **WSJF (Weighted Shortest Job First)** | Priorización ignora cost of delay | Score = (Business Value + Time Criticality + Risk) / Job Size | SAFe, Lean portfolio management | Todos items similar urgencia |
+| **P33** | **WSJF** | Priorización ignora cost of delay | Score = (Business Value + Time Criticality + Risk) / Job Size | SAFe, Lean portfolio management | Todos items similar urgencia |
 | **P34** | **North Star Metric** | Múltiples métricas → dilución focus | Single metric empresa optimiza (ej: Weekly Active Users) | Product-led growth, need alignment | Negocio multi-faceted no reducible |
-| **P35** | **Preparación R1-R5** | Transformación falla por no preparar | Score 5 dimensiones (Momentum, Capabilities, Forces, Drivers, Catalysts), go/no-go decision | Cambio mayor (>6 meses, >$500K), riesgo alto | Cambio pequeño reversible |
+| **P35** | **Preparación R1-R5** | Transformación falla por no preparar | Score 5 dimensiones (Momentum, Capabilities, Forces, Drivers, Catalysts), go/no-go | Cambio mayor (>6 meses, >$500K), riesgo alto | Cambio pequeño reversible |
 | **P36** | **Portfolio Balancing** | Solo short-term O solo long-term bets | 70% Core (STEP), 20% Adjacent (GROWTH), 10% Transformational (DELAYED) | Portfolio >5 initiatives, horizons 1-2-3 | Startup pre-PMF (100% core) |
 
 ---
 
-## §6. PATRONES IA (P37-P50)
+## §6. PATRONES IA BASE (P37-P50)
+
+**Propósito**: Delegación cognitiva humano-IA mediante Modes M2-M6. Ver `CORE/04_Delegacion.md` para fundamentos.
+
+**Primitivos KERNEL**: Actor (A3 agente), Dato (D1 training data), Señal (S1-S2 alertas/predictions), Límite (L2 autonomy boundaries)
 
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **P37** | **Copilot Coding (M3)** | Boilerplate code lento | IA genera código bajo demanda, humano revisa | Tareas coding rutinarias, languages popular | Código crítico seguridad |
 | **P38** | **Anomaly Detection (M2)** | Humano no detecta patterns anomalías en tiempo real | ML detecta spikes/dips, alerta automática | Datos masivos (>1M events/día), patterns sutiles | Datos <1K events/día |
 | **P39** | **Churn Prediction (M2)** | React a churn post-facto | ML predice churn 30 días anticipado, proactive outreach | >1K customers, histórico 12+ meses | <100 customers |
@@ -135,107 +146,138 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 
 ---
 
-## §6.5. PATRONES SEGURIDAD (P_SEC01-P_SEC05)
+## §7. PATRONES EMERGENTES (P51-P56)
+
+**Propósito**: Patrones identificados post-v1.0 basados en práctica operacional y fuentes fundacionales (Gall's Law, Alexander, Agile Manifesto).
+
+**Primitivos KERNEL**: Combinaciones complejas multi-dominio (crisis governance, meta-agents, evolutionary design)
 
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|---|
-| **P_SEC01** | **Defense in Depth** | Single security layer vulnerable | Múltiples capas defensa independientes (network, app, data, identity) | Toda org enterprise, alto impacto breach | Org <20 personas, low-risk data |
-| **P_SEC02** | **Zero Trust Architecture** | Perimeter security insufficient | Verify explícitamente every access (never trust, always verify), least privilege | Remote workforce, cloud-native, high-value assets | Legacy systems no soportan auth granular |
-| **P_SEC03** | **Security as Code** | Manual security configs error-prone, no versionados | Security policies, firewall rules, access controls en IaC (versionado, testeable, auditable) | DevOps maduro, multi-environment, compliance | Sin IaC básico (implementar P18 primero) |
-| **P_SEC04** | **Shift-Left Security** | Security descubierta tarde (pre-prod o prod) → costoso fix | Security integrado desde design: threat modeling, SAST/DAST en CI/CD, security training devs | Deploy frequency >semanal, regulated industry | Security team inexistente (contratar primero) |
-| **P_SEC05** | **Incident Response Automation** | Manual IR lento (MTTD >24hrs, MTTC >24hrs) | SOAR platform: automated detection (SIEM), containment playbooks, orchestrated response | >5 security incidents/mes, 24/7 operations | <1 incident/trimestre, no SOC |
+|---|---|---|---|---|---|
+| **P51** | **Carry-Over Management** | Scrum rígido prohibe carry-over → stories artificialmente pequeñas | Permitir flujo entre sprints con governance (max 30-40% capacity, track age >3 sprints) | Teams maduros, dominios complejos (embedded, critical systems) | Work completable en sprint único |
+| **P52** | **Crisis Governance** | Governance normal lento en crisis (H<45, any O<30 sustained) | Crisis team 5-7 personas, daily sync, decisions <4hrs critical, exit H>45 stable 3 months | Financial/Customer/Talent crisis, multiple observables <30 | H_Score >60, crisis artificial |
+| **P53** | **Orchestration Agent** | N agents especializados sin coordinación → conflicts, inconsistencies | Meta-agent coordina: registry, delegation, intervention points, conflict resolution | Sistema ≥3 agents, collaboration needed, user needs unified interface | Single agent suffices, overhead > benefit |
+| **P54** | **Piecemeal Growth** | Big bang design → fracaso (Gall's Law: complex system designed from scratch never works) | Sistema simple funcional → crecer incrementalmente con stable intermediate forms | Todo sistema complejo (>3 meses), alta incertidumbre | Sistema trivial (<4 semanas) |
+| **P55** | **Walking Skeleton** | Integration risk descubierto tarde (mes 6+ en vez de week 1) | Build versión mínima E2E (todas capas, 1 feature trivial) para validar arquitectura | Proyecto greenfield, arquitectura no validada, multiple layers | Arquitectura probada, single layer |
+| **P56** | **Continuous Refactoring** | Design upfront especulativo → rigidez o inadecuado cuando realidad conocida | Design emerge de refactoring post-código funcional (TDD cycle, Boy Scout Rule) | Codebase evolutionary, tech debt managed proactively | Codebase frozen, no tests |
 
-**Conexión Observables**: Estos patterns implementan mejoras en SO1-SO5 (D2_Percepcion §8).
+**Referencias Detalladas**:
+- **P51**: `DOMINIOS/D4_Operacion.md` §7.1 (metrics: Carry-Over Rate, Completion Rate, Yellow Cards)
+- **P52**: `CORE/08_Crisis_Management.md` (activation triggers, decision protocols, exit criteria, case studies)
+- **P53**: Ejemplos concretos en `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` §5.6
+- **P54-P56**: Fundamentos en `DOMINIOS/D4_Operacion.md` §11 (Continuous Learning, Gall's Law)
+
+---
+
+## §8. PATRONES SEGURIDAD (P57-P61)
+
+**Propósito**: Security by design mediante defense-in-depth, zero trust y shift-left. Implementa observables SO1-SO5 (`D2_Percepcion.md` §8).
+
+**Primitivos KERNEL**: Límite (L3 security boundaries), Señal (S2 security events), Recurso (R3 security controls)
+
+| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
+|---|---|---|---|---|---|
+| **P57** | **Defense in Depth** | Single security layer vulnerable | Múltiples capas defensa independientes (network, app, data, identity) | Org enterprise, alto impacto breach | Org <20 personas, low-risk data |
+| **P58** | **Zero Trust Architecture** | Perimeter security insufficient | Verify explícitamente every access (never trust, always verify), least privilege | Remote workforce, cloud-native, high-value assets | Legacy systems no soportan auth granular |
+| **P59** | **Security as Code** | Manual security configs error-prone, no versionados | Security policies, firewall rules, access controls en IaC (versionado, testeable) | DevOps maduro, multi-environment, compliance | Sin IaC básico |
+| **P60** | **Shift-Left Security** | Security descubierta tarde → costoso fix (10-100× más caro en prod vs design) | Security integrado desde design: threat modeling, SAST/DAST en CI/CD | Deploy frequency >semanal, regulated industry | Security team inexistente |
+| **P61** | **Incident Response Automation** | Manual IR lento (MTTD >24hrs, MTTC >24hrs) | SOAR platform: automated detection (SIEM), containment playbooks | >5 incidents/mes, 24/7 operations | <1 incident/trimestre |
+
+**Impacto Observables**:
 
 | Pattern | Observable Mejorado | Impacto Típico |
 |---------|---------------------|----------------|
-| P_SEC01 | SO1 Vulnerabilities, SO5 IR | MTTP -40%, MTTC -50% |
-| P_SEC02 | SO3 Access Control, SO2 Secrets | Breach risk -70%, over-provisioning -60% |
-| P_SEC03 | SO4 Compliance, SO1 Vulnerabilities | Audit findings -50%, config drift 0% |
-| P_SEC04 | SO1 Vulnerabilities, SO5 IR | Vulnerabilities found design -80% cost |
-| P_SEC05 | SO5 IR | MTTD -70% (<1hr), MTTC -65% (<4hrs) |
+| P57 | SO1 Vulnerabilities, SO5 IR | MTTP -40%, MTTC -50% |
+| P58 | SO3 Access Control, SO2 Secrets | Breach risk -70%, over-provisioning -60% |
+| P59 | SO4 Compliance, SO1 Vulnerabilities | Audit findings -50%, config drift 0% |
+| P60 | SO1 Vulnerabilities, SO5 IR | Vulnerabilities found design -80% cost |
+| P61 | SO5 IR | MTTD -70% (<1hr), MTTC -65% (<4hrs) |
 
 ---
 
-## §6.6. PATRONES CUSTOMER EXPERIENCE (P_CX01-P_CX03)
+## §9. PATRONES DATOS/IA AVANZADO (P62-P72)
+
+**Propósito**: Data-as-Product, RAG auditable, process automation, multi-agent orchestration y customer experience. Ver `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` para casos concretos.
+
+**Primitivos KERNEL**: Dato (D2 contracts), Actor (A3 agents), Flujo (F3 pipelines complejos), Límite (L1-L3 governance)
 
 | ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|---|
-| **P_CX01** | **Flujo Valor Cliente (Outside-In)** | Org diseña servicios desde estructura interna (inside-out) → no fit customer needs | Mapear Flujo F completo desde trigger cliente hasta valor entregado, instrumentar observables O2 (valor) por touchpoint | B2C, B2B con múltiples touchpoints, NPS <30 | B2B simple (1 touchpoint), producto commodity |
-| **P_CX02** | **Eventos como Señales CX** | Customer friction invisible (no instrumentado) → reactive fixes | Convertir customer friction points en Señales S explícitas, alertas proactivas cuando S threshold violated | Digital products, customer journey complejo (>5 pasos), churn >15% | Producto offline sin telemetry |
-| **P_CX03** | **Touchpoint Ownership Explícita** | Nadie responsible customer experience end-to-end → handoff hell, blame game | Asignar Actor A2 owner por touchpoint crítico, RACI claro, dashboards O2 (NPS/CSAT) por touchpoint | Product-led growth, multi-team product, customer complaints >50/mes | Single team product, touchpoints <3 |
+|---|---|---|---|---|---|
+| **P62** | **Data Product** | Datos subproducto → Calidad baja, no reusable, undiscoverable | Treat data as product: Contract (schema, SLO, DQ), Owner, Lineage, Serving | Multi-team org, data reuse alto, compliance | Single-team app, data uso único |
+| **P63** | **RAG Auditable** | LLMs alucinan, no citan → No confiables, compliance risk | RAG: Curation + Hybrid index + Mandatory citations (exactness ≥0.95) | Legal, medical, gov (high-authority domains) | Creative content, brainstorming |
+| **P64** | **Saga Compensation** | Transacción distribuida → Partial failures, inconsistency | Orchestrated saga: Forward + Compensation steps idempotent, BPMN engine | Distributed transactions, eventual consistency OK | Single DB (use ACID) |
+| **P65** | **HITL Checkpoint** | Full automation high-stakes → Errors costosos, compliance risk | Pause workflow + human decision + resume (triggers: confidence <0.85, $>10K) | High-stakes (financial, medical, legal) | Low-risk, AI confidence >0.95 |
+| **P66** | **Multi-Agent Orchestration** | Single agent limitado (capabilities, context window) | Router/Supervisor coordinates specialized agents (domain-experts) | Multi-domain queries, task decomposition beneficial | Simple queries, single-domain |
+| **P67** | **Contract-Driven Evolution** | Schema changes break consumers silently → Production outages | Semver + Backward compat + Deprecation windows (90-120 días coexist v1+v2) | Shared data/APIs, multiple consumers | Internal single-team |
+| **P68** | **Hybrid Search** | Keyword misses semantic, vector misses exact → Suboptimal recall/precision | BM25 + Vector + Reranking + ACL filters (dual index, fusion) | Heterogeneous corpus, diverse query styles | Homogeneous corpus |
+| **P69** | **Multi-Tenant Architecture** | Single-tenant → Cost prohibitivo ($500-$5K/tenant), scaling impossible | Shared infra + isolation (Levels 1-4) + per-tenant config | >5 tenants, requirements similar (80%+ overlap) | <3 tenants, highly heterogeneous |
+| **P70** | **Flujo Valor Cliente** | Org diseña inside-out → No fit customer needs | Mapear Flujo F completo, instrumentar O2 (valor) por touchpoint (outside-in) | B2C, B2B múltiples touchpoints, NPS <30 | B2B simple (1 touchpoint) |
+| **P71** | **Eventos como Señales CX** | Customer friction invisible → Reactive fixes | Friction points → Señales S explícitas, alertas proactivas threshold violated | Digital products, journey complejo (>5 pasos), churn >15% | Offline sin telemetry |
+| **P72** | **Touchpoint Ownership** | Nadie responsible E2E → Handoff hell, blame game | Actor A2 owner por touchpoint crítico, RACI, dashboards O2 (NPS/CSAT) | Product-led growth, multi-team, complaints >50/mes | Single team, touchpoints <3 |
 
-**Conexión Primitivos KERNEL**: CX patterns operan sobre primitivos core (no inventa conceptos nuevos).
+**Referencias Detalladas**:
+- **P62-P69**: `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` §3-§7 (ejemplos billing_invoices, RAG normativa, invoice pipeline)
+- **P69 Multi-Tenant**: Decision tree isolation levels (L1 Shared Everything → L4 Dedicated Infra), H_Score per-tenant, noisy neighbor mitigation
+- **P70-P72 CX**: Diferencia vs Design Thinking tradicional (cuantitativo vs cualitativo, instrumentado vs manual)
 
-| Pattern | Primitivos Usados | Observables Clave | Output KERNEL-Native |
-|---------|-------------------|-------------------|----------------------|
-| P_CX01 | F1 (Flujo valor cliente), R1 (Recursos customer-facing), L1 (Límites friction) | O2 (Valor entregado), IN3 (Eficiencia flujo) | Flujo F mapeado con métricas flow efficiency, cycle time por etapa |
-| P_CX02 | S1 (Señal friction), E1 (Evento abandono), D1 (Dato telemetry) | O2 (Valor), O4 (Eventos críticos) | Alerting system: IF friction_rate >threshold THEN Señal S emitida |
-| P_CX03 | A2 (Actor owner touchpoint), F1 (Flujo customer), L3 (Límites SLA touchpoint) | O2 (Valor NPS/CSAT), IN1 (Velocidad decisional) | RACI matrix touchpoints, dashboard O2 segmentado por touchpoint |
-
-**Diferencia vs Design Thinking Tradicional**:
-
-| Aspecto | Design Thinking Clásico | KERNEL P_CX Patterns |
-|---------|-------------------------|----------------------|
-| **Conceptos** | Journey maps (visuales), personas, empathy | Flujos F, Señales S, Observables O2 (cuantitativos) |
-| **Output** | Diagramas journey, insights cualitativos | Métricas flow efficiency, alertas automatizadas, RACI |
-| **Instrumentación** | Manual (workshops, interviews) | Telemetry (eventos E, datos D, observables O) |
-| **Ownership** | Ambiguo (todos responsible CX) | Explícito (Actor A2 por touchpoint, RACI) |
-| **Escalabilidad** | Difícil (requiere facilitators) | Alta (automated dashboards O2, alerting S) |
-
-**Cuándo Usar Customer Journey tradicional vs KERNEL CX**:
-
-- **Use Journey Mapping tradicional** (workshops, visuales): Discovery fase temprana (no tienes telemetry, exploring problem space)
-- **Use KERNEL P_CX patterns**: Execution post-discovery (instrumentar journey, operationalizar, metrics-driven)
-- **Combinación ideal**: Design Thinking → insights cualitativos → KERNEL P_CX → operationalización cuantitativa
+**Templates Asociados**:
+- **T15_Contrato_Datos.yaml**: P62, P67 (data contracts, schema evolution)
+- **T17_Contrato_Agente.yaml**: P65, P66 (HITL section, multi-agent coordination)
+- **T18_Contrato_Conocimiento.yaml**: P63, P68 (RAG indexing, hybrid search)
+- **T16_Contrato_Proceso.yaml**: P64 (BPMN saga compensation)
 
 ---
 
-## §7. MATRIZ PATRONES × DOMINIOS
+## §10. MATRIZ PATRONES × DOMINIOS
 
-| Patrón | Arquitectura | Percepción | Decisión | Operación |
-|--------|-------------|------------|----------|-----------|
-| **P01-P12 (Estructurales)** | ✅✅✅ | ◐ | ◐ | ◐ |
-| **P13-P20 (Procesuales)** | ◐ | ◐ | ◐ | ✅✅✅ |
-| **P21-P28 (Tecnológicos)** | ◐ | — | — | ✅✅✅ |
-| **P29-P36 (Decisionales)** | — | ◐ | ✅✅✅ | ◐ |
-| **P37-P50 (IA)** | ◐ | ✅✅ | ✅✅ | ✅✅✅ |
-| **P_SEC01-05 (Seguridad)** | ✅✅ | ✅✅✅ | ◐ | ✅✅✅ |
-| **P_CX01-03 (Customer Experience)** | ◐ | ✅✅✅ | ◐ | ✅✅ |
+**Leyenda**: ✅✅✅ Primario | ✅✅ Secundario | ◐ Terciario | — No aplica
 
-**Leyenda:** ✅✅✅ Primario | ✅✅ Secundario | ◐ Terciario | — No aplica
+| Categoría | Arquitectura (D1) | Percepción (D2) | Decisión (D3) | Operación (D4) |
+|-----------|-------------------|-----------------|---------------|----------------|
+| P01-P12 (Estructurales) | ✅✅✅ | ◐ | ◐ | ◐ |
+| P13-P20 (Procesuales) | ◐ | ◐ | ◐ | ✅✅✅ |
+| P21-P28 (Tecnológicos) | ✅✅ | — | — | ✅✅✅ |
+| P29-P36 (Decisionales) | — | ◐ | ✅✅✅ | ◐ |
+| P37-P50 (IA Base) | ◐ | ✅✅ | ✅✅ | ✅✅✅ |
+| P51-P56 (Emergentes) | ✅✅ | ✅✅ | ✅✅ | ✅✅✅ |
+| P57-P61 (Seguridad) | ✅✅ | ✅✅✅ | ◐ | ✅✅✅ |
+| P62-P72 (Datos/IA/CX) | ✅✅ | ✅✅✅ | ✅✅ | ✅✅✅ |
 
-**Nota Seguridad**: Patterns security son transversales. D2 Percepción primario (implementan observables SO1-SO5), D1 Arquitectura y D4 Operación secundarios (design + execution).
-
-**Nota CX**: Patterns CX son D2 primario (instrumentar O2 Valor por touchpoint), D4 secundario (ejecutar mejoras flujo), D1/D3 terciarios (estructura + roadmap CX).
+**Notas**:
+- **Seguridad**: Transversal. D2 primario (observables SO1-SO5), D1/D4 secundarios (design + execution)
+- **Emergentes**: Multi-dominio por naturaleza (crisis governance afecta D1-D4, orchestration agent es meta-level)
+- **Datos/IA/CX**: D2 primario (instrumentación valor, telemetry), D4 secundario (execution), D1/D3 secundarios (architecture + roadmap)
 
 ---
 
-## §7.5. TRAZABILIDAD DETALLADA PATTERNS SELECCIONADOS
+## §11. TRAZABILIDAD DETALLADA PATTERNS SELECCIONADOS
 
-**Propósito:** Mapeo explícito dominio primario y primitivos involucrados para patterns clave.
+**Propósito**: Mapeo explícito dominio primario y primitivos involucrados para patterns representativos de cada categoría.
 
 | ID | Nombre | Dominio Primario | Primitivos Involucrados |
 |---|---|---|---|
-| **P17** | Mob Programming | D4 Operación | A1 (Actor: equipo colaborativo), F1 (Flujo: trabajo sincronizado) |
+| **P01** | Feature Teams | D1 Arquitectura | A1 (Actor: team cross-functional), L1 (Límite: team boundary E2E) |
+| **P15** | WIP Limits Kanban | D4 Operación | L2 (Límite: WIP per column), F2 (Flujo: work items) |
 | **P23** | Feature Flags | D4 Operación | R1 (Recurso: feature toggle config), L2 (Límite: activation control) |
 | **P31** | RICE Scoring | D3 Decisión | D1 (Dato: métricas RICE), F2 (Flujo: scoring process) |
-| **P38** | Anomaly Detection | D2 Percepción | D1 (Dato: events stream), E1 (Evento: anomaly), S1 (Señal: alert), A2 (Actor: ML agent M2) |
-| **P41** | Auto-Prioritization | D3 Decisión | D1 (Dato: backlog metadata), A2 (Actor: agent M4), L1 (Límite: reglas prioritization) |
-| **P44** | Auto-Rollback | D4 Operación | E1 (Evento: error threshold), A2 (Actor: rollback agent M6), L2 (Límite: error budget SLO) |
-| **P47** | Portfolio Optimizer | D3 Decisión | D1 (Dato: portfolio initiatives), A2 (Actor: optimizer M2), L1 (Límite: constraints) |
-| **P49** | Doc Auto-Generate | D4 Operación | D1 (Dato: código + comments), A2 (Actor: doc generator M3), R1 (Recurso: docs) |
+| **P38** | Anomaly Detection | D2 Percepción | D1 (Dato: events stream), E1 (Evento: anomaly), S1 (Señal: alert), A3 (Actor: ML agent M2) |
+| **P41** | Auto-Prioritization | D3 Decisión | D1 (Dato: backlog metadata), A3 (Actor: agent M4), L1 (Límite: reglas prioritization) |
+| **P44** | Auto-Rollback | D4 Operación | E1 (Evento: error threshold), A3 (Actor: rollback agent M6), L2 (Límite: error budget SLO) |
+| **P52** | Crisis Governance | Multi-dominio | ST1 (Estado: H_Score crisis), A1 (Actor: crisis team), F1 (Flujo: daily sync), L1 (Límite: decision protocols) |
+| **P53** | Orchestration Agent | D4 Operación | A3 (Actor: orchestrator meta-level), F3 (Flujo: coordination), S2 (Señal: escalations), L2 (Límite: delegation policies) |
+| **P62** | Data Product | D1 Arquitectura | D2 (Dato: contract), A2 (Actor: data product owner), R3 (Recurso: lakehouse), L1 (Límite: SLO) |
+| **P70** | Flujo Valor Cliente | D2 Percepción | F1 (Flujo: customer journey), R1 (Recurso: touchpoints), O2 (Observable: valor entregado) |
 
-**Nota:** Patterns no listados tienen trazabilidad implícita via §7 Matriz Patrones × Dominios.
+**Nota**: Patterns no listados tienen trazabilidad implícita vía §10 Matriz Patrones × Dominios.
 
 ---
 
-## §8. COMBINACIONES DE PATRONES
+## §12. COMBINACIONES DE PATRONES
 
 ### Combo 1: Startup Scaling (20→100 personas)
 
 ```yaml
-Patrones:
+Stack:
   - P01 (Feature Teams) - Estructura base
   - P03 (Two-Pizza) - Límite tamaño
   - P13 (Dual-Track) - Discovery + Delivery
@@ -243,30 +285,28 @@ Patrones:
   - P29 (OKRs Bottom-Up) - Alignment
   - P37 (Copilot) - Velocity código
 
-Resultado: Velocity 2-3× vs baseline, H_Score >80
+Resultado: Velocity 2-3× baseline, H_Score >80
+Timeline: 6-12 meses implementación progresiva
 ```
-
----
 
 ### Combo 2: Legacy Modernization
 
 ```yaml
-Patrones:
+Stack:
   - P06 (Inverse Conway) - Reorg para microservices
   - P21 (Strangler Fig) - Migration incremental
   - P23 (Feature Flags) - A/B old vs new
   - P35 (R1-R5) - Preparación transformación
-  - P41 (Auto-Prioritization) - Backlog migration
+  - P54 (Piecemeal Growth) - Stable intermediate forms
 
 Resultado: Migration 12-18 meses, downtime <1hr total
+Antipatrón Mitigado: AP15 (Big Bang Rewrite)
 ```
-
----
 
 ### Combo 3: Platform Engineering Excellence
 
 ```yaml
-Patrones:
+Stack:
   - P02 (Platform Teams) - Infra como producto
   - P10 (SRE) - Reliability + automation
   - P22 (Circuit Breaker) - Resilience
@@ -277,53 +317,65 @@ Patrones:
 Resultado: Uptime 99.95%+, Deploy frequency >10×/día
 ```
 
----
-
 ### Combo 4: Product-Led Growth
 
 ```yaml
-Patrones:
+Stack:
   - P09 (Product Trios) - Discovery excellence
   - P13 (Dual-Track) - Build only validated
   - P31 (RICE Scoring) - Objective prioritization
   - P34 (North Star Metric) - Alignment total
   - P39 (Churn Prediction) - Retention proactiva
   - P50 (A/B Analyzer) - Data-driven iterations
+  - P70-P72 (CX Patterns) - Outside-in instrumentation
 
 Resultado: Activation rate +40%, Churn -60%
 ```
 
+### Combo 5: Data/AI Platform
+
+```yaml
+Stack:
+  - P62 (Data Product) - Contracts, ownership, lineage
+  - P63 (RAG Auditable) - Citations mandatory
+  - P66 (Multi-Agent) - Specialized domain agents
+  - P67 (Contract-Driven) - Schema evolution governance
+  - P68 (Hybrid Search) - BM25 + Vector fusion
+  - P69 (Multi-Tenant) - Isolation + shared infra
+
+Resultado: Data reuse 5×, AI accuracy >95%, Cost per tenant -70%
+```
+
 ---
 
-## §9. ADOPCIÓN PROGRESIVA
+## §13. ADOPCIÓN PROGRESIVA
 
 ### Fase 1: Fundamentos (Meses 1-3)
 
 ```yaml
-Esenciales (implementar primero):
+Esenciales:
   - P01 o P03: Estructura teams
   - P29: OKRs básicos
   - P23: Feature flags
   - P42: Quality gates CI/CD
 
-Quick wins visibles, bajo riesgo
+Criterio_Exit: H_Score >60, Velocity stable 3 sprints
+Risk: Bajo, Quick wins visibles
 ```
-
----
 
 ### Fase 2: Optimización (Meses 4-9)
 
 ```yaml
-Mejoras (si Fase 1 exitosa):
+Mejoras (requiere Fase 1 exitosa):
   - P13: Dual-track agile
   - P31: RICE scoring
   - P37: Copilot coding
   - P38: Anomaly detection
+  - P70-P72: CX instrumentation
 
-Requiere Fase 1 estable
+Criterio_Exit: H_Score >70, Customer satisfaction >75
+Risk: Medio, Requiere madurez cultural
 ```
-
----
 
 ### Fase 3: Avanzado (Meses 10-18)
 
@@ -333,651 +385,89 @@ Transformacionales:
   - P10: SRE model
   - P21: Strangler fig (si legacy)
   - P46-P47: IA colaborativa avanzada
+  - P62-P69: Data/AI platform patterns
 
-Alto impacto, alto riesgo, requiere madurez
+Criterio_Exit: H_Score >80, Capabilities strategic automated
+Risk: Alto, Alto impacto, Requiere executive sponsorship
 ```
 
 ---
 
-## §10. ANTI-PATRONES RELACIONADOS
+## §14. ANTIPATRONES RELACIONADOS
 
-**Ver:** `APLICACION/A2_Antipatrones.md` para patologías que estos patrones mitigan.
+**Ver**: `APLICACION/A2_Antipatrones.md` para patologías detalladas que estos patrones mitigan.
 
-**Mapeo común:**
+**Mapeo Común**:
 
-- P01 mitiga AP05 (Silos funcionales)
-- P29 mitiga AP12 (Top-down sin ownership)
-- P23 mitiga AP18 (Deploy = Release sin control)
-- P35 mitiga AP02 (Transformación sin preparar)
-
----
-
-## §11. PATRONES EMERGENTES (v1.1+)
-
-**Nota:** Patrones identificados post-release v1.0, basados en integración con fuentes fundacionales y práctica operacional.
-
-### P51: Carry-Over Management
-
-| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|
-| **P51** | **Carry-Over Management** | Scrum rígido prohibe carry-over entre sprints → stories forzadas pequeñas pierden valor | Permitir trabajo fluir entre sprints con governance (max 30-40% capacity carry-over, re-priorizar cada sprint, track age >3 sprints) | Teams maduros, stories naturalmente multi-sprint, dominios complejos (embedded, sistemas críticos) | Work 100% completable en sprint único, team nuevo necesita estructura rígida |
-
-**Detalles completos:** Ver `DOMINIOS/D4_Operacion.md` §7.1 para:
-
-- Probabilistic delivery (no commitment "todo o nada")
-- Métricas governance (Carry-Over Rate, Completion Rate, Avg Story Age)
-- Yellow Cards (suspended work para incidents)
-- Contraste con Scrum estricto
-
-**Relación con otros patrones:**
-
-- Complementa P16 (Scrumban Híbrido)
-- Mitiga rigidez ceremonial de Scrum puro
-- Habilita P17 (Mob Programming) en stories complejas
+| Antipatrón | Patterns Mitigadores | Mecanismo |
+|------------|---------------------|-----------|
+| AP02 (Transformación sin preparar) | P35 (R1-R5), P52 (Crisis Governance) | Assessment readiness, governance adaptativo |
+| AP05 (Silos funcionales) | P01 (Feature Teams), P06 (Inverse Conway) | Cross-functional ownership E2E |
+| AP12 (Top-down sin ownership) | P29 (OKRs Bottom-Up), P09 (Product Trios) | Negotiated alignment, co-ownership |
+| AP15 (Big Bang Rewrite) | P21 (Strangler Fig), P54 (Piecemeal Growth) | Incremental migration, stable forms |
+| AP18 (Deploy = Release) | P23 (Feature Flags), P24 (Blue-Green) | Decouple deploy/release, instant rollback |
+| AP31 (Crisis Artificial) | P52 (Crisis Governance) | Exit criteria explicit (H>45 stable 3 months) |
+| AP37 (Data Sin Contrato) | P62 (Data Product), P67 (Contract-Driven) | Schema contracts, SLO, deprecation governance |
+| AP38 (RAG Sin Curation) | P63 (RAG Auditable) | Authority validation, mandatory citations |
+| AP39 (Observabilidad Mínima IA) | P65 (HITL Checkpoint), P38 (Anomaly Detection) | Confidence monitoring, human-in-loop |
+| AP41 (Dual Write) | P64 (Saga Compensation) | Orchestrated compensation idempotent |
 
 ---
 
-## §12. P52: CRISIS GOVERNANCE PATTERN (v1.1)
+## §15. REFERENCIAS CRUZADAS
 
-**Patrón consolidado en:** `CORE/08_Crisis_Management.md`
+**Documentos Core**:
+- **Primitivos**: `CORE/01_Primitivos.md` (Actor, Dato, Flujo, Señal, Límite, Recurso, Estado)
+- **Ciclo SDA**: `CORE/02_Ciclo_Fundamental.md` (Sense → Decide → Act)
+- **Principios**: `CORE/00_Manifiesto.md` (P1-P7 fundacionales)
+- **Delegación**: `CORE/04_Delegacion.md` §8 (Modes M1-M6, Purpose Orchestration)
+- **Crisis**: `CORE/08_Crisis_Management.md` (P52 consolidado completo)
 
-### Quick Reference
+**Dominios**:
+- **D1 Arquitectura**: `DOMINIOS/D1_Arquitectura.md` (Patterns estructurales P01-P12)
+- **D2 Percepción**: `DOMINIOS/D2_Percepcion.md` §4 (H_Score), §8 (SO1-SO5 Security Observables)
+- **D3 Decisión**: `DOMINIOS/D3_Decision.md` §6 (Decision Modes 1-6)
+- **D4 Operación**: `DOMINIOS/D4_Operacion.md` §7.1 (Carry-Over), §11 (Continuous Learning), §12 (Execution Levels)
 
-| Aspecto | Descripción |
-|---------|-------------|
-| **Activación** | H_Score < 45 OR any(O1-O8, IN1-IN3) < 30 sustained |
-| **Problema** | Governance normal demasiado lento para crisis |
-| **Solución** | Crisis team 5-7 personas, daily meetings, decision protocols <4hrs critical |
-| **Cuándo Usar** | Financial (O3<30), Customer (O2<30), Talent (IN2<30), Multiple observables <30 |
-| **Evitar Si** | H_Score > 60, crisis artificial (AP31), no sponsor, team unavailable |
-| **Duration** | 4-12 semanas típico (hasta H>45 stable 3 months) |
-| **Exit Criteria** | H>45 for 3 months + all observables >30 + specific domain stability |
+**Especializados**:
+- **E8 Intelligent Data/AI Systems**: `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` (P62-P69 ejemplos concretos, casos billing_invoices, RAG normativa, invoice pipeline)
 
-**Detalles completos**: Ver `CORE/08_Crisis_Management.md` para:
+**Templates**:
+- **OKR/Roadmap**: `REFERENCIA/R6_Templates/T01_OKR.md`, `T10_Roadmap_Capability.yaml`
+- **Contratos**: `T15_Contrato_Datos.yaml`, `T16_Contrato_Proceso.yaml`, `T17_Contrato_Agente.yaml`, `T18_Contrato_Conocimiento.yaml`
+- **Specs**: `T19_App_Inventory.yaml`, `T20_Data_Product_Spec.yaml`, `T22_Process_Model_BPMN.yaml`
 
-- §2: Activation triggers por tipo de crisis
-- §3: Crisis team structure + dynamics (daily meetings)
-- §4: Exit criteria + transition process
-- §5: Antipatrones (AP31-33)
-- §6: Stabilization actions by crisis type
-- §9: Case study financial crisis
+**Antipatrones**: `APLICACION/A2_Antipatrones.md` (AP01-AP52 patologías organizacionales/técnicas)
 
 ---
 
-## §13. P53: ORCHESTRATION AGENT PATTERN
-
-### Contexto
+## Cambios v2.3.0
 
 ```yaml
-Activación: Sistema requiere coordinar múltiples agents especializados
+Breaking_Changes:
+  - Renumeración patterns especializados para taxonomía unificada
+  - P_SEC01-05 → P57-P61 (Seguridad)
+  - P57-P64 (Datos/IA v2.2.1) → P62-P69
+  - P_CX01-03 → P70-P72 (Customer Experience)
 
-Problema:
-  - N agents especializados en cognitive functions distintas
-  - Cada agent opera independently (sensing, decision, execution)
-  - User necesita interface unificado para supervisar/intervenir
-  - Agents deben collaborate coherentemente sin conflicts
+Improvements:
+  - Taxonomía ortogonal 8 categorías (vs 6+ ad-hoc)
+  - Formato tabular consistente (vs mix tablas/YAML extenso)
+  - Referencias cruzadas explícitas (vs contenido duplicado)
+  - Trazabilidad primitivos KERNEL por pattern
+  - Combinaciones patterns por use case
+  - Roadmap adopción progresiva 3 fases
+
+Deprecated:
+  - Ejemplos verbosos inline (movidos a E8_Intelligent_Data_AI_Systems.md)
+  - P64 Multi-Tenant como standalone (consolidado contexto P62-P69)
+
+Migration_Guide:
+  - Actualizar referencias P_SEC* → P57-P61
+  - Actualizar referencias P_CX* → P70-P72
+  - Ver E8 para ejemplos detallados P62-P69
 ```
 
 ---
 
-### Estructura
-
-```yaml
-Orchestration_Agent:
-  
-  Responsabilidades:
-    1. Agent_Network_Management:
-       - Registry de agents disponibles (capabilities catalog)
-       - Health monitoring (cada agent reporta status)
-       - Lifecycle management (start, stop, restart agents)
-    
-    2. Delegation_Management:
-       - User configura policies: ¿qué delegar a qué agent?
-       - Mapea user intent → agent capability
-       - Routes tasks a agents apropiados (load balancing)
-    
-    3. Intervention_Points:
-       - Define cuándo human debe intervenir (thresholds, exceptions)
-       - Escalation logic: agent → orchestrator → human
-       - Override mechanisms (human can take control anytime)
-    
-    4. Coordination:
-       - Sincroniza agents (orchestrates Sense → Decide → Act pipeline)
-       - Manages handoffs entre agents (output de uno → input de otro)
-       - Conflict resolution si agents disagree on action
-
-  Posición_Arquitectural:
-    - Meta-level sobre domain agents
-    - User-facing (provee supervision interface)
-    - Purpose: Orchestration (ver 04_Delegacion §8 Purpose 3)
-    - Autonomy: Típicamente M4-M5 (control, co-produce)
-
-Conexión_Primitivos:
-  orchestrator: Actor (algorítmico tipo meta)
-  managed_agents: Set(Actor) (domain-specific specialists)
-  coordination_flow: Flujo (orchestrator ↔ agents messaging)
-  intervention_signals: Set(Señal) (escalations, overrides, alerts)
-  delegation_policies: Set(Límite) (boundaries, thresholds)
-  network_state: Estado (agents health, current assignments)
-```
-
----
-
-### Ejemplos
-
-#### Ejemplo 1: Self-Driving Car Orchestrator
-
-```yaml
-Orchestrator: Main vehicle controller (supervises specialized agents)
-
-Managed_Agents:
-  Perception_Agent:
-    - Capabilities: Camera, LIDAR, radar fusion
-    - Function: Sense environment (L1 Detect + L2 Comprehend)
-    - Output: Object detection, classification, tracking
-  
-  Localization_Agent:
-    - Capabilities: GPS, mapping, SLAM
-    - Function: Determine vehicle position
-    - Output: Current position, map alignment
-  
-  Planning_Agent:
-    - Capabilities: Route planning, behavior planning
-    - Function: Decide trajectory (Mode 2-3 decisions)
-    - Output: Path, speed profile, lane changes
-  
-  Control_Agent:
-    - Capabilities: Steering, throttle, brakes actuation
-    - Function: Execute maneuvers (L1-L2 execution)
-    - Output: Vehicle control commands
-
-User_Interface:
-  - Set destination (delegates navigation to orchestrator)
-  - Set driving mode (aggressive vs cautious vs eco)
-  - Monitor status (dashboard shows agents health)
-  - Intervention: Take steering wheel → Full override
-
-Coordination_Logic:
-  Normal_Flow:
-    1. Perception detects pedestrian crossing
-    2. Orchestrator alerts Planning
-    3. Planning decides "slow down to stop"
-    4. Orchestrator commands Control
-    5. Control executes braking
-    6. Orchestrator monitors success (perception feedback)
-  
-  Emergency_Escalation:
-    IF Perception detects imminent collision:
-      → Orchestrator bypasses Planning (too slow)
-      → Direct command to Control: "Emergency brake"
-      → Alert user with audio/visual warning
-      → User can override (take control)
-```
-
----
-
-#### Ejemplo 2: Multi-Agent Business Process
-
-```yaml
-Orchestrator: Order fulfillment workflow engine
-
-Managed_Agents:
-  Order_Taking_Agent:
-    - Function: Receives customer orders (Sense L1)
-    - Output: Validated order (payment OK, stock check)
-  
-  Inventory_Agent:
-    - Function: Allocates stock from warehouses (Decide Mode 2)
-    - Output: Reserved inventory, warehouse assignment
-  
-  Warehouse_Agent:
-    - Function: Schedules picking tasks (Execute L2-L3)
-    - Output: Pick list, worker assignments
-  
-  Shipping_Agent:
-    - Function: Books carriers, optimizes routes (Decide Mode 2-3)
-    - Output: Carrier booking, tracking number
-  
-  Notification_Agent:
-    - Function: Sends customer updates (Execute L1)
-    - Output: Email/SMS confirmations
-
-User_Interface (Operations Manager):
-  - Configure policies (SLA, shipping rules, escalations)
-  - Monitor workflow dashboard (orders in-flight, bottlenecks)
-  - Intervene: Manual override for VIP orders, exceptions
-
-Coordination_Logic:
-  Standard_Flow:
-    1. Order arrives → Order_Taking validates
-    2. Orchestrator routes to Inventory
-    3. Inventory allocates stock → Warehouse schedules pick
-    4. Orchestrator routes to Shipping (parallel with picking)
-    5. Shipping books carrier → Notification sends confirmation
-  
-  Exception_Handling:
-    IF Inventory allocation fails (out of stock):
-      → Orchestrator escalates to human buyer
-      → Options: Backorder, Cancel order, Alternative product
-      → Human decides → Orchestrator resumes workflow
-```
-
----
-
-#### Ejemplo 3: Crisis Governance (P52 as Orchestrator)
-
-```yaml
-Orchestrator: Crisis team + system (hybrid human-AI orchestration)
-
-Managed_Agents:
-  Financial_Agent:
-    - Function: Monitors cash runway, burn rate (Sense L2-L3)
-    - Alerts: Cash < 90 días, burn rate spike
-  
-  Customer_Agent:
-    - Function: Tracks churn, NPS, retention (Sense L2-L3)
-    - Alerts: Churn > 20%, NPS < 0, key account losses
-  
-  Talent_Agent:
-    - Function: Monitors attrition, engagement (Sense L2)
-    - Alerts: Attrition > 25%, eNPS < -10
-  
-  Operations_Agent:
-    - Function: Tracks incidents, velocity (Sense L2)
-    - Alerts: Incident rate spike, velocity drop
-
-User_Interface (Crisis Team):
-  - Daily morning meeting: All agents report status
-  - Decision protocols: <4hrs critical, <24hrs tactical
-  - Intervention: Crisis team makes decisions, agents execute
-
-Coordination_Logic:
-  Week_1_4_Stabilization:
-    1. Financial_Agent: "Cash runway 18 días" (alert)
-    2. Orchestrator: Escalates to crisis team (daily meeting)
-    3. Crisis team: Decides "secure bridge loan + cut burn"
-    4. Orchestrator: Delegates actions
-       - Financial_Agent: Execute loan application
-       - Operations_Agent: Implement cost cuts
-    5. Orchestrator: Monitors daily progress
-    6. IF H_Score > 45: Transition to normal governance
-```
-
----
-
-### Cuándo Usar
-
-```yaml
-Indicadores_Activación:
-  - Sistema tiene ≥3 agents especializados
-  - Agents deben collaborate para complete task end-to-end
-  - User necesita single point of control/visibility
-  - Delegation dinámica (varies by situation, trust, complexity)
-  - Safety-critical OR high-value (requires human oversight)
-
-Ejemplos_Aplicables:
-  ✓ Self-driving vehicle (perception + planning + control)
-  ✓ Multi-agent workflows (order fulfillment, incident response)
-  ✓ Crisis management (multiple sensing agents + human decisions)
-  ✓ Smart home (multiple devices coordinated)
-  ✓ DevOps automation (CI/CD pipeline orchestration)
-```
-
----
-
-### Evitar Si
-
-```yaml
-No_Necesario_Si:
-  - Single agent suffices (no coordination needed)
-  - Agents fully independent (no interdependencies, can work isolated)
-  - User wants direct control cada agent (no meta-interface desired)
-  - System simple enough for hardcoded workflow (no dynamic routing)
-  - Overhead > benefit (small-scale, trivial coordination)
-```
-
----
-
-### Antipatrones Relacionados
-
-```yaml
-AP34_No_Orchestration:
-  Síntoma: N agents compiten, conflicts, inconsistent actions
-  Causa: Cada agent optimiza locally sin global view
-  Ejemplo_Real:
-    - Autoscaling agent adds servers
-    - Cost-optimization agent removes servers
-    - Conflict: Thrashing (add/remove loops)
-  Fix: Introduce orchestration agent para resolve conflicts
-       → Coordina decisions (capacity vs cost trade-off)
-
-AP35_Over_Orchestration:
-  Síntoma: Orchestrator becomes bottleneck, agents wait for approval
-  Causa: Orchestrator micro-manages, no delega apropiadamente
-  Ejemplo_Real:
-    - Every agent decision requires orchestrator approval
-    - Orchestrator becomes single point of failure
-    - Latency: <1s agents → 10s orchestration overhead
-  Fix: Empoderar agents con bounded autonomy
-       → Orchestrator sets policies, agents execute within bounds
-       → Orchestrator intervenes only on exceptions/conflicts
-```
-
----
-
-### Conexión KERNEL
-
-```yaml
-Purpose_Dimension (04_Delegacion §8):
-  - Orchestration Agent = Purpose 3
-  - Distinct from Assistant, Augment, Automate
-  - Manages other agents (meta-level function)
-
-Execution_Levels (D4_Operacion §12):
-  - Orchestrator opera en Level 3 (Action Planning)
-  - Manages workflow, dependencies, parallelization
-  - Delegates Level 1-2 (specification, action) to domain agents
-
-Decision_Modes (D3_Decision §6):
-  - Orchestrator típicamente Mode 2-3
-  - Rule-based routing (simple cases)
-  - Associative mapping (complex coordination)
-
-Awareness_Levels (D2_Percepcion §5):
-  - Orchestrator requiere Level 2-3
-  - Comprehend: Agent status, health, conflicts
-  - Project: Predict bottlenecks, resource needs
-
-Building_Blocks (D1_Arquitectura §4):
-  - Orchestrator puede ser BB3 (Coordinator) function
-  - Especializado en coordination, no en domain work
-```
-
----
-
----
-
-## §14. PATRONES DESARROLLO EVOLUTIVO (P54-P56)
-
-**Nota**: Patrones fundamentados en principios operacionales evolutivos (ver `DOMINIOS/D4_Operacion.md` §11 Continuous Learning). Basados en Gall's Law y Christopher Alexander's pattern language para sistemas que evolucionan incrementalmente.
-
-### P54: Piecemeal Growth
-
-| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|
-| **P54** | **Piecemeal Growth** | Big bang design → fracaso (complex system from scratch never works) | Empezar sistema simple que funciona, crecer incrementalmente con stable intermediate forms | Todo sistema complejo (>3 meses build), alta incertidumbre requirements | Sistema trivial (<4 semanas), requirements 100% conocidos upfront |
-
-**Detalles**:
-
-```yaml
-Gall's_Law_Foundation:
-  "Complex system that works evolved from simple system that worked.
-   Complex system designed from scratch never works."
-
-Proceso:
-  1. Start: Sistema mínimo end-to-end funcional (walking skeleton)
-  2. Iterate: Agregar features incrementalmente (1-2 semanas cada)
-  3. Validate: Cada iteración deployable, testeable, demostreable
-  4. Grow: Sistema crece orgánicamente según feedback real
-
-Drivers:
-  Commercial:
-    - Reduced risk (fail small, fail cheap)
-    - Earlier ROI (value desde iteración 1)
-    - Sponsor optionality (cancel anytime con valor capturado)
-  
-  Technical:
-    - Simpler start (menos overwhelm)
-    - Easier debug (pequeño = fácil aislar)
-    - Devolved decisions (emergen del trabajo, no upfront committee)
-    - Incorporates learning (feedback informa próximas iteraciones)
-
-Anti-Pattern_Relacionado: Big Design Up Front (BDUF)
-  - Meses 1-6: Design completo upfront
-  - Meses 7-14: Implementation + integration
-  - Mes 15: Descubrir que assumptions incorrectas
-  - Costo: 10× vs piecemeal (change cost architectural late >> early)
-```
-
-**Conexión KERNEL**:
-
-- Principio P4 (Flujo Continuo): Piecemeal permite evolution continua
-- Outside-In (P3): Cada iteración entrega valor a destinatarios reales
-- Probabilístico (P6): Cada iteración ajusta forecast basado en velocity real
-
----
-
-### P55: Walking Skeleton
-
-| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|
-| **P55** | **Walking Skeleton** | Uncertainty arquitectural → integration risk al final | Build versión mínima end-to-end (todas capas) con 1 feature trivial, validate arquitectura funciona, luego grow | Proyecto nuevo (greenfield), arquitectura no validada, multiple layers (UI/API/DB/Infra) | Arquitectura probada (similar a proyecto anterior), single layer (solo backend o solo UI) |
-
-**Detalles**:
-
-```yaml
-Definición:
-  Implementación mínima que atraviesa TODAS las capas tech
-  Implementa 1 feature trivial (casi sin business logic)
-  Propósito: Validar plumbing, not business value yet
-
-Ejemplo_E-commerce:
-  Week_1_Skeleton:
-    - UI: 1 página hardcoded "Product: Widget $10"
-    - API: GET /products returns fixture JSON
-    - DB: Tabla products con 1 row dummy
-    - Auth: Login fake (username "admin", no validation)
-    - Payment: Stub (always returns "success")
-    - Deploy: CI/CD pipeline to staging
-    - Tests: 1 E2E test (user sees product)
-  
-  Validación:
-    - ✓ UI → API → DB → Deploy funciona
-    - ✓ CI/CD pipeline operational
-    - ✓ All layers integrated
-    - ✗ Business value zero (hardcoded)
-  
-  Week_2_Real_Data:
-    - Replace fixtures con DB real (seed 10 products)
-    - API query DB instead of return fixture
-    - Deploy to prod (minimal but real)
-  
-  Weeks_3-10_Growth:
-    - Add search, filters, cart, checkout step-by-step
-    - Cada semana: Sistema más capaz, siempre deployable
-
-Beneficios:
-  - De-risk arquitectura temprano (week 1, not month 6)
-  - CI/CD desde día 1 (no "integrate later")
-  - Framework growth (structure probada)
-  - Momentum team (deployable week 1 vs month 3)
-```
-
-**Conexión KERNEL**:
-
-- Composición Unidad_Trabajo (CORE/01 §7): Skeleton define actores/flujos mínimos
-- Ciclo WSLC (CORE/02 §5): Skeleton es Development → Implementation rápido
-- Mitigates AP15 (Big Bang Rewrite): Skeleton valida approach antes full investment
-
----
-
-### P56: Continuous Refactoring
-
-| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
-|---|---|---|---|---|---|
-| **P56** | **Continuous Refactoring** | Design upfront especulativo → rigidez o design inadecuado descubierto tarde | Design emerge de refactoring continuo post-código funcional (make it work → make it right), Boy Scout Rule cada touch | Codebase evolutionary (learning ongoing), tech debt managed proactively | Codebase frozen (legacy untouchable), no tests (refactor sin tests = riesgo alto) |
-
-**Detalles**:
-
-```yaml
-Principio:
-  "El mejor momento para diseñar es DESPUÉS de tener código funcional"
-  
-  Razón:
-    - Pre-code: Speculation (qué pensamos que necesitamos)
-    - Post-code: Knowledge (qué sabemos que necesitamos)
-    - Refactor con knowledge >> Design con speculation
-
-TDD_Cycle:
-  Red: Write failing test (define interface deseada)
-  Green: Write simplest code passes (make it work, ignore elegance)
-  Refactor: Improve design preserving tests (make it right)
-  
-  → Design emerge de refactoring, no precede coding
-
-Boy_Scout_Rule:
-  "Leave code better than you found it"
-  
-  Cada touch: Pequeña mejora (rename variable, extract function, etc.)
-  Accumulate: 100 small improvements > 1 big refactor project
-  Continuous: Diseño mejora constantemente, no decay
-
-Límites:
-  - Refactor >2 días → Considerar si es rewrite (ROI analysis)
-  - Legacy code: A veces mejor dejar "as-is" (touch = risk)
-  - No tests: Refactor = dangerous (add tests first)
-
-20%_Rule_Integration:
-  - 20% capacity health work incluye refactoring
-  - NO: "Código malo ahora, refactor después" (tech debt intencional)
-  - SÍ: "Código simple ahora, refactor cuando aprendemos" (informed improvement)
-```
-
-**Conexión KERNEL**:
-
-- 20% Rule (D4 §5): Capacity para refactoring continuo
-- Tech Debt Score (A5): Refactoring reduce debt incrementalmente
-- P42 Quality Gates: Tests requieren para safe refactoring
-
----
-
-## §15. PATRONES DATOS/IA/PROCESOS (P57-P63)
-
-**Nota**: Patrones especializados para Data-as-Product, Intelligent Systems y Process Automation. Fundamentados en principios contract-driven, observabilidad unificada y governance embebida (ver `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` para ejemplos concretos y casos de estudio).
-
----
-
-### P57: Data Product Pattern
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Datos tratados como subproducto, no asset → Calidad baja, no reusable, undiscoverable |
-| **Contexto** | Equipos múltiples necesitan mismos datos, cada uno extrae/transforma independiente (duplicación, inconsistencia) |
-| **Solución** | Treat data as product: Contract (schema, SLO, DQ, security), Owner responsable, Lineage as-designed + as-implemented, Serving múltiples interfaces (SQL, REST, GraphQL) |
-| **Primitivos** | Dato → ProductoDeDatos (D1), Actor → Data_Product_Owner (A3), Recurso → Lakehouse (R3), Límite → SLO (L1) |
-| **Cuándo Usar** | Multi-team organization, data reuse alto, compliance strict, analytics-driven |
-| **Evitar Si** | Single-team app, data uso único, overhead governance > benefit |
-| **Ejemplo** | `billing_invoices` product (E8 §3.2, §4.4) - 3 consumers: BI team, Finance app, Auditor dashboard |
-| **Antipatrón** | AP37 Data Sin Contrato (datos compartidos sin schema, breaks consumers silent) |
-| **Conexión** | T15_Contrato_Datos.yaml (template), T20_Data_Product_Spec.yaml (product spec), E8 §4 DATA-AS-PRODUCT (detalle) |
-
----
-
-### P58: RAG Auditable Pattern
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | LLMs alucinan, no citan fuentes → Responses no confiables, compliance risk |
-| **Contexto** | Domain con high-authority requirements (legal, medical, gov) donde accuracy > fluency |
-| **Solución** | RAG pipeline con curation + hybrid index + mandatory citations: Curation (solo fuentes oficiales, vigencia validated), Indexing (BM25 + Vector + Reranking), Serving (ACL pre-filters, citations mandatory, modo extractivo), Evaluation (citation exactness ≥0.95, faithfulness ≥0.90) |
-| **Primitivos** | Dato → Chunks indexed (D1), Actor → LLM_Agent (A3), Flujo → RAG_Pipeline (F3: retrieve → rerank → assemble → generate), Límite → Citation policy (L3 regulatory) |
-| **Cuándo Usar** | Normativa, medical advice, financial regulations, legal research |
-| **Evitar Si** | Creative content, brainstorming, hallucinations acceptable (fiction, marketing drafts) |
-| **Ejemplo** | Chatbot normativa GORE Ñuble (E8 §12 Caso 2) - citas artículos Ley 21.180 |
-| **Antipatrón** | AP38 RAG Sin Curation (no authority validation, retrievals garbage) |
-| **Conexión** | T18_Contrato_Conocimiento.yaml (knowledge contract), E8 §6 KNOWLEDGE MANAGEMENT + RAG (detalle) |
-
----
-
-### P59: Saga Compensation Pattern
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Transacción distribuida (multi-services, no ACID global) → Partial failures leave inconsistent state |
-| **Contexto** | BPMN workflows, microservices, process automation (invoice approval, order fulfillment) |
-| **Solución** | Orchestrated saga con compensations: Forward steps (cada step ejecuta API calls, DB writes), Compensation steps (cada step define acción inversa determinista), Orchestrator (BPMN engine coordina: Camunda, Temporal), Idempotency (compensations idempotent, safe re-execute) |
-| **Primitivos** | Flujo → Saga_Flow (F3 complejo con branches), Señal → Eventos success/failure (S2), Actor → BPMN_Orchestrator (A3) |
-| **Cuándo Usar** | Distributed transactions, multiple systems of record, eventual consistency acceptable |
-| **Evitar Si** | Single database (use ACID local transactions), real-time consistency mandatory (use 2PC si available) |
-| **Ejemplo** | E8 §7.3 Invoice pipeline - Post_ERP → Compensation Revert_Posting |
-| **Antipatrón** | AP41 Dual Write (write two DBs simultaneously, no coordination → inconsistency) |
-| **Conexión** | T16_Contrato_Proceso.yaml (process contract), T22_Process_Model_BPMN.yaml (BPMN spec), E8 §7 PROCESS AUTOMATION (detalle) |
-
----
-
-### P60: HITL Checkpoint Pattern
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Full automation high-stakes decisions → Errors costosos, compliance risk, user trust loss |
-| **Contexto** | AI confidence <threshold, ambiguous cases, regulatory requirement human oversight |
-| **Solución** | Pause workflow + human decision + resume: Triggers (confidence <0.85, conflict detected, amount >$10K, sensitive data), Queue (HITL exception queue, SLA 24-48h), UI (form-based task completion low-code), Resume (workflow continues con human input, state preserved) |
-| **Primitivos** | Actor → Human (A1 Principal), Flujo → Pausable workflow (F3), Señal → Escalation event (S2) |
-| **Cuándo Usar** | High-stakes (financial, medical, legal), AI uncertainty high, compliance mandates |
-| **Evitar Si** | Low-risk decisions, AI confidence consistently high (>0.95), latency critical (<1s SLA) |
-| **Ejemplo** | E8 §7.3 Invoice >$10K → HITL approval queue |
-| **Antipatrón** | AP39 Observabilidad Mínima IA (no monitoring confidence → errors silent) |
-| **Conexión** | T17_Contrato_Agente.yaml (agent contract HITL section), E8 §5 AI ORCHESTRATION (detalle) |
-
----
-
-### P61: Multi-Agent Orchestration
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Single agent limitaciones (capabilities, context window, specialization) |
-| **Contexto** | Tareas complejas multi-dominio (research multi-source, customer support multi-producto) |
-| **Solución** | Router/Supervisor coordinates specialized agents: Router Agent (classifies query → routes specialized agent, M4 Control), Supervisor Agent (decomposes task → assigns workers → aggregates, M5 Co-produce), Specialized Agents (domain-experts: billing, support, product - focused capabilities) |
-| **Primitivos** | Actor → N agentes (A3 specialized), Flujo → Coordination flow (F3 con routing logic), Recurso → Shared tools, knowledge bases (R3) |
-| **Cuándo Usar** | Multi-domain queries, task decomposition beneficial, specialized knowledge deep |
-| **Evitar Si** | Simple queries, single-domain, coordination overhead > benefit |
-| **Ejemplo** | E8 §5.6 Multi-Agent Patterns (4 patterns detallados) |
-| **Conexión** | P53 Orchestration Agent (CORE/04 §8) pattern base, E8 §5 AI ORCHESTRATION (detalle) |
-
----
-
-### P62: Contract-Driven Evolution
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Schema changes break consumers silently → Production outages, data corruption |
-| **Contexto** | Data products shared multi-teams, APIs public/partner, long-lived systems |
-| **Solución** | Semantic versioning + backward compatibility + deprecation windows: Semver (Major breaking, Minor backward-compat features, Patch fixes), Backward compat (additive changes only: new fields optional, old fields preserved), Deprecation (notice 90-120 días, coexistence period v1 + v2 parallel, migration support), Adapters (shim layer v1 → v2 backward compat for legacy consumers) |
-| **Primitivos** | Dato → Contract (D2), Límite → Deprecation policy (L2 contractual), Flujo → Schema evolution process (F2 governed) |
-| **Cuándo Usar** | Shared data/APIs, multiple consumers, production stability critical |
-| **Evitar Si** | Internal single-team use, breaking changes acceptable (experimental, prototype) |
-| **Ejemplo** | E8 §3.2 billing_invoices v2.1.0 → v3.0.0 (add field `tax_id` optional, 120 días deprecation v2) |
-| **Antipatrón** | Big-Bang schema changes (no coexistence, all-or-nothing migration) |
-| **Conexión** | T15_Contrato_Datos.yaml (data contract evolution section), E8 §3 CONTRATOS UNIFICADOS (detalle) |
-
----
-
-### P63: Hybrid Search Pattern
-
-| Aspecto | Descripción |
-|---------|-------------|
-| **Problema** | Keyword search misses semantic matches, vector search misses exact keywords → Recall/precision suboptimal |
-| **Contexto** | Knowledge bases heterogeneous (normativa, FAQs, technical docs), users query both exact (codes, dates) and semantic (concepts) |
-| **Solución** | BM25 + Vector + Reranking + ACL filters: Dual index (Lexical BM25 + Vector embeddings parallel), Fusion (combine scores: weighted, RRF Reciprocal Rank Fusion), Rerank (cross-encoder top-K precision boost), Filter (ACL query-time security by design) |
-| **Primitivos** | Dato → Chunks indexed dual (D2), Flujo → Retrieval pipeline (F3: query → dual-search → fuse → rerank → filter) |
-| **Cuándo Usar** | Heterogeneous corpus, users query styles diverse, accuracy critical |
-| **Evitar Si** | Homogeneous corpus (all semantic or all keyword), simple keyword search sufficient |
-| **Ejemplo** | E8 §6.3 RAG normativa (BM25 Ley numbers + Vector concepts + Rerank autoridad) |
-| **Antipatrón** | Single-index search (pure keyword → misses semantics, pure vector → misses exact codes) |
-| **Conexión** | T18_Contrato_Conocimiento.yaml (indexing section), E8 §6 KNOWLEDGE MANAGEMENT (detalle) |
-
----
-
-## Referencias Cruzadas
-
-- **Dominios detallados:** `DOMINIOS/D1-D4_*.md`
-- **Purpose dimension:** `CORE/04_Delegacion.md` §8 (Orchestration Agent = Purpose 3)
-- **Execution levels:** `DOMINIOS/D4_Operacion.md` §12 (Level 3 Planning)
-- **Decision modes:** `DOMINIOS/D3_Decision.md` §6
-- **Crisis Management:** `CORE/08_Crisis_Management.md` (P52 consolidado)
-- **H_Score calculation:** `DOMINIOS/D2_Percepcion.md` §4
-- **Antipatrones:** `APLICACION/A2_Antipatrones.md`
-- **Ciclo SDA fundamental:** `CORE/02_Ciclo_Fundamental.md`
-- **Templates OKR/Roadmap:** `REFERENCIA/R6_Templates/`
-- **Principios Evolutivos:** `DOMINIOS/D4_Operacion.md` §11 (continuous learning context)
-- **Patterns Datos/IA/Procesos detalle:** `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` §10-12 (P57-P63 ejemplos concretos)
+**Fin del documento. Total: 72 patrones en estructura ortogonal, mínima y trazable.**

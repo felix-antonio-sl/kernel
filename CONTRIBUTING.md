@@ -12,12 +12,13 @@ Gracias por tu interés en contribuir a KERNEL. Este documento establece guideli
 
 **Tipos de Contribuciones Aceptadas**:
 1. **Bug fixes** (typos, links rotos, inconsistencias menores)
-2. **New Patterns** (P65+, sector-specific)
-3. **New Templates** (T24+)
-4. **Dominios Especializados** (E9+, nuevas industrias)
-5. **Traducciones** (español → inglés, otros idiomas)
-6. **Casos Estudio** (R1, nuevos casos organizaciones)
-7. **Mejoras Documentación** (clarificaciones, ejemplos)
+2. **New Patterns Base** (P72+, cross-domain en A1)
+3. **New Patterns Domain-Specific** (P_SECTOR# en E3-E5, E9+)
+4. **New Templates** (T24+)
+5. **Dominios Especializados** (E9+, nuevas industrias)
+6. **Traducciones** (español → inglés, otros idiomas)
+7. **Casos Estudio** (R1, nuevos casos organizaciones)
+8. **Mejoras Documentación** (clarificaciones, ejemplos)
 
 **NO Aceptamos**:
 - Cambios invariantes I1-I3 (core inmutable)
@@ -38,10 +39,10 @@ Gracias por tu interés en contribuir a KERNEL. Este documento establece guideli
 - Este documento completo
 
 **Verifica**:
-- [ ] Tu propuesta no existe ya (buscar en A1_Patrones.md, R6_Templates, etc.)
+- [ ] Tu propuesta no existe ya (buscar en A1_Patrones.md para patterns base, E3-E5 para domain-specific, R6_Templates)
 - [ ] Tu propuesta alineada con invariantes I1-I3
 - [ ] Tienes evidencia empírica (al menos 1 caso aplicación real)
-- [ ] Tu propuesta no duplica antipatrón existente (A2_Antipatrones.md)
+- [ ] Tu propuesta no duplica antipatrón existente (A2_Antipatrones.md para base, E3-E5 §10 para domain-specific)
 
 ---
 
@@ -78,16 +79,19 @@ Nota: Este issue fue corregido en v2.2.1
 
 ---
 
-#### B. New Patterns (P65+)
+#### B. New Patterns Base (P72+)
 
 **Qué califica**:
 - Pattern aplicado ≥2 organizaciones exitosamente
-- Resuelve problema recurrente no cubierto P01-P64
+- Cross-domain (aplica múltiples industrias, no sector-specific)
+- Resuelve problema recurrente no cubierto P01-P71
 - Evidencia ROI medible (ej: -30% cycle time)
+
+**Nota Domain-Specific**: Si pattern es sector-specific (manufacturing, healthcare, financial), contribuir a E3-E5 §4-§9 (no A1). Ver §B2 abajo.
 
 **Formato Template**:
 ```markdown
-## Pattern P65: [Nombre Pattern]
+## Pattern P72: [Nombre Pattern]
 
 **Categoría**: [Estructural/Procesal/Tecnológico/Decisional/IA/Security/CX/Otro]
 
@@ -122,12 +126,13 @@ Nota: Este issue fue corregido en v2.2.1
 2. Submit issue con draft
 3. Review community (feedback 14 días)
 4. Revisions (iterate based feedback)
-5. Approval: Maintainer valida invariantes I1-I3, minimalidad, evidencia
-6. Merge: Minor release (v2.3.0), agregado A1_Patrones.md §[nueva sección] o §6.X
+5. Approval: Maintainer valida invariantes I1-I3, minimalidad, evidencia, cross-domain applicability
+6. Merge: Minor release (v2.3.0), agregado A1_Patrones.md §[nueva sección] (si pattern base general)
 
 **Criterios Aprobación**:
 - ✅ Evidencia empírica ≥2 orgs
-- ✅ No duplica P01-P64 existentes
+- ✅ Cross-domain applicability (no sector-specific)
+- ✅ No duplica P01-P71 existentes ni P_SEC/P_CX
 - ✅ Respeta minimalidad I1 (irreducible)
 - ✅ Format correcto (tabla compatible A1)
 - ✅ Primitivos claramente mapeados
@@ -135,8 +140,59 @@ Nota: Este issue fue corregido en v2.2.1
 **Criterios Rechazo**:
 - ❌ Solo 1 caso aplicación (no generalizable)
 - ❌ Duplica pattern existente (usar existente)
-- ❌ Demasiado específico (ej: "P_AWS_Lambda_Deploy" → usar P27 CI/CD genérico)
+- ❌ Sector-specific (debe ir en E3-E5 o E9+, no A1)
+- ❌ Demasiado específico tech (ej: "P_AWS_Lambda_Deploy" → usar P27 CI/CD genérico)
 - ❌ Sin evidencia ROI (anecdótico)
+
+---
+
+#### B2. New Patterns Domain-Specific (P_SECTOR#)
+
+**Qué califica**:
+- Pattern específico sector (manufacturing, healthcare, financial, retail, etc.)
+- Aplicado ≥2 orgs mismo sector exitosamente
+- Evidencia ROI sector-specific
+
+**Formato Template** (similar a P72+ pero con nomenclatura sector):
+```markdown
+## Pattern P_[SECTOR]#: [Nombre Pattern]
+
+**Sector**: [Manufacturing/Healthcare/Financial/Retail/etc.]
+
+**Problema**: [Específico sector]
+
+**Solución**: [Implementación sector-specific]
+
+**Cuándo Usar**: [Contexto sector]
+
+**Evitar Si**: [Condiciones sector]
+
+**Evidencia Empírica**:
+- Org 1: [Sector-specific caso]
+- Org 2: [Sector-specific caso]
+
+**Conexión KERNEL**: [Primitivos + Observables + Patterns base relacionados]
+
+**Métricas Sector**: [KPIs específicos sector]
+```
+
+**Proceso**:
+1. Identificar sector target (E3 Manufacturing, E4 Healthcare, E5 Financial, E9+ nuevo)
+2. Draft pattern usando template arriba
+3. Submit issue/PR con evidencia ≥2 casos sector
+4. Review: Maintainer valida relevancia sector, no-duplicación
+5. Approval: Merge a documento sector (ej: E3_Manufactura.md §4-§9)
+6. Merge: Minor release (v2.3.0), agregado E# §[patterns]
+
+**Ejemplos**:
+- E3_Manufactura: P_MFG1-8 (Digital Twin, Predictive Maintenance, etc.)
+- E4_Salud: P_HEALTH1-8 (FHIR Interop, HIPAA, Telemedicine, etc.)
+- E5_Financiero: P_FIN1-8 (Fraud Detection, KYC/AML, HFT, etc.)
+
+**Nuevos Sectores** (E9+):
+- E9_Retail: P_RETAIL1-10
+- E9_Education: P_EDU1-8
+- E9_Logistics: P_LOG1-12
 
 ---
 
@@ -199,7 +255,9 @@ Nota: Este issue fue corregido en v2.2.1
 **Qué califica**:
 - Industria no cubierta E1-E8 (Digital, Gobierno, Manufactura, Salud, Financiero, E6 Template, E7 Enterprise Tech, E8 AI/Data)
 - ≥300 líneas contenido específico sector
-- Patrones específicos (ej: E9_Retail → P_RETAIL01-05)
+- Patrones específicos ≥5 (ej: E9_Retail → P_RETAIL1-10)
+- Antipatrones específicos ≥3 (ej: AP_RETAIL1-5)
+- Casos sector ≥2 documentados
 - Mapping claro a CORE/DOMINIOS/APLICACION
 
 **Formato Base** (usar E6_Template.md como starting point):
@@ -460,8 +518,9 @@ Nota: Este issue fue corregido en v2.2.1
 
 **v2.3 (Q1 2026) - Looking For**:
 - **Translations**: README + CORE/00 a inglés (highest priority)
-- **E9 Retail**: Domain especializado retail (omnichannel, inventory)
-- **Patterns CX**: P_CX04-06 (expansión customer experience, analytics)
+- **E9 Retail**: Domain especializado retail (P_RETAIL1-10: omnichannel, inventory, personalization, etc.)
+- **Patterns Base**: P72+ cross-domain (si aplicables múltiples sectores)
+- **Patterns Manufacturing**: P_MFG9+ expansion (E3)
 - **Templates Financial**: T24 Budget Template, T25 ROI Calculator (Excel/Google Sheets)
 
 **v3.0 (Q3 2026) - Research Phase**:

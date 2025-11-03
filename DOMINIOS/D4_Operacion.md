@@ -4,6 +4,60 @@
 
 ---
 
+## REFERENCIAS RÁPIDAS
+
+```yaml
+Métricas_Flow_Core:
+  Cycle_Time: §2 - Días start→done (target <5d excelente, <10d MVO)
+  WIP: §2 - Items In Progress (target <1.5× team size)
+  Throughput: §2 - Items/semana completados (track trend)
+  Flow_Efficiency: §2 - % tiempo value-add vs wait (target >25%, >40% world-class)
+
+Métricas_DORA:
+  Deploy_Frequency: §4 - Elite multiple/día, High daily, Medium weekly
+  Lead_Time_for_Changes: §4 - Commit→prod (Elite <1hr, High <1d)
+  Change_Failure_Rate: §4 - % deploys con incident (Elite <5%)
+  Time_to_Restore: §4 - Incident→resolved (Elite <1hr)
+
+Conceptos_Core:
+  Two-Pizza_Teams: §1 - 5-9 personas (communication overhead O(n²))
+  Teams_as_Assets: §1 - Permanentes, no proyectos temporales
+  20%_Rule: §5 - Mínimo 20% capacity a health (tech debt, automation)
+  70/20/10_Mix: §7 - 70% planificado, 20% reactivo, 10% exploración
+  Carry-Over_Work: §7.1 - Permitir flow entre sprints (no commitment culture)
+
+Prácticas_Esenciales:
+  CI/CD_Pipeline: §4 - Lint→test(≥60% MVO, ≥80% post-MVO)→build→deploy
+  Blue-Green_Deployment: §4 - Instant rollback via switch
+  Canary_Deployment: §4 - Gradual rollout 5%→25%→50%→100%
+  Feature_Flags: P23 - Deploy código desacoplado de release
+  On-Call_Rotation: §9 - 1 semana shifts, runbooks, 4+ personas mínimo
+
+Antipatrones:
+  Deseconomías_Escala: §1.1 - Más personas ≠ más rápido (communication O(n²))
+  Project_Thinking: §1 - Teams temporales → conocimiento perdido
+  Tech_Debt_Acumulación: §5 - Score >50 requiere 50% capacity remediation
+
+Métricas:
+  O_Score: §8 - Excelencia operacional (Cycle 30% + WIP 20% + Deploy 30% + Complete 20%)
+  Tech_Debt_Score: §5 - 0-100 lower better (<15 excelente, >50 crítico)
+  Typical_MVO: 60-70
+  Excellence: 80-90
+
+Patrones:
+  P52_Crisis_Management: CORE/08 - Estabilización emergencia (H<45)
+  P55_Walking_Skeleton: §12.1 - Sistema E2E mínimo funcional
+  P23_Feature_Flags: APLICACION/A1 - Deployment sin release
+
+Cross-References:
+  D2_Percepcion.md §3.3: IN3 Eficiencia Flujo (observable vinculado)
+  D3_Decision.md §3.1: Schedules as forecasts (no commitment)
+  CORE/02_Ciclo_Fundamental.md §4: Fase Act (A1 Plan, A2 Specify, A3 Execute)
+  APLICACION/A1_Patrones.md §4: Patrones DevOps detallados
+```
+
+---
+
 ## Responsabilidad
 
 **OPERACIÓN ejecuta FLUJOS DE VALOR:** Delivery continuo, teams estables, excelencia técnica, activos que evolucionan.
@@ -63,7 +117,7 @@ Next_Steps_Post_MVO:
 ```yaml
 Cycle_Time:
   - CRÍTICO: Avg días start → done
-  - Target MVD: <10 días (good), <5 días (excellent post-MVD)
+  - Target MVO: <10 días (good), <5 días (excellent post-MVO)
   - Tool: Jira, Linear analytics
   
 Throughput:
@@ -77,10 +131,10 @@ WIP:
   
 Deploy_Frequency:
   - IMPORTANTE: Deploys to staging (prod manual OK initially)
-  - Target MVD: Daily staging, Weekly prod minimum
-  - Target post-MVD: Daily prod (DORA high performer)
+  - Target MVO: Daily staging, Weekly prod minimum
+  - Target post-MVO: Daily prod (DORA high performer)
 
-Defer_Post-MVD:
+Defer_Post-MVO:
   - Flow efficiency (calculate después que tienes data 3+ meses)
   - DORA full (lead time, change failure rate, MTTR)
   - Advanced: Auto-scaling, auto-rollback
@@ -101,9 +155,9 @@ Weekly_Planning (1-2 hrs):
   
 Bi-Weekly_Retrospectiva (1 hr):
   - CRÍTICO: What worked, what didn't, max 3 action items
-  - Skip initially: Deep-dive analysis (save para post-MVD)
+  - Skip initially: Deep-dive analysis (save para post-MVO)
 
-Defer_Post-MVD:
+Defer_Post-MVO:
   - Backlog refinement (si backlog crece >50 items, agregar)
   - Sprint review (si stakeholders demandan demos)
   - Quarterly planning (si roadmap estable)
@@ -865,7 +919,57 @@ Dashboard_Example:
 
 ---
 
-## §8. ON-CALL & INCIDENT MANAGEMENT
+## §8. O_SCORE (0-100)
+
+### Fórmula Operación
+
+```yaml
+O_Score: Métrica agregada excelencia operacional
+
+Fórmula:
+  O_Score = (
+    0.30 * Cycle_Time_Score +
+    0.20 * WIP_Compliance_Score +
+    0.30 * Deploy_Frequency_Score +
+    0.20 * Completion_Rate_Score
+  )
+
+Componentes:
+
+  Cycle_Time_Score (0-100):
+    <3 días: 95-100
+    3-7 días: 75-90
+    7-14 días: 50-70
+    >14 días: 0-45
+  
+  WIP_Compliance_Score (0-100):
+    WIP <1.5× team size: 90-100
+    WIP 1.5-2.0×: 70-85
+    WIP >2.0×: 0-65
+  
+  Deploy_Frequency_Score (0-100):
+    DORA Elite (multiple/día): 95-100
+    DORA High (weekly-daily): 75-90
+    DORA Medium (monthly-weekly): 50-70
+    DORA Low (<monthly): 0-45
+  
+  Completion_Rate_Score (0-100):
+    >80% stories started completadas: 90-100
+    70-80%: 75-85
+    <70%: 0-70
+
+Interpretación:
+  >75: Operación excelente (flow rápido, predecible)
+  60-75: Operación funcional (gaps menores)
+  <60: Operación débil (blockers sistémicos)
+
+Típico post-MVO: 60-70
+Típico excelencia: 80-90
+```
+
+---
+
+## §9. ON-CALL & INCIDENT MANAGEMENT
 
 ### On-Call Rotation
 
@@ -921,7 +1025,7 @@ SEV4 (Low):
 
 ---
 
-## §9. AGENTES EJECUCIÓN IA
+## §10. AGENTES EJECUCIÓN IA
 
 ### Modos Delegación Operación
 
@@ -982,7 +1086,7 @@ M6_Auto_Rollback:
 
 ---
 
-## §10. CEREMONIES
+## §11. CEREMONIES
 
 ### Weekly Cadence (Scrum)
 
@@ -1018,7 +1122,7 @@ Viernes_16:00_Retrospectiva (1 hr):
 
 ---
 
-## §11. CONTINUOUS LEARNING
+## §12. CONTINUOUS LEARNING
 
 ### 10% Time Innovation
 
@@ -1049,7 +1153,7 @@ Ejemplo_Team_Weekly:
 
 ---
 
-### §11.1. DESARROLLO EVOLUTIVO (Piecemeal Growth)
+### §12.1. DESARROLLO EVOLUTIVO (Piecemeal Growth)
 
 **Contexto operacional**: Esta sección mantiene perspectiva **operación continua** de cómo teams aplican desarrollo evolutivo day-to-day.
 
@@ -1098,7 +1202,7 @@ Refactoring_Daily:
 
 ---
 
-## §12. NIVELES EXECUTION COGNITIVA
+## §13. NIVELES EXECUTION COGNITIVA
 
 ### Estratificación Ejecución
 

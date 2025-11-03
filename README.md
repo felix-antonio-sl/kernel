@@ -51,7 +51,7 @@ Su diferenciador clave es la **integración nativa de la IA**, tratando a los ag
 
 ### ⚡ Opción B: Quick Start 30 Minutos (Overview)
 
-**Alternativa rápida**: Lee `QUICK_REFERENCE.md` (cheat sheet 1 página imprimible)
+**Alternativa rápida**: Lee `CORE/00_Manifiesto.md` §0 (Positioning Statement + principios)
 
 1. **Entender el Núcleo (10 min):**
     - Lee el `CORE/00_Manifiesto.md` §0 (Positioning Statement) para elevator pitch + diferenciadores.

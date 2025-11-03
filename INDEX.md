@@ -7,17 +7,23 @@
 ## 🚀 Resumen Global
 
 - **Versión Actual:** 2.2.0 (Production Ready)
-- **Documentos Totales:** 55 archivos
+- **Documentos Totales:** 54 archivos
   - CORE: 9 docs
   - DOMINIOS: 4 docs
   - APLICACION: 5 docs
   - DOMINIOS_ESPECIALIZADOS: 8 docs (E1-E8, donde E2 = 4 archivos)
   - REFERENCIA: 14 docs (R1-R7, R6 contiene 15 templates)
-  - META: 5 docs (README, INDEX, LEARNING_PATH, VERSIONING, CONTRIBUTING, QUICK_REFERENCE)
-- **Patterns:** 64 (50 base + 3 emergentes + 3 evolutivos + 5 security + 3 CX)
-- **Observables:** 16 (O1-O8, I1-I3, SO1-SO5)
+  - META: 4 docs (README, INDEX, LEARNING_PATH, VERSIONING, CONTRIBUTING)
+- **Patterns:** 72 base (A1) + 27 domain-specific (E2-E5) = 99 total
+  - A1: 72 patterns (50 base + 3 emergentes + 3 evolutivos + 5 security + 3 CX + 7 data/AI + 1 multi-tenant)
+  - E2 Gov: 3 patterns (P_GOV01-03)
+  - E3 Manufacturing: 8 patterns (P_MFG1-8), 7 antipatterns (AP_MFG1-7)
+  - E4 Healthcare: 8 patterns (P_HEALTH1-8), 5 antipatterns (AP_HEALTH1-5)
+  - E5 Financial: 8 patterns (P_FIN1-8), 5 antipatterns (AP_FIN1-5)
+- **Antipatrones:** 52 base (A2: 50 general + 2 multi-tenant) + 17 domain-specific (E3-E5) = 69 total
+- **Observables:** 16 (O1-O8, IN1-IN3, SO1-SO5)
 - **Templates:** 15 (T01-T14, T23)
-- **Líneas Código:** ~17,000 líneas markdown total
+- **Líneas Código:** ~18,500 líneas markdown total
 - **Idiomas:** Español (completo), Inglés (roadmap v2.3)
 
 **Versión v2.2.0 (2025-11-03)**: Ver `VERSIONING.md` para changelog completo y roadmap.
@@ -34,7 +40,7 @@
 ## 🗺️ Navegación por Sección
 
 
-### 📚 META-DOCUMENTOS (Nuevos v2.2)
+### 📚 META-DOCUMENTOS
 
 **[VERSIONING.md](./VERSIONING.md)** - Estrategia versionado KERNEL:
 - Semantic versioning 2.0.0 (MAJOR.MINOR.PATCH)
@@ -54,26 +60,21 @@
 - Review criteria: Invariantes I1-I3, principios, quality, evidence ≥2 casos
 - Recognition policy, Code of Conduct, FAQ
 
-**[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** - Cheat sheet 1 página (imprimible):
-- 7 Primitivos, 4 Dominios, H_Score fórmula, 6 Modos Delegación, 6 Smartness
-- Top 10 Patterns quick wins, 3 Invariantes, Decision/Awareness Modes
-- ROI example ($8.3M value, 1,561% ROI), Learning Paths tabla, Links rápidos
-
 ---
 
 ### 核心 CORE (9 Documentos)
 
 *La fundación teórica e inmutable del framework.*
 
-- **[00_Manifiesto.md](./CORE/00_Manifiesto.md):** §0 Positioning Statement (elevator pitch, diferenciadores) + 3 invariantes + 10 principios.
-- **[01_Primitivos.md](./CORE/01_Primitivos.md):** Los 7 primitivos fundamentales (Actor, Flujo, Dato, Señal, Límite, Estado, Recurso) con clarificación trade-offs.
-- **[02_Ciclo_Fundamental.md](./CORE/02_Ciclo_Fundamental.md):** El ciclo Sense-Decide-Act y WSLC.
-- **[03_Arquitectura.md](./CORE/03_Arquitectura.md):** Los 4 dominios ortogonales.
-- **[04_Delegacion.md](./CORE/04_Delegacion.md):** Los 6 modos de delegación Humano-IA + 4 propósitos.
-- **[05_Smartness.md](./CORE/05_Smartness.md):** La matriz de madurez de inteligencia 4x6 (C1-C6).
-- **[06_Trazabilidad.md](./CORE/06_Trazabilidad.md):** El grafo causal de 10 capas.
-- **[07_Validacion.md](./CORE/07_Validacion.md):** Pruebas formales de los 3 invariantes (Completitud, Minimalidad, Consistencia).
-- **[08_Crisis_Management.md](./CORE/08_Crisis_Management.md):** P52 Crisis Governance + AP31-33 consolidados.
+- **[00_Manifiesto.md](DEV/legacy/00_Manifiesto.md):** §0 Positioning Statement (elevator pitch, diferenciadores) + 3 invariantes + 10 principios.
+- **[01_Primitivos.md](DEV/legacy/01_Primitivos.md):** Los 7 primitivos fundamentales (Actor, Flujo, Dato, Señal, Límite, Estado, Recurso) con clarificación trade-offs.
+- **[02_Ciclo_Fundamental.md](DEV/legacy/02_Ciclo_Fundamental.md):** El ciclo Sense-Decide-Act y WSLC.
+- **[03_Arquitectura.md](DEV/legacy/03_Arquitectura.md):** Los 4 dominios ortogonales.
+- **[04_Delegacion.md](DEV/legacy/04_Delegacion.md):** Los 6 modos de delegación Humano-IA + 4 propósitos.
+- **[05_Smartness.md](DEV/legacy/05_Smartness.md):** La matriz de madurez de inteligencia 4x6 (C1-C6).
+- **[06_Trazabilidad.md](DEV/legacy/06_Trazabilidad.md):** El grafo causal de 10 capas.
+- **[07_Validacion.md](DEV/legacy/07_Validacion.md):** Pruebas formales de los 3 invariantes (Completitud, Minimalidad, Consistencia).
+- **[08_Crisis_Management.md](DEV/legacy/08_Crisis_Management.md):** P52 Crisis Governance + AP31-33 consolidados.
 
 ### 域 DOMINIOS (4 Documentos)
 
@@ -104,9 +105,9 @@
   - **[E2_Chile_TDE.md](./DOMINIOS_ESPECIALIZADOS/E2_Chile_TDE.md):** Implementación específica Chile (Ley 21.180 TDE)
   - **[E2_Template_Gov.md](./DOMINIOS_ESPECIALIZADOS/E2_Template_Gov.md):** Guía adaptación otros países
   - **[E2_Publico.md](./DOMINIOS_ESPECIALIZADOS/E2_Publico.md):** ⚠️ Redirect (ver documentos arriba)
-- **[E3_Manufactura.md](./DOMINIOS_ESPECIALIZADOS/E3_Manufactura.md):** Para producción, SCM e IoT.
-- **[E4_Salud.md](./DOMINIOS_ESPECIALIZADOS/E4_Salud.md):** Para sistemas clínicos y regulación.
-- **[E5_Financiero.md](./DOMINIOS_ESPECIALIZADOS/E5_Financiero.md):** Para gestión de riesgo y compliance.
+- **[E3_Manufactura.md](./DOMINIOS_ESPECIALIZADOS/E3_Manufactura.md):** 8 patterns (P_MFG1-8: Digital Twin, Predictive Maintenance, Supply Chain, Computer Vision, OEE, AGV, Energy, Blockchain) + 7 antipatterns (AP_MFG1-7).
+- **[E4_Salud.md](./DOMINIOS_ESPECIALIZADOS/E4_Salud.md):** 8 patterns (P_HEALTH1-8: Patient Journey, AI Diagnosis, FHIR Interop, HIPAA, Telemedicine, CDS, Drug Interaction, Readmission Prevention) + 5 antipatterns (AP_HEALTH1-5).
+- **[E5_Financiero.md](./DOMINIOS_ESPECIALIZADOS/E5_Financiero.md):** 8 patterns (P_FIN1-8: Fraud Detection, Backtesting, Algo Trading, Compliance, KYC/AML, Portfolio Optimization, Market Making, HFT) + 5 antipatterns (AP_FIN1-5).
 - **[E6_Template.md](./DOMINIOS_ESPECIALIZADOS/E6_Template.md):** Plantilla para crear nuevos dominios.
 
 ### 参考 REFERENCIA (14 Documentos)
@@ -143,7 +144,7 @@
 ### Primeros Pasos (New to KERNEL)
 
 - **"Entender KERNEL en 30 minutos"**
-  - `README.md` → `CORE/00_Manifiesto.md` §0 (Positioning) → `QUICK_REFERENCE.md` (cheat sheet)
+  - `README.md` → `CORE/00_Manifiesto.md` §0 (Positioning) → `LEARNING_PATH.md` (elige tu track)
 
 - **"Elevator pitch C-suite (5 min)"**
   - `CORE/00_Manifiesto.md` §0 → Tabla comparativa KERNEL vs TOGAF/SAFe/McKinsey

@@ -4,6 +4,42 @@
 
 ---
 
+## REFERENCIAS RÁPIDAS
+```yaml
+Frameworks_Principales:
+ OKRs: §1 - Objectives & Key Results (bottom-up, outcome-focused, 70% target)
+ Time-Value_Profiles: §2 - SPIKE/STEP/GROWTH/DELAYED (cuándo se captura valor)
+ R1-R5_Readiness: §3 - Momentum/Capabilities/Forces/Drivers/Catalysts (>60% go)
+ Cost_of_Delay: §2.1 - Priorizar sin estimar effort (valor/tiempo)
+ Probabilistic_Forecasts: §3.1 - Ranges not points (50%/80%/95% confidence)
+Conceptos_Core:
+ Type_1_Decisions: Irreversibles (M&A, reorg), requieren C-level, slow OK
+ Type_2_Decisions: Reversibles (features, tech), delegar, fast
+ Elastic_Deadlines: Deadline = ventana captura valor, no fecha fija
+ Portfolio_Mix: 50% STEP, 20% SPIKE, 20% GROWTH, 10% DELAYED (balance)
+ Schedules_as_Forecasts: Estimación ≠ compromiso (no commitment culture)
+Antipatrones_OKRs:
+ AP1_Output_Disguised: "Lanzar 10 features" (malo) vs "Aumentar retention 12%" (bueno)
+ AP6_Top_Down_Imposition: Manager dicta OKRs → destruye ownership
+ AP7_Linked_to_Compensation: OKRs vinculados a bonus → sandbagging, gaming
+ AP8_Estimating_OKRs: Tratar OKRs como backlog estimable → conservadurismo
+Métricas:
+ D_Score: §6 - Calidad decisional (OKRs 40% + Forecasts 30% + Roadmap 20% + R1-R5 10%)
+ Typical_MVD: 65-75 (post implementación mínima viable)
+ Excellence: >75 (predictable, aligned, data-driven)
+Ejemplos_Clásicos:
+ Halloween_vs_Santa: §2.1 - Secuencia contraintuitiva maximiza valor capturado
+ I_Need_It_Yesterday: §2.1 - Investigar ventana real vs urgencia emocional
+ Planning_Fallacy: §3.1 - Humanos subestiman 2-3x tiempo real
+Cross-References:
+ D2_Percepcion.md §3.1: IN1 Velocidad Decisional (observable vinculado)
+ D4_Operacion.md §7.1: Carry-over work (flow entre iteraciones)
+ APLICACION/A1_Patrones.md: P31 RICE, P33 WSJF (priorización frameworks)
+ APLICACION/A2_Antipatrones.md §10: Cost of Delay antipatrones organizacionales
+ CORE/00_Manifiesto.md: Outside-In (P3), Customer-Facing Tests (P5)
+```
+---
+
 ## Responsabilidad
 
 **DECISIÓN planifica EVOLUCIÓN organizacional:** Estrategia, priorización, roadmaps, portfolio management.
@@ -986,7 +1022,57 @@ Portfolio_Óptimo (respetando constraints):
 
 ---
 
-## §6. COALICIONES
+## §6. D_SCORE (0-100)
+
+### Fórmula Decisión
+
+```yaml
+D_Score: Métrica agregada calidad decisional organizacional
+
+Fórmula:
+  D_Score = (
+    0.40 * OKRs_Quality +
+    0.30 * Forecasting_Hygiene +
+    0.20 * Roadmap_Clarity +
+    0.10 * Readiness_Assessment
+  )
+
+Componentes:
+
+  OKRs_Quality (0-100):
+    - Outcome-focused (not output disguised): 25%
+    - Transparent (todos ven OKRs): 25%
+    - Aligned (team → company): 25%
+    - Time-boxed claro: 15%
+    - Actualizado trimestral: 10%
+    Cálculo: avg(completion rate 60-80% sweet spot, anti-patrones avoided)
+  
+  Forecasting_Hygiene (0-100):
+    - Probabilístico (ranges not points): 30%
+    - Actualizado semanalmente: 25%
+    - Accuracy histórica >70%: 25%
+    - No penalización forecasts incorrectos: 20%
+  
+  Roadmap_Clarity (0-100):
+    - Horizonte 1 (0-3m) detallado: 40%
+    - Horizonte 2 (3-12m) visible: 35%
+    - Linked OKRs → Features: 25%
+  
+  Readiness_Assessment (0-100):
+    - R1-R5 evaluado pre-transformación: 50%
+    - Go/No-Go decisions data-driven: 50%
+
+Interpretación:
+  >75: Decisión excelente (predictable, aligned, data-driven)
+  60-75: Decisión funcional (gaps menores)
+  <60: Decisión débil (ad-hoc, reactive)
+
+Típico post-MVD: 65-75
+```
+
+---
+
+## §7. COALICIONES
 
 ### Building Coalitions (Kotter)
 
@@ -1014,7 +1100,7 @@ Actividades_Coalición:
 
 ---
 
-## §7. RESISTENCIA COMO SEÑAL
+## §8. RESISTENCIA COMO SEÑAL
 
 ### Interpretar Resistance
 
@@ -1046,7 +1132,7 @@ Tipos_Resistencia:
 
 ---
 
-## §8. AGENTES DECISIONALES IA
+## §9. AGENTES DECISIONALES IA
 
 ### Modos Delegación
 
@@ -1084,7 +1170,7 @@ M5_Collaborative_Planning:
 
 ---
 
-## §6. MODOS DECISIONALES POR COMPLEJIDAD COGNITIVA
+## §10. MODOS DECISIONALES POR COMPLEJIDAD COGNITIVA
 
 ### Espectro Complejidad
 

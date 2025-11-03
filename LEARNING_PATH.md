@@ -235,12 +235,13 @@ KERNEL es framework denso (~15,000 líneas, 30+ documentos). Este documento guí
 **Lectura obligatoria**:
 
 8. `APLICACION/A1_Patrones.md` (2 horas)
-   - §1 Taxonomía: 64 patterns overview
+   - §1 Taxonomía: 71 patterns overview (base + emergentes + security + CX + data/AI)
    - §2-§6: Leer TODOS patterns tabla (problema, solución, cuándo usar)
    - §7 Matriz dominios: Qué patterns aplican D1-D4
    - §6.5 Security P_SEC01-05 (si security-critical org)
    - §6.6 CX P_CX01-03 (si product-led growth)
-   - **Ejercicio**: Seleccionar top 10 patterns para tu org
+   - **Ejercicio**: Seleccionar top 10 patterns base para tu org
+   - **Nota**: Patterns domain-specific (manufacturing, healthcare, financial) están en E3-E5
 
 9. `APLICACION/A2_Antipatrones.md` §1-§3 (30 min)
    - Identificar antipatrones presentes tu org
@@ -475,18 +476,18 @@ KERNEL es framework denso (~15,000 líneas, 30+ documentos). Este documento guí
 - `DOMINIOS/D4_Operacion.md` (2 horas)
 
 **Week 4: Aplicacion (10 horas)**
-- `APLICACION/A1_Patrones.md` (4 horas - leer todos 64 patterns)
-- `APLICACION/A2_Antipatrones.md` (2 horas)
+- `APLICACION/A1_Patrones.md` (4 horas - leer todos 71 patterns base)
+- `APLICACION/A2_Antipatrones.md` (2 horas - 35 antipatterns base)
 - `APLICACION/A3_Diagnostico.md` (1 hora)
 - `APLICACION/A4_Implementacion.md` (2 horas)
 - `APLICACION/A5_Medicion.md` (1 hora)
 
 **Week 5-6: Dominios Especializados (12 horas)**
 - `E1_Digital.md` (2 horas)
-- `E2_Gov_Digital_Base.md` + `E2_Chile_TDE.md` (4 horas)
-- `E3_Manufactura.md` (2 horas)
-- `E4_Salud.md` (2 horas)
-- `E5_Financiero.md` (2 horas)
+- `E2_Gov_Digital_Base.md` + `E2_Chile_TDE.md` (4 horas) - 3 patterns P_GOV
+- `E3_Manufactura.md` (2 horas) - 8 patterns P_MFG + 7 antipatterns AP_MFG
+- `E4_Salud.md` (2 horas) - 8 patterns P_HEALTH + 5 antipatterns AP_HEALTH
+- `E5_Financiero.md` (2 horas) - 8 patterns P_FIN + 5 antipatterns AP_FIN
 
 **Week 7: Referencia (8 horas)**
 - `R1_Casos.md` - Leer todos 10 casos (4 horas)

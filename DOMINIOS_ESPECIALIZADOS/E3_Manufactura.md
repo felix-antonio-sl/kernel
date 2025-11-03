@@ -441,9 +441,156 @@ Quality = (Good_Count / Total_Count)
 
 **Conexión**: AP_TECH1 Premature Microservices (analogía)
 
-### AP_MFG3-MFG7
+### AP_MFG3: Ignoring Plant Floor Knowledge
 
-*[Esta sección se encuentra en desarrollo. Se detallarán antipatrones adicionales como: ignorar el conocimiento del personal de planta, dependencia de proveedores (vendor lock-in), control de calidad reactivo, mantenimiento basado solo en calendario y no usar gemelos digitales para optimización.]*
+**Síntoma**: Decisiones tech/process sin input operadores, tech stack desconectado realidad planta.
+
+**Causa Raíz**: Engineers/management no escuchar front-line workers, "ivory tower" decision-making.
+
+**Consecuencia**: 
+- Resistance adoption nuevos sistemas ("no funciona en realidad")
+- Workarounds manuales proliferan (sistema bypassed)
+- Deployment failures (10-20% rollouts fail por usability)
+- Knowledge operadores no capturado (bus factor alto)
+
+**Fix**:
+1. **Involve operators design**: Workshops co-design UX sistemas
+2. **Usability testing planta**: Pilots con operadores reales antes full rollout
+3. **Continuous feedback**: Canales feedback operadores → Tech team (mensual)
+4. **Operator training**: Capacitación hands-on, no solo slides
+5. **Incentivos adoption**: Bonos linked successful deployment
+
+**Severidad**: 🟢 Moderado
+
+**Conexión**: AP05 Conway Inverse Fallacy (cambiar sin entender ground truth)
+
+---
+
+### AP_MFG4: Vendor Lock-In OT
+
+**Síntoma**: Single vendor ecosistema completo (PLC + SCADA + MES propietario), no interoperabilidad.
+
+**Causa Raíz**: 
+- Convenience short-term ("todo funciona junto out-of-box")
+- Evitar integración complexity upfront
+- Salesperson convincente (bundle deals, descuentos)
+
+**Consecuencia**:
+- **Cost switching prohibitivo**: $500K-$5M migration cost (reemplazar todo)
+- **Innovation slow**: Vendor roadmap dicta innovación (no tu roadmap)
+- **Pricing power vendor**: Annual maintenance +10-15% (captive customer)
+- **Best-of-breed impossible**: Stuck suboptimal tools (no puedes cambiar piece)
+
+**Fix**:
+1. **Open standards adoption**: OPC UA (interoperability PLCs), MQTT (IoT)
+2. **Multi-vendor strategy**: Mix vendors por capability (PLC Siemens, SCADA Ignition, MES custom)
+3. **API-first architecture**: Integration layer abstract vendors
+4. **Exit clauses contracts**: Data portability guarantees, no lock-in clauses
+5. **Vendor evaluation**: Score vendor lock-in risk (criteria: standards support, APIs, data export)
+
+**Severidad**: 🟡 Alto
+
+**Conexión**: P74 Supply Chain Visibility (open standards blockchain interop)
+
+---
+
+### AP_MFG5: Reactive Quality Control
+
+**Síntoma**: Inspect product final stage, scrap/rework post-facto ($10K-$100K/día waste).
+
+**Causa Raíz**: 
+- Quality as afterthought ("we’ll inspect at end")
+- No process control (parameters drift unnoticed)
+- Cost-cutting inspection inline (false economy)
+
+**Consecuencia**:
+- **Scrap rate 3-5%**: Producto ya fabricado, costo hundido
+- **Rework cost +20% COGS**: Labor rework expensive
+- **Customer complaints**: Defects escapan inspección final (1-2% slip through)
+- **Root cause unknown**: No data qué step introdujo defect
+
+**Fix**:
+1. **SPC (Statistical Process Control)**: Monitor parameters real-time (control charts)
+2. **In-line inspection**: Inspect cada etapa crítica (no solo final)
+3. **P_MFG4 Computer Vision**: Automated inspection 100% unidades
+4. **Root cause prevention**: Pareto analysis defects → Fix upstream causes
+5. **Poka-yoke**: Error-proofing design (impossible fabricar incorrecto)
+
+**Métricas Fix**:
+- Scrap rate: 3-5% → <1%
+- Rework cost: 20% COGS → 5% COGS
+- Customer complaints: -70%
+
+**Severidad**: 🟡 Alto
+
+**Conexión**: P_MFG4 Computer Vision QC (mitigation pattern)
+
+---
+
+### AP_MFG6: Calendar-Based Maintenance Only
+
+**Síntoma**: Cambiar partes fixed schedule (cada 6 meses), ignore condición actual asset.
+
+**Causa Raíz**: 
+- Legacy practice ("siempre lo hemos hecho así")
+- No telemetry instrumentation (no visibility condition)
+- Risk-averse culture ("mejor safe than sorry")
+
+**Consecuencia**:
+- **Over-maintenance +30% cost**: Cambiar bearings 60% vida útil restante
+- **Under-maintenance failures**: Assets fallan antes schedule (unplanned downtime)
+- **Waste partes**: Partes descartadas vida útil ($50K-$200K/yr)
+- **Opportunity cost**: Maintenance windows unnecessary (producción stopped)
+
+**Fix**:
+1. **P_MFG2 Predictive Maintenance**: ML models predict RUL (Remaining Useful Life)
+2. **Condition-based triggers**: Maintain when condition threshold (vibration >X, temp >Y)
+3. **Telemetry sensors**: Instrumentar assets críticos (vibration, temp, oil analysis)
+4. **Hybrid approach**: Calendar as backup (si telemetry fails), condition-based primary
+5. **CMMS integration**: Work orders triggered condition alerts auto
+
+**Métricas Fix**:
+- Maintenance cost: -20-30%
+- Unplanned downtime: -40%
+- Parts waste: -60%
+
+**Severidad**: 🟢 Moderado
+
+**Conexión**: P_MFG2 Predictive Maintenance (direct mitigation)
+
+---
+
+### AP_MFG7: No Digital Twin Optimization
+
+**Síntoma**: Trial-and-error optimization planta real → Costly ($10K-$100K/experiment), slow (semanas), riesgoso (fallas equipo).
+
+**Causa Raíz**:
+- No leverage simulation tech ("too expensive", "too complex")
+- Risk-averse culture ("no tocar lo que funciona")
+- Lack expertise digital twin (skill gap)
+
+**Consecuencia**:
+- **Optimization experiments limited**: Solo 2-3 tests/yr (fear disruption)
+- **Yield sub-óptimo -5-10%**: Never find óptimo (parameter space unexplored)
+- **Innovation slow**: Competitors digital twin optimize faster
+- **Safety risk**: Experiments planta real risk equipment damage
+
+**Fix**:
+1. **P_MFG1 Digital Twin**: Build twin assets críticos (high-value, complex)
+2. **Start simple**: 1 línea pilot (not entire plant), prove ROI
+3. **Vendor partnerships**: Siemens Plant Simulation, ANSYS Twin Builder (managed service)
+4. **Training team**: Upskill engineers simulation tools (certification programs)
+5. **Simulation-driven optimization**: Test 100s scenarios virtual, apply best 3-5 real
+
+**Métricas Fix**:
+- Optimization experiments: 3/yr → 50+/yr (virtual)
+- Yield improvement: +5-15% (find true optimum)
+- Experiment cost: $50K/test → $500/simulation
+- Time-to-optimize: 6 meses → 2 semanas
+
+**Severidad**: 🟢 Moderado
+
+**Conexión**: P_MFG1 Digital Twin (direct mitigation), P_MFG7 Energy Optimization (twin simulates energy)
 
 ---
 
