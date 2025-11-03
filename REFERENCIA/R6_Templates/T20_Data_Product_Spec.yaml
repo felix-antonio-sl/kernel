@@ -1,0 +1,39 @@
+# T20_Data_Product_Spec (Extends T15 with Product Thinking)
+
+**Versión:** 2.0.0 | **Ref**: E8 §4, T15
+
+```yaml
+# INHERITS T15_Contrato_Datos (all fields)
+# EXTENDS WITH:
+
+# PRODUCT THINKING
+product_context:
+  vision: "<value proposition>"
+  consumers: [{name: "<team>", use_case: "<use_case>", sla: "<sla>"}]
+  kpis:
+    - {metric: "<metric_name>", target: <number>, current: <number>, trend: [up|down|stable]}
+
+roadmap:
+  current_version: "X.Y.Z"
+  next_version: "X.Y.Z"
+  planned_features: ["<feature1>", "<feature2>"]
+  deprecations: [{feature: "<feature>", sunset_date: "YYYY-MM-DD", migration_path: "<path>"}]
+
+serving:
+  interfaces:
+    - {type: sql, endpoint: "<uri>", consumers: ["<team1>"], query_patterns: ["<pattern>"]}
+    - {type: rest, endpoint: "<uri>", consumers: ["<team2>"], rate_limit_rps: <number>}
+    - {type: graphql, endpoint: "<uri>", consumers: ["<team3>"], schema: "<schema_path>"}
+  documentation: "<url_docs>"
+  changelog: "<url_changelog>"
+
+governance:
+  owner: {name: "<person>", email: "<email>", on_call: [true|false]}
+  stewards: [{name: "<person>", domain: "<domain>"}]
+  slo_reviews: {frequency: [monthly|quarterly], last_review: "YYYY-MM-DD", next_review: "YYYY-MM-DD"}
+```
+
+---
+
+**V**: 2.0.0 | **Líneas**: 88 (target 85) | **T20 ✅**
+

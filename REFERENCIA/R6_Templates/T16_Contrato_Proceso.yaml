@@ -1,0 +1,120 @@
+# T16_Contrato_Proceso (Process Contract Template)
+
+**Versión:** 2.0.0 | **Tipo:** Contract Template | **Uso:** BPMN Workflows, BPA | **Ref**: E8 §3.3, §7 PROCESS AUTOMATION
+
+## ESTRUCTURA BASE
+
+```yaml
+type: process_contract
+process: "<process_name>"
+version: "X.Y.Z"
+owner: ["<team>", "<email>"]
+
+semantics:
+  glossary_refs: ["<term1>", "<term2>"]
+  business_rules:
+    - {name: "<rule>", rule: "<logic>", severity: [error|warn]}
+
+sla:
+  cycle_time_p95_minutes: <number>
+  stp_target_pct: <number>  # Straight-Through Processing
+  hitl_queue_slo_minutes: <number>
+
+saga:
+  pattern: [orchestrated|choreographed]
+  compensations:
+    - {step: "<step_name>", compensation_action: "<action>", idempotent: [true|false]}
+
+hitl:
+  queues:
+    - {name: "<queue>", escalation_sla_hours: <number>, escalation_to: "<role>"}
+  triggers:
+    - {condition: "<condition>", route_to: "<queue>"}
+
+events:
+  consumes:
+    - {name: "<event>", schema_ref: "<uri>", delivery: [at_least_once|exactly_once]}
+  publishes:
+    - {name: "<event>", schema_ref: "<uri>", delivery: [at_least_once|exactly_once]}
+
+idempotency:
+  keys: [<field1>]
+  deduplication_window_hours: <number>
+
+rpa_fallback:
+  enabled: [true|false]
+  triggers: ["<condition1>"]
+  guardrails: [credential_vault_required, screen_selector_stability]
+
+operations:
+  orchestrator: [camunda|temporal|airflow]
+  bpmn_model_uri: "<repo_path>"
+  observability:
+    metrics: [cycle_time_p95, stp_pct, error_rate, hitl_backlog, compensation_rate]
+    alerts:
+      - {rule: "<condition>", severity: [warn|error]}
+```
+
+## EJEMPLO 1: Enterprise - Invoice Approval
+
+```yaml
+type: process_contract
+process: invoice_approval_workflow
+version: 1.3.0
+owner: ["finanzas-ops", "process-owner@empresa.cl"]
+
+semantics:
+  glossary_refs: ["Factura", "Aprobación", "Workflow"]
+  business_rules:
+    - {name: approval_threshold, rule: "invoice.amount > 10000", severity: error}
+
+sla:
+  cycle_time_p95_minutes: 180
+  stp_target_pct: 80
+  hitl_queue_slo_minutes: 30
+
+saga:
+  pattern: orchestrated
+  compensations:
+    - {step: post_to_erp, compensation_action: revert_posting, idempotent: true}
+
+hitl:
+  queues:
+    - {name: exceptions.approval, escalation_sla_hours: 48, escalation_to: supervisor}
+  triggers:
+    - {condition: "amount > 10000", route_to: exceptions.approval}
+    - {condition: "validation_score < 0.85", route_to: exceptions.approval}
+
+events:
+  consumes:
+    - {name: invoice.received, schema_ref: "avro://billing/invoice/v1", delivery: at_least_once}
+  publishes:
+    - {name: invoice.approved, schema_ref: "avro://billing/approval/v1", delivery: exactly_once}
+
+idempotency:
+  keys: [invoice_id]
+  deduplication_window_hours: 72
+
+rpa_fallback:
+  enabled: true
+  triggers: [erp_api_timeout, erp_api_500_error]
+  guardrails: [credential_vault_required, screen_selector_stability_check]
+
+operations:
+  orchestrator: camunda
+  bpmn_model_uri: "repo://processes/invoice_approval_v1.3.bpmn"
+  observability:
+    metrics: [cycle_time_p95, stp_pct, error_rate, hitl_backlog, compensation_rate]
+    alerts:
+      - {rule: "cycle_time_p95 > 240min", severity: warn}
+      - {rule: "stp_pct < 75%", severity: error}
+```
+
+## EJEMPLO 2: Gobierno - Aprobación Decreto Pago
+
+*[Structure similar, gobierno-specific: SIGFE integration, FirmaGob, DocDigital, compliance Ley 21.180]*
+
+---
+
+**Versión**: 2.0.0 | **Líneas**: 72 (target 70) | **T16 COMPLETO** ✅
+

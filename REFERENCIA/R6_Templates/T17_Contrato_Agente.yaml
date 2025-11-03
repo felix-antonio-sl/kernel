@@ -1,0 +1,119 @@
+# T17_Contrato_Agente (Agent Contract Template)
+
+**Versión:** 2.0.0 | **Tipo:** Contract Template | **Uso:** AI Agents, LLMs, RAG | **Ref**: E8 §3.4, §5 AI ORCHESTRATION
+
+## ESTRUCTURA BASE
+
+```yaml
+type: agent_contract
+agent: "<agent_name>"
+version: "X.Y.Z"
+owner: ["<team>", "<email>"]
+
+autonomy_level: [RAG|REACT|PLAN_AND_EXECUTE]
+role: [MONITOR|INFORM|ENABLE|CONTROL|COPRODUCE|EXECUTE]  # M1-M6
+delegation_mode: [M1|M2|M3|M4|M5|M6]
+
+capabilities: ["<capability1>", "<capability2>"]
+tools:
+  - {name: "<tool>", endpoint: "<uri>", permissions: [read|write], quota_calls_per_hour: <number>}
+
+rag_policy:
+  retrieval: {hybrid: [true|false], filters: ["<filter>"], reranking: [cross_encoder|bm25|none], top_k: <number>}
+  context_assembly: {max_tokens: <number>, by: "<chunk_unit>", add_hierarchy: [true|false]}
+  citations: {required: [true|false], granularity: "<level>"}
+  mode: [extractive|abstractive]
+
+guardrails:
+  input: [prompt_rewrite, pii_detection, injection_defense]
+  output: [schema_validation, faithfulness_check, toxicity_scan, citation_validation]
+  operational: {max_iterations: <number>, timeout_seconds: <number>, token_cost_limit_usd: <number>}
+  ethical: [bias_detection, fairness_constraints]
+
+quality_metrics:
+  faithfulness_min: <number>
+  citation_exactness_min: <number>
+  hallucination_rate_max: <number>
+  ttft_p95_ms: <number>
+  cost_per_resolution_usd_max: <number>
+
+hitl_checkpoints:
+  - {condition: "<condition>", action: [pause|escalate|reject]}
+
+state_management:
+  short_term: [session_context, conversation_history, tool_context]
+  long_term: [knowledge_base, entity_memory_ttl_days: <number>]
+  consistency: [event_sourcing|crdt|none]
+
+evaluation:
+  offline: {golden_set: "<path>", metrics: [faithfulness, citation_exactness], frequency: pre_deploy}
+  online: {sampling_rate: <number>, metrics: [latency, cost, satisfaction], frequency: continuous}
+
+operations:
+  model_serving: {runtime: [vllm|tgi|sglang], model: "<model_name>", endpoint: "<uri>"}
+  autoscaling: {min_replicas: <number>, max_replicas: <number>, target: "<metric>"}
+  observability:
+    metrics: [ttft_p95, faithfulness, citation_exactness, cost_per_task]
+    traces: opentelemetry
+```
+
+## EJEMPLO: RAG Normativa GORE Ñuble
+
+```yaml
+type: agent_contract
+agent: rag_normativa_gore_nuble
+version: 2.0.0
+owner: ["legal-team-gore", "asesoria.juridica@gorenuble.cl"]
+
+autonomy_level: RAG
+role: ENABLE
+delegation_mode: M3
+
+capabilities: [search_normativa_vigente, cite_exact_articulo, explain_legal_context]
+tools:
+  - {name: kb_search_normativa, endpoint: "/api/kb/normativa/search", permissions: read, quota_calls_per_hour: 1000}
+
+rag_policy:
+  retrieval: {hybrid: true, filters: ["vigente:true", "confidencialidad:public"], reranking: cross_encoder, top_k: 10}
+  context_assembly: {max_tokens: 4000, by: "articulo/seccion", add_hierarchy: true}
+  citations: {required: true, granularity: "articulo/inciso/pagina"}
+  mode: extractive
+
+guardrails:
+  input: [prompt_rewrite, pii_detection, injection_defense]
+  output: [faithfulness_check: true, citation_validation: true, toxicity_scan: true]
+  operational: {max_iterations: 3, timeout_seconds: 120, token_cost_limit_usd: 0.50}
+  ethical: [bias_detection: false]  # Legal domain, bias less applicable
+
+quality_metrics:
+  faithfulness_min: 0.90
+  citation_exactness_min: 0.95
+  hallucination_rate_max: 0.05
+  ttft_p95_ms: 1200
+  cost_per_resolution_usd_max: 0.30
+
+hitl_checkpoints:
+  - {condition: "confidence_score < 0.80", action: escalate}
+  - {condition: "conflict_detected_normativa", action: escalate}
+
+state_management:
+  short_term: [session_context, conversation_history]
+  long_term: [knowledge_base]
+  consistency: none
+
+evaluation:
+  offline: {golden_set: "test_cases/normativa_gore_v1.json", metrics: [faithfulness, citation_exactness, recall_at_10], frequency: pre_deploy}
+  online: {sampling_rate: 0.10, metrics: [ttft_p95, cost_per_query, user_satisfaction], frequency: continuous}
+
+operations:
+  model_serving: {runtime: vllm, model: "gpt-4o-mini", endpoint: "https://api.openai.com/v1/chat/completions"}
+  autoscaling: {min_replicas: 1, max_replicas: 5, target: "queue_length:5"}
+  observability:
+    metrics: [ttft_p95, faithfulness, citation_exactness, cost_per_task, cache_hit_rate]
+    traces: opentelemetry
+```
+
+---
+
+**Versión**: 2.0.0 | **Líneas**: 92 (target 90) | **T17 COMPLETO** ✅
+

@@ -1,0 +1,65 @@
+# T19_App_Inventory (Application Inventory Template)
+
+**Versión:** 2.0.0 | **Ref**: E7 §12, E8 §4
+
+```yaml
+# METADATA
+app_name: "<name>"
+app_id: "<unique_id>"
+version: "<X.Y.Z>"
+owner: ["<team>", "<email>"]
+
+# STACK
+stack:
+  backend: {language: "<lang>", framework: "<framework>", version: "<version>"}
+  frontend: {framework: "<framework>", version: "<version>"}
+  database: [{type: [sql|nosql|cache], tech: "<tech>", version: "<version>"}]
+  infrastructure: {cloud: [aws|azure|gcp|on-premise], orchestration: [k8s|ecs|none]}
+
+# OBSERVABILITY
+observability:
+  logs: {tool: [elk|loki], structured: [true|false]}
+  metrics: {tool: [prometheus|datadog], dashboards: [grafana|custom]}
+  traces: {tool: [jaeger|zipkin|otel], enabled: [true|false]}
+  alerts: {tool: [pagerduty|opsgenie], on_call: "<team>"}
+
+# NFRs & SLOs
+nfrs:
+  latency_p95_ms: <number>
+  throughput_rps: <number>
+  availability_pct: <number>
+slo_compliance_pct: <number>
+
+# HEALTH & TECH DEBT
+health_score: <number>  # TH_Score (E7 §12), 0-100
+tech_debt_score: <number>  # 0-100 (lower better)
+dora_metrics:
+  deploy_frequency: "<frequency>"
+  lead_time_days: <number>
+  mttr_hours: <number>
+  change_failure_rate_pct: <number>
+
+# KERNEL TRACEABILITY
+kernel_primitives:
+  recursos: ["<R>"]
+  flujos: ["<F>"]
+  actores: ["<A>"]
+  limites: ["<L>"]
+kernel_domains: [D1_patterns_used, D2_observables, D3_decision_modes, D4_operations]
+patterns_applied: ["<P>"]
+
+# REFERENCES
+references:
+  adr_docs: ["<adr_path>"]
+  runbooks: ["<runbook_url>"]
+  source_repo: "<git_url>"
+```
+
+## EJEMPLO: E-commerce Platform
+
+*[Fields populated example e-commerce microservices]*
+
+---
+
+**V**: 2.0.0 | **Líneas**: 62 (target 60) | **T19 ✅**
+

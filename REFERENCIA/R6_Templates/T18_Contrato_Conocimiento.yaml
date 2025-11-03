@@ -1,0 +1,67 @@
+# T18_Contrato_Conocimiento (Knowledge Contract Template)
+
+**Versión:** 2.0.0 | **Ref**: E8 §3.5, §6 KM + RAG
+
+```yaml
+type: knowledge_contract
+collection: "<collection_name>"
+version: "X.Y.Z"
+owner: ["<team>", "<email>"]
+
+authority: [official_only|mixed|crowdsourced]
+sources:
+  - {type: "<doc_type>", repo: "<repo_path>", vigente: [true|false]}
+
+doc_units: [expediente, documento, seccion, articulo, clausula]
+
+metadata_min: [id_doc, tipo, emisor, fecha_emision, vigencia_desde, vigencia_hasta, estado, materia, hash, version, acl]
+
+indexing:
+  lexical: {method: [bm25|tfidf], fields: ["<field>"], boost: {"<field>": <number>}}
+  vector: {model: "<model>", model_version: "<version>", dimensions: <number>, fields: ["<field>"]}
+  filters: {query_time: [{field: "<field>", operator: "<=", value: "<value>"}]}
+  reranking: {enabled: [true|false], method: [cross_encoder|bm25], features: ["<feature>"]}
+
+chunking:
+  strategy: [structural|fixed|semantic]
+  by: ["<unit>"]
+  context_hierarchy: [true|false]
+  chunk_size_tokens: <number>
+  overlap_tokens: <number>
+
+serving:
+  context_assembly: {by: "<unit>", add_hierarchy: [true|false], max_chunks: <number>}
+  citation_policy: [required_exact|optional|none]
+  response_mode: [extractive_default|abstractive_allowed]
+  ambiguity_handling: [explicit_versions|single_latest]
+
+audit:
+  chain_of_custody: [true|false]
+  snapshots: [true|false]
+  retention_days: <number>
+
+slo:
+  retrieval_latency_p95_ms: <number>
+  citation_exactness_min: <number>
+  no_answer_correctness_min: <number>
+  availability_pct: <number>
+
+quality:
+  dimensions: [recall, precision, citation_accuracy, vigencia_correctness]
+  evaluation: {frozen_corpus: "<path>", metrics: [recall_at_10, precision_at_10, mrr], frequency: [weekly|monthly]}
+
+operations:
+  curation_pipeline: {ingesta: {}, enrichment: {}, chunking: {}, indexing: {}}
+  observability:
+    metrics: [corpus_coverage_pct, ingestion_lag_hours, pct_responses_cited]
+    alerts: [{rule: "pct_responses_cited < 0.90", severity: error}]
+```
+
+## EJEMPLO: Normativa Interna GORE
+
+*[Ver E8 §3.5 completo, E2 §12 Caso 1]*
+
+---
+
+**V**: 2.0.0 | **Líneas**: 68 (target 65) | **T18 ✅**
+

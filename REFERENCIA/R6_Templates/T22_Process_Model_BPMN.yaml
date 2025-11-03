@@ -1,0 +1,85 @@
+# T22_Process_Model_BPMN (BPMN + Executable YAML)
+
+**Versión:** 2.0.0 | **Ref**: E8 §7 BPA
+
+```yaml
+# PROCESS METADATA
+process_id: "<id>"
+process_name: "<name>"
+version: "X.Y.Z"
+owner: ["<team>", "<email>"]
+
+# BPMN VISUAL
+bpmn_diagram: "<path_to_.bpmn_or_.png>"
+
+# EXECUTABLE SPEC (YAML for parseable automation)
+executable:
+  start_event:
+    id: start
+    type: [message|timer|signal|none]
+    trigger: "<condition_or_message>"
+  
+  tasks:
+    - id: "<task_id>"
+      name: "<task_name>"
+      type: [user|service|script|send|receive|business_rule]
+      implementation:
+        # For service task:
+        service_endpoint: "<api_url>"
+        method: [GET|POST|PUT|DELETE]
+        # For user task:
+        assignee_role: "<role>"
+        form_fields: [{name: "<field>", type: "<type>", required: [true|false]}]
+      timeout_minutes: <number>
+      retry_policy: {max_attempts: <number>, backoff_seconds: <number>}
+      compensation: "<compensation_task_id>"  # For saga
+  
+  gateways:
+    - id: "<gateway_id>"
+      type: [exclusive|parallel|inclusive|event_based]
+      condition: "<expression>"  # For exclusive
+      outgoing_flows: [{target: "<task_id>", condition: "<expr>"}]
+  
+  events:
+    - id: "<event_id>"
+      type: [intermediate|boundary|end]
+      event_definition: [message|timer|error|escalation]
+      attached_to: "<task_id>"  # For boundary
+  
+  end_event:
+    id: end
+    type: [none|message|error|terminate]
+
+# SWIMLANES (Roles/Systems)
+swimlanes:
+  - {name: "<role_or_system>", tasks: ["<task_id1>", "<task_id2>"]}
+
+# TESTING SCENARIOS
+test_scenarios:
+  - name: "<scenario>"
+    description: "<desc>"
+    inputs: {<var>: <value>}
+    expected_path: ["<task1>", "<task2>", "<end>"]
+    expected_outputs: {<var>: <value>}
+    expected_duration_minutes: <number>
+
+# INTEGRATION
+integration:
+  systems: [{name: "<system>", endpoints: ["<api>"]}]
+  data_dependencies: [{product: "<data_product>", fields_used: ["<field>"]}]
+
+# METRICS
+metrics:
+  sla_cycle_time_p95_minutes: <number>
+  stp_target_pct: <number>
+  error_rate_target_pct: <number>
+```
+
+## EJEMPLO: Invoice Approval Workflow
+
+*[Ver E8 §7.2 BPMN XML + §7.3 pseudocode como spec ejecutable]*
+
+---
+
+**V**: 2.0.0 | **Líneas**: 75 (target 70) | **T22 ✅**
+

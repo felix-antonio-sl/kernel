@@ -1,0 +1,254 @@
+# T15_Contrato_Datos (Data Contract Template)
+
+**Versión:** 2.0.0  
+**Tipo:** Contract Template  
+**Uso:** Data Products, Datasets Compartidos  
+**Referencia**: E8_Intelligent_Systems §3.2, §4 DATA-AS-PRODUCT
+
+---
+
+## ESTRUCTURA BASE
+
+```yaml
+# METADATA
+type: data_contract
+product: "<product_name>"
+version: "X.Y.Z"  # Semantic versioning
+owner: ["<team>", "<email>"]
+
+# SEMANTICS
+semantics:
+  glossary_refs: ["<term1>", "<term2>"]
+  business_rules:
+    - name: "<rule_name>"
+      rule: "<validation_logic>"
+      severity: [error|warn]
+  data_domain: "<domain_name>"
+
+# SCHEMA
+schema:
+  primary_key: [<field1>]
+  partition_key: [<field2>]  # Lakehouse optimization
+  fields:
+    - {name: "<field>", type: "<type>", required: [true|false], description: "<desc>"}
+  scd_type: [1|2|3]  # Slowly Changing Dimension
+
+# SLO
+slo:
+  freshness_p95_minutes: <number>
+  availability_pct: <number>
+  accuracy_variance_pct: <number>
+
+# QUALITY
+quality:
+  dimensions: [exactitud, completitud, validez, unicidad, consistencia, frescura]
+  checks:
+    - {name: "<check>", rule: "<logic>", severity: [error|warn]}
+  dq_framework: [great_expectations|deequ|soda]
+  error_budget_violations_per_1k: <number>
+
+# SECURITY
+security:
+  classification: [P0|P1|P2|P3]
+  pii: [true|false]
+  phi: [true|false]
+  access_control:
+    roles: ["<role1>", "<role2>"]
+    rls_policy: "<opa_policy_path>"
+    cls_enabled: [true|false]
+
+# CHANGES
+changes:
+  policy: semver
+  deprecation_window_days: <number>
+  coexistence_strategy: [dual-write|adapter|migration]
+
+# OPERATIONS
+operations:
+  lineage:
+    as_designed: "<source> -> <transform> -> <destination>"
+    as_implemented_tool: [openlineage|datahub|amundsen]
+    column_level: [true|false]
+  observability:
+    metrics: [freshness_p95, dq_violations_per_1k, latency_query_p95, error_budget]
+    alerts:
+      - {rule: "<condition>", severity: [info|warn|error|critical], channel: [slack|pagerduty|email]}
+  serving_interfaces:
+    - {type: [sql|rest|graphql|grpc], endpoint: "<uri>", slo_latency_p95_ms: <number>}
+```
+
+---
+
+## EJEMPLO 1: Enterprise (Privado)
+
+```yaml
+type: data_contract
+product: billing_invoices
+version: 2.1.0
+owner: ["dom-finanzas", "dp-owner@empresa.cl"]
+
+semantics:
+  glossary_refs: ["Factura", "Cliente", "Nota de Crédito"]
+  business_rules:
+    - name: valid_invoice_status
+      rule: "status in [ISSUED, PAID, VOID, CANCELLED]"
+      severity: error
+    - name: amount_positive
+      rule: "amount_total >= 0"
+      severity: error
+  data_domain: "Finanzas"
+
+schema:
+  primary_key: [invoice_id]
+  partition_key: [issue_date]
+  fields:
+    - {name: invoice_id, type: string, required: true, description: "Unique invoice identifier"}
+    - {name: customer_id, type: string, required: true, description: "FK to customers"}
+    - {name: amount_total, type: "decimal(18,2)", required: true, description: "Total amount CLP"}
+    - {name: issued_at, type: timestamp, required: true, description: "Issue timestamp UTC"}
+    - {name: status, type: string, required: true, description: "Invoice status"}
+  scd_type: 2  # History preserved
+
+slo:
+  freshness_p95_minutes: 30
+  availability_pct: 99.9
+  accuracy_variance_pct: 0.3
+
+quality:
+  dimensions: [exactitud, completitud, validez, unicidad, consistencia, frescura]
+  checks:
+    - {name: pk_unique, rule: "unique(invoice_id)", severity: error}
+    - {name: status_valid, rule: "in_domain(status)", severity: error}
+    - {name: late_arrival, rule: "event_time_diff < 24h", severity: warn}
+  dq_framework: great_expectations
+  error_budget_violations_per_1k: 0.8
+
+security:
+  classification: P1
+  pii: false
+  phi: false
+  access_control:
+    roles: [billing_analyst, finance_engineer, auditor_readonly]
+    rls_policy: "opa://policies/billing_rls"
+    cls_enabled: false
+
+changes:
+  policy: semver
+  deprecation_window_days: 120
+  coexistence_strategy: adapter
+
+operations:
+  lineage:
+    as_designed: "kafka.billing.events -> bronze.billing -> silver.billing -> gold.billing_invoices"
+    as_implemented_tool: openlineage
+    column_level: true
+  observability:
+    metrics: [freshness_p95, dq_violations_per_1k, latency_query_p95, error_budget]
+    alerts:
+      - {rule: "freshness_p95 > 45min", severity: warn, channel: slack}
+      - {rule: "dq_violations_per_1k > 1.0", severity: error, channel: pagerduty}
+  serving_interfaces:
+    - {type: sql, endpoint: "warehouse.gold.billing_invoices", slo_latency_p95_ms: 500}
+    - {type: rest, endpoint: "/api/v1/invoices", slo_latency_p95_ms: 200}
+```
+
+---
+
+## EJEMPLO 2: Gobierno (TDE Chile)
+
+```yaml
+type: data_contract
+product: proyectos_fndr_nuble
+version: 1.2.0
+owner: ["dpir-gore-nuble", "dpir@gorenuble.cl"]
+
+semantics:
+  glossary_refs: ["FNDR", "Proyecto Inversión", "BIP"]
+  business_rules:
+    - name: monto_positivo
+      rule: "monto_fndr_clp > 0"
+      severity: error
+    - name: codigo_bip_valido
+      rule: "regex_match(codigo_bip, '^[0-9]{8}-[0-9]$')"
+      severity: error
+  data_domain: "Inversión Regional"
+
+schema:
+  primary_key: [codigo_bip]
+  partition_key: [anio_asignacion]
+  fields:
+    - {name: codigo_bip, type: string, required: true, description: "Código BIP proyecto (8 dígitos-verificador)"}
+    - {name: nombre_proyecto, type: string, required: true}
+    - {name: monto_fndr_clp, type: "decimal(18,2)", required: true, description: "Monto FNDR asignado pesos chilenos"}
+    - {name: anio_asignacion, type: int, required: true}
+    - {name: comuna_ejecucion, type: string, required: true, description: "Comuna beneficiada"}
+    - {name: estado_proyecto, type: string, required: true, description: "En Diseño, En Ejecución, Terminado"}
+  scd_type: 2
+
+slo:
+  freshness_p95_minutes: 1440  # Daily update (24h)
+  availability_pct: 99.5
+  accuracy_variance_pct: 0.0  # Must match SIGFE exactly
+
+quality:
+  dimensions: [exactitud, completitud, validez, unicidad, consistencia, frescura]
+  checks:
+    - {name: bip_unique, rule: "unique(codigo_bip)", severity: error}
+    - {name: estado_valid, rule: "estado_proyecto in ['En Diseño','En Ejecución','Terminado']", severity: error}
+    - {name: comuna_valida, rule: "comuna_ejecucion in ['Chillán','Chillán Viejo','Bulnes','San Carlos',...]", severity: error}
+  dq_framework: great_expectations
+  error_budget_violations_per_1k: 0.5
+
+security:
+  classification: P2  # Public-internal
+  pii: false
+  phi: false
+  access_control:
+    roles: [public_readonly, dpir_engineer, auditor]
+    rls_policy: null  # Public data, no RLS
+    cls_enabled: false
+
+changes:
+  policy: semver
+  deprecation_window_days: 90
+  coexistence_strategy: migration
+
+operations:
+  lineage:
+    as_designed: "sigfe.proyectos -> etl.fndr_transform -> gold.proyectos_fndr_nuble"
+    as_implemented_tool: openlineage
+    column_level: true
+  observability:
+    metrics: [freshness_p95, dq_violations_per_1k, latency_query_p95]
+    alerts:
+      - {rule: "freshness_p95 > 2880min", severity: warn, channel: email}  # >2 días
+      - {rule: "dq_violations_per_1k > 0.5", severity: error, channel: email}
+  serving_interfaces:
+    - {type: sql, endpoint: "warehouse.gold.proyectos_fndr_nuble", slo_latency_p95_ms: 1000}
+    - {type: rest, endpoint: "https://datos.gob.cl/api/datasets/fndr-nuble", slo_latency_p95_ms: 500}
+```
+
+---
+
+## VALIDACIÓN CHECKLIST
+
+- ☐ Todos campos metadata completos (type, product, version, owner)
+- ☐ Semantics: ≥2 glossary refs, ≥1 business rule
+- ☐ Schema: PK defined, fields typed, ≥3 fields
+- ☐ SLO: Freshness, availability, accuracy targets realistic
+- ☐ Quality: ≥3 DQ checks, error budget defined
+- ☐ Security: Classification assigned, access control specified
+- ☐ Operations: Lineage documented, ≥2 metrics, ≥1 alert, ≥1 serving interface
+
+---
+
+## CONEXIÓN KERNEL
+
+**Primitivos**: Dato D2 (product), Actor A3 (owner), Límite L1-L3 (SLOs, security, regulatory)  
+**Patterns**: P57 Data Product, P62 Contract-Driven Evolution  
+**Referenced By**: E8 §3.2 (estructura base), E8 §4 (DATA lifecycle), E2 §4 (datos abiertos gobierno)
+
+**Versión Template**: 2.0.0  
+**Creado**: 2025-11-03  
+**Líneas**: 85 (target 80, +6%)
+

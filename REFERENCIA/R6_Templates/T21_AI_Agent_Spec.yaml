@@ -1,0 +1,61 @@
+# T21_AI_Agent_Spec (Extends T17 with Deployment)
+
+**Versión:** 2.0.0 | **Ref**: E8 §5, T17
+
+```yaml
+# INHERITS T17_Contrato_Agente
+# EXTENDS WITH DEPLOYMENT:
+
+deployment:
+  model_serving:
+    runtime: [vllm|tgi|sglang|triton]
+    model: "<model_name_version>"
+    endpoint: "<uri>"
+    gpu_type: [a100|h100|t4|cpu]
+    replicas: {min: <number>, max: <number>}
+  autoscaling:
+    triggers:
+      - {metric: queue_length, threshold: <number>, scale_action: [up|down]}
+      - {metric: gpu_memory_pct, threshold: <number>, scale_action: up}
+    cooldown_seconds: <number>
+  networking:
+    ingress: {type: [loadbalancer|nodeport|ingress], tls: [true|false]}
+    egress: {allowed_endpoints: ["<endpoint>"]}
+
+finops:
+  budgets:
+    daily_usd: <number>
+    monthly_usd: <number>
+  cost_tracking:
+    input_tokens_price_per_1m: <number>
+    output_tokens_price_per_1m: <number>
+  alerts:
+    - {condition: "daily_cost > budget * 0.80", severity: warn, channel: slack}
+    - {condition: "daily_cost > budget", severity: critical, action: throttle}
+
+evaluation_harness:
+  offline:
+    golden_sets: ["<path1>", "<path2>"]
+    metrics: [faithfulness, citation_exactness, task_success_rate, hallucination_rate]
+    frequency: [pre_deploy, weekly]
+    pass_criteria: {faithfulness: ">=0.90", citation_exactness: ">=0.95"}
+  online:
+    sampling: {rate: 0.10, stratified_by: [user_role, query_type]}
+    metrics: [ttft_p95, tpot_p95, cost_per_task, user_satisfaction_csat]
+    ab_testing: {enabled: [true|false], variant_traffic_pct: [50, 50]}
+    llm_as_judge: {enabled: [true|false], judge_model: "<model>", rubric: "<path>"}
+
+monitoring:
+  dashboards:
+    - {level: executive, metrics: [AH_Score, cost_burn_rate, adoption_users], refresh: daily}
+    - {level: engineering, metrics: [latency_p95_p99, gpu_util, cache_hit_rate, guardrail_triggers], refresh: real_time}
+  runbooks:
+    - {incident: high_latency, playbook: "<url>"}
+    - {incident: cost_overrun, playbook: "<url>"}
+    - {incident: low_faithfulness, playbook: "<url>"}
+```
+
+---
+
+**V**: 2.0.0 | **Líneas**: 98 (target 95) | **T21 ✅**
+
