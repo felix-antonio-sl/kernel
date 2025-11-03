@@ -53,10 +53,10 @@ Timeline: [Meses]
 
 | ID | Iniciativa | Patrón | Owner | Budget | Success Metric |
 |----|-----------|--------|-------|--------|----------------|
-| AC1 | CI/CD pipelines inteligentes | PA03 | DevOps | $80K | Deploy frequency 5x/día |
+| AC1 | CI/CD pipelines inteligentes | P42 | DevOps | $80K | Deploy frequency 5x/día |
 | AC2 | Automated testing >80% coverage | P28 | QA + Eng | $200K | Coverage 45%→80% |
 | AC3 | OKR framework implementación | P35 | Product | $50K | 100% teams con OKRs |
-| AC4 | MLOps pipeline para IA agents | PA07 | ML Eng | $150K | Models en prod <2 días |
+| AC4 | MLOps pipeline para IA agents | P37 | ML Eng | $150K | Models en prod <2 días |
 
 **Gate Crítico M15:** D4_Score ≥70 + velocity +100%
 
@@ -68,10 +68,10 @@ Timeline: [Meses]
 
 | ID | Iniciativa | Patrón | Owner | Budget | Success Metric |
 |----|-----------|--------|-------|--------|----------------|
-| O1 | Integrar agentes IA equipos (M4-M5) | PA01,PA12 | AI Lead | $250K | 6 agentes prod |
-| O2 | Self-healing systems | PA15 | SRE | $100K | 70% incidents auto-resolved |
+| O1 | Integrar agentes IA equipos (M4-M5) | P45,P37 | AI Lead | $250K | 6 agentes prod |
+| O2 | Self-healing systems | P44 | SRE | $100K | 70% incidents auto-resolved |
 | O3 | Platform-as-Product mindset | P50 | Platform | $80K | NPS interno >40 |
-| O4 | Predictive analytics negocio | PA09 | Data Sci | $180K | Forecasts 85% accuracy |
+| O4 | Predictive analytics negocio | P39 | Data Sci | $180K | Forecasts 85% accuracy |
 
 **Gate Crítico M21:** H_Score ≥75 + ROI positivo verificado
 
@@ -84,7 +84,7 @@ Timeline: [Meses]
 | ID | Iniciativa | Patrón | Owner | Budget | Success Metric |
 |----|-----------|--------|-------|--------|----------------|
 | M1 | Runbooks + playbooks completos | - | Tech Writing | $40K | 100% procesos doc |
-| M2 | Onboarding automatizado nuevos | PA19 | HR Tech | $60K | Time-to-productive -50% |
+| M2 | Onboarding automatizado nuevos | P49 | HR Tech | $60K | Time-to-productive -50% |
 | M3 | Benchmark externo (DORA, OHI) | - | PMO | $25K | Top quartile 2+ métricas |
 | M4 | Retrospectiva + lessons learned | - | Sponsor | $10K | Report público |
 

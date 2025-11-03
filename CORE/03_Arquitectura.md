@@ -71,7 +71,7 @@ Responsabilidad: DETECTAR estado interno/externo
 Función: Sensado continuo, observables, health monitoring
 
 Actividades:
-  - Instrumentar 16 observables (O1-O8, I1-I3, SO1-SO5)
+  - Instrumentar 16 observables (O1-O8, IN1-IN3, SO1-SO5)
   - Detectar anomalías y drift
   - Generar insights desde datos
   - Proyectar tendencias futuras
@@ -189,14 +189,14 @@ DECISIÓN → OPERACIÓN:
 
 OPERACIÓN → PERCEPCIÓN:
   Input: Métricas flow (cycle time, throughput, WIP)
-  Output: Percepción actualiza I3 (Eficiencia flujo)
+  Output: Percepción actualiza IN3 (Eficiencia flujo)
 
 ARQUITECTURA → TODOS:
   Input: Nueva estructura organizacional
   Output: Percepción/Decisión/Operación operan con nueva topología
 
 PERCEPCIÓN → ARQUITECTURA:
-  Input: I1 (Velocidad decisional) muy baja
+  Input: IN1 (Velocidad decisional) muy baja
   Output: Arquitectura diagnostica governance bottleneck
 ```
 
@@ -463,10 +463,10 @@ Output:
 ```yaml
 Security_Impact_H_Score:
   Base_Formula (11 observables):
-    H_Score = weighted_avg(O1-O8, I1-I3)
+    H_Score = weighted_avg(O1-O8, IN1-IN3)
   
   Extended_Formula (16 observables):
-    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(I1-I3) + 0.10 * avg(SO1-SO5)
+    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(IN1-IN3) + 0.10 * avg(SO1-SO5)
   
   Rationale:
     - Security NO es dominio aparte (no "D5")
@@ -630,7 +630,7 @@ Trigger_1_Crecimiento:
   Acción: Split teams, create new layer management
 
 Trigger_2_Performance:
-  Condición: I1 (Velocidad decisional) <50/100 persistente
+  Condición: IN1 (Velocidad decisional) <50/100 persistente
   Acción: Reducir governance layers, delegar autoridad
 
 Trigger_3_Strategy:
@@ -657,7 +657,7 @@ Trigger_5_Tech_Debt:
    - Processes establecidos
 
 2. TENSIÓN (señales)
-   - I1 bajo (decisiones lentas)
+   - IN1 bajo (decisiones lentas)
    - Conflicts frecuentes autoridad
    - Silos patológicos
    - Scalability limits
@@ -673,7 +673,7 @@ Trigger_5_Tech_Debt:
    - Reassignments
    - Handoffs
    - Training
-   - Monitoreo I2 (Salud talento) - resistance
+   - Monitoreo IN2 (Salud talento) - resistance
 
 5. ESTABILIZACIÓN (4-8 semanas)
    - Nueva estructura opera
@@ -682,7 +682,7 @@ Trigger_5_Tech_Debt:
    - → Volver a ESTABLE
 ```
 
-**Principio P7 (Parsimonia):** No reorganizar sin causa estructural clara. Reorgs son costosas (I2 sufre).
+**Principio P7 (Parsimonia):** No reorganizar sin causa estructural clara. Reorgs son costosas (IN2 sufre).
 
 ---
 
@@ -692,20 +692,20 @@ Trigger_5_Tech_Debt:
 
 ```yaml
 Sense (Percepción):
-  - Detecta: I1 bajo, conflicts de autoridad, silos
+  - Detecta: IN1 bajo, conflicts de autoridad, silos
   - Comprende: Root cause es estructura inadecuada
   - Proyecta: Si no cambiamos, velocidad seguirá cayendo
 
 Decide (Decisión):
   - Evalúa: ¿Reorg ahora o esperar?
-  - Considera: R1-R5 (preparación), costo-beneficio, riesgo I2
+  - Considera: R1-R5 (preparación), costo-beneficio, riesgo IN2
   - Elige: Proceder con patrón "Business-within-Business"
 
 Act (Operación):
   - Planifica: 12 semanas de transición
   - Especifica: Nuevo org chart, RACI, team charters
   - Ejecuta: Anuncio → Reassignments → Stabilization
-  - Monitorea: I1, I2, I3 durante/post transición
+  - Monitorea: IN1, IN2, IN3 durante/post transición
 ```
 
 ---
@@ -742,7 +742,7 @@ A_Score (0-100):
 ```yaml
 Síntoma: Dual reporting sin mecanismo resolución conflictos
 Causa: Implementar matricial sin ARB o clear escalation
-Consecuencia: Paralysis decisional, I1 colapsa
+Consecuencia: Paralysis decisional, IN1 colapsa
 Fix: Establecer governance explícito (ARB semanal, RACI actualizado)
 ```
 
@@ -759,7 +759,7 @@ Fix: Cross-functional teams temporales, shared OKRs
 ```yaml
 Síntoma: Manager con 20+ reports directos
 Causa: Growth sin crear management layer
-Consecuencia: No hay 1:1s, desarrollo talento nulo, I2 cae
+Consecuencia: No hay 1:1s, desarrollo talento nulo, IN2 cae
 Fix: Split team, promote leads
 ```
 
@@ -768,7 +768,7 @@ Fix: Split team, promote leads
 ```yaml
 Síntoma: Cambio estructura cada 3-6 meses
 Causa: Falta diagnóstico root cause, "reorg como solución mágica"
-Consecuencia: I2 colapsa (fatiga cambio), no learning organizacional
+Consecuencia: IN2 colapsa (fatiga cambio), no learning organizacional
 Fix: Diagnosticar antes de reorg (DOMINIOS/D1_Arquitectura §2)
 ```
 

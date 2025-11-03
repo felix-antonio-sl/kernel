@@ -87,6 +87,7 @@ MAJOR.MINOR.PATCH (ej: 2.2.0)
 **Fixes**:
 - OT1-OT3 renombrado (namespace collision T1-T3 templates resuelto)
 - A1 §7.5: Trazabilidad patterns orphan (8 patterns P17, P23, P31, P38, P41, P44, P47, P49)
+- **H_Score Unificado**: Depreciada versión conflictiva de 14 observables (O1-O11 + OT1-OT3) de E8. El único modelo extendido canónico es el de 16 observables (con SO1-SO5). OT1-OT3 se redefinen como métricas de diagnóstico de causa raíz, no parte del H_Score.
 
 **Breaking Changes**: Ninguno (backward compatible)
 

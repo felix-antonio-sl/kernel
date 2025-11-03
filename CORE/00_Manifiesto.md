@@ -75,7 +75,7 @@ Un meta-framework minimal que integra Enterprise Architecture, Digital Transform
 
 ### Principios Fundacionales
 
-KERNEL se rige por 3 invariantes no negociables y 10 principios operacionales (detalle §1-§2 abajo).
+KERNEL se rige por 3 invariantes no negociables y 10 principios operacionales (detalle §1-§2 abajo). Para una definición precisa de todos los términos, consulte el **[Glosario KERNEL](../REFERENCIA/R5_Glosario.md)**.
 
 **Invariantes** (leyes inmutables):
 - **I1 Minimalidad**: Irreducibilidad (7 primitivos, 4 dominios, nada más)

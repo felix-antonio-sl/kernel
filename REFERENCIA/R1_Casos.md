@@ -315,7 +315,7 @@ Operación (D4): 48/100
 
 **Fase 1: Estabilización (M1-3)**
 - P01 Team Topology: Rediseño 4 stream-aligned + 1 platform team
-- P15 Strangler Fig: Iniciar migración gradual monolito → microservicios
+- P21 Strangler Fig: Iniciar migración gradual monolito → microservicios
 - O3 Observable System: Deploy Datadog + custom dashboards
 
 **Fase 2: Arquitectura (M4-9)**
@@ -324,13 +324,12 @@ Operación (D4): 48/100
 - P18 Infrastructure as Code: Terraform + GitOps (ArgoCD)
 
 **Fase 3: Aceleración (M10-15)**
-- PA03 CI/CD Intelligent: GitHub Actions + predictive test selection
+- P42 Quality Gates Automated: GitHub Actions + predictive test selection
 - P27 Continuous Delivery: Deploy frequency 1/día → 5/día
-- PA12 Automated Code Review: CodeRabbit + Snyk security scanning
+- P37 Copilot Coding: CodeRabbit + Snyk security scanning
 
 **Fase 4: Optimización (M16-18)**
 - P42 SRE Practices: SLOs + error budgets + blameless postmortems
-- PA08 Synthetic Monitoring: Agentes IA simulando user journeys
 - P50 Platform Teams: Platform-as-Product mindset
 
 **Patrones aplicados totales:** 12 patrones (8 base + 4 IA)
@@ -364,7 +363,7 @@ Operación (D4): 48/100
 
 4. **Resistance management:** 30% eng inicialmente escépticos. Piloto con 1 equipo voluntario (M4-6) generó advocates internos.
 
-5. **IA aceleró últimos 6 meses:** PA03 + PA12 redujeron toil 40%. Pero requiere arquitectura sana primero (M1-12).
+5. **IA aceleró últimos 6 meses:** La automatización inteligente (P42, P37) redujo el toil en un 40%, pero requirió una arquitectura sana como prerrequisito (implementada en los meses 1-12).
 
 ---
 
@@ -378,11 +377,11 @@ Operación (D4): 48/100
 
 **Crítico:** D1=25 (silos 8 departamentos), D2=28 (datos Excel dispersos), D3=35 (decisiones políticas sin evidencia), D4=42 (procesos manuales)
 
-### Intervención (24 meses) | Patrones: P02, P11, P23, P40, PA01, PA09
+### Intervención (24 meses) | Patrones: P02, P11, P23, P40, P45
 
 **M1-6:** P02 API Gateway unificada + P11 interoperabilidad GobDigital  
-**M7-15:** P23 Portal ciudadano + PA01 Chatbot IA atención 24/7  
-**M16-24:** P40 Transparencia activa (Open Data) + PA09 Analytics predictivo demanda
+**M7-15:** P23 Portal ciudadano + P45 Chatbot IA atención 24/7  
+**M16-24:** P40 Transparencia activa (Open Data)
 
 ### Resultados | H_Score: 32→69 (+116%)
 
@@ -393,7 +392,7 @@ Operación (D4): 48/100
 | Satisfacción ciudadana | 3.2/10 | 7.8/10 | +144% |
 | Costo/trámite | $45 | $8 | -82% |
 
-**Lección:** Chatbot IA (PA01) atendió 65% consultas básicas, liberó 8 FTE para casos complejos. ROI chatbot: 6 meses.
+**Lección:** Chatbot IA (P45) atendió 65% consultas básicas, liberó 8 FTE para casos complejos. ROI chatbot: 6 meses.
 
 ---
 
@@ -405,7 +404,7 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Fintech B2C, 120 eng, crecimiento 300%/año, arquitectura colapsando |
 | **H_Score** | 41→82 en 12M |
-| **Patrones clave** | P04 Event-Driven, P24 CQRS, P31 Chaos Engineering, PA14 Load Forecasting |
+| **Patrones clave** | P04 Event-Driven, P24 CQRS |
 | **Resultado crítico** | Escaló de 100K→2M usuarios sin rewrite. Downtime 98→0.12 hrs/mes (-99%) |
 | **Lección** | Event-driven architecture (P04) permitió escalar equipos independientemente. 6 squads paralelos sin conflictos. |
 
@@ -417,9 +416,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Banco top-5 Latam, 200 apps mainframe COBOL, regulatory constraints severos |
 | **H_Score** | 35→71 en 36M |
-| **Patrones clave** | P15 Strangler Fig, P19 Data Mesh, P36 Compliance by Design, PA04 Legacy Code Translator |
+| **Patrones clave** | P21 Strangler Fig, P19 Data Mesh, P36 Compliance by Design |
 | **Resultado crítico** | Migró 85% workloads a AWS manteniendo compliance. CAPEX -$12M/año |
-| **Lección** | PA04 (IA traduciendo COBOL→Java) aceleró 18M→12M. Pero requirió 6M training modelo en codebase interno. |
+| **Lección** | La migración se aceleró gracias a herramientas de traducción de código asistidas por IA, aunque requirió una inversión inicial significativa en el entrenamiento del modelo. |
 
 ---
 
@@ -429,9 +428,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Retailer 250 tiendas, e-commerce separado, inventario desincronizado, clientes frustrados |
 | **H_Score** | 44→77 en 15M |
-| **Patrones clave** | P07 Bounded Contexts, P13 Saga Pattern, P22 Real-time Inventory, PA06 Demand Forecasting |
+| **Patrones clave** | P07 Bounded Contexts, P13 Saga Pattern, P22 Real-time Inventory |
 | **Resultado crítico** | Unificó inventario 250 tiendas + e-commerce. Stock-outs -65%, revenue +18% |
-| **Lección** | Saga pattern (P13) crítico para transacciones cross-canal. PA06 predijo demanda Black Friday con 92% accuracy. |
+| **Lección** | Saga pattern (P13) fue crítico para asegurar la consistencia de las transacciones a través de múltiples canales. |
 
 ---
 
@@ -441,9 +440,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Operadora móvil, 15M suscriptores, NOC 24/7 con 45 operadores, incidents 800/mes |
 | **H_Score** | 39→76 en 18M |
-| **Patrones clave** | PA15 Self-Healing Systems, PA17 Anomaly Detection, P42 SRE, PA20 Incident Commander AI |
+| **Patrones clave** | P44 Auto-Rollback, P38 Anomaly Detection, P42 SRE, P48 Root Cause Analysis Auto |
 | **Resultado crítico** | 70% incidents auto-resolved. MTTR 4hrs→18min (-92%). NOC team 45→12 (-73%) |
-| **Lección** | PA15+PA17 detectaron y resolvieron degradación antes de afectar usuarios. PA20 orquestó respuesta multi-equipo en incidentes complejos (5% casos). |
+| **Lección** | La combinación de P38 y P44 permitió detectar y resolver degradaciones antes de que afectaran a los usuarios. P48 ayudó a orquestar la respuesta a incidentes complejos. |
 
 ---
 
@@ -453,9 +452,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Startup diagnóstico médico IA, 35 empleados (12 ML eng, 8 médicos), raise Series A $15M |
 | **H_Score** | 52→85 en 9M (score inicial alto por diseño desde día 1) |
-| **Patrones clave** | PA07 MLOps Pipeline, PA11 Model Monitoring, PA13 Bias Detection, P38 Ethical AI Review |
+| **Patrones clave** | P38 Ethical AI Review |
 | **Resultado crítico** | Deploy modelos a producción: 6 semanas→2 días (-95%). FDA approval obtenida M8 (vs M24 estimado) |
-| **Lección** | Compliance médico desde M1 (P38). PA13 detectó bias género early, evitó redesign $2M+ tardío. Arquitectura AI-first desde fundación = ventaja competitiva 18M vs incumbents. |
+| **Lección** | El cumplimiento médico desde el mes 1 (P38) y la detección temprana de sesgos en los modelos de IA evitaron rediseños costosos. Una arquitectura AI-first desde la fundación demostró ser una ventaja competitiva decisiva. |
 
 ---
 
@@ -465,9 +464,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Municipio 350K habitantes, participación presupuesto 0.2%, opacidad decisiones, movilizaciones sociales |
 | **H_Score** | 28→65 en 20M |
-| **Patrones clave** | P40 Transparencia, P41 Participación Digital, PA01 Chatbot Consultas, PA10 Sentiment Analysis |
+| **Patrones clave** | P40 Transparencia, P41 Participación Digital, P45 Chatbot FAQ, P40 Sentiment Analysis |
 | **Resultado crítico** | Participación presupuesto 0.2%→12% (+6,000%). Aprobación alcalde 28%→64%. Movilizaciones -85% |
-| **Lección** | P41 plataforma votación + PA10 análisis sentiment redes sociales permitió decisiones data-driven. PA01 respondió 45K consultas ciudadanas, generó confianza en proceso. |
+| **Lección** | La combinación de una plataforma de votación (P41) y el análisis de sentimiento en redes sociales (P40) permitió tomar decisiones basadas en datos. El chatbot (P45) respondió 45,000 consultas ciudadanas, generando confianza en el proceso. |
 
 ---
 
@@ -477,9 +476,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Planta manufactura automotriz, 800 operarios, OEE 62% (benchmark 85%), downtime no planificado 18% |
 | **H_Score** | 36→74 en 24M |
-| **Patrones clave** | P44 IoT Telemetry, PA16 Predictive Maintenance, PA18 Digital Twin, P25 Real-time Dashboards |
+| **Patrones clave** | P44 IoT Telemetry, P25 Real-time Dashboards |
 | **Resultado crítico** | OEE 62%→83% (+34%). Downtime 18%→4% (-78%). ROI: $8.5M/año en pérdidas evitadas |
-| **Lección** | PA16 predijo fallas 48hrs anticipado (87% accuracy). PA18 digital twin permitió simular cambios línea sin parar producción. IoT (P44) fue fundación: 3,500 sensores instalados M1-4. |
+| **Lección** | La telemetría de IoT (P44) fue la fundación de la transformación, permitiendo la creación de modelos de mantenimiento predictivo y simulaciones de 'digital twin' que predijeron fallas con 48 horas de anticipación (87% de precisión). |
 
 ---
 
@@ -489,9 +488,9 @@ Operación (D4): 48/100
 |---------|---------|
 | **Contexto** | Plataforma educación online, 2M estudiantes, one-size-fits-all curriculum, completion rate 23%, churn 67% |
 | **H_Score** | 47→81 en 14M |
-| **Patrones clave** | PA05 Adaptive Learning, PA19 Content Generator, P26 A/B Testing, PA02 Intelligent Tutoring |
+| **Patrones clave** | P26 A/B Testing |
 | **Resultado crítico** | Completion rate 23%→61% (+165%). Churn 67%→31% (-54%). NPS 32→78 |
-| **Lección** | PA05 personalizó path aprendizaje por estudiante. PA02 tutor IA atendió 95% dudas básicas 24/7. PA19 generó ejercicios adaptativos dinámicos. Pero: 6M training modelos ML + contenido etiquetado por expertos (inversión inicial alta). |
+| **Lección** | La clave del éxito fue la personalización masiva del aprendizaje, habilitada por una fuerte inversión inicial en el entrenamiento de modelos de IA y la creación de contenido etiquetado por expertos. |
 
 ---
 
@@ -501,16 +500,15 @@ Operación (D4): 48/100
 
 | Patrón | Casos | Success Rate | ROI Promedio |
 |--------|-------|--------------|--------------|
-| **P15 Strangler Fig** | 4 | 100% | 680% |
-| **PA01 Chatbot IA** | 3 | 100% | 520% |
+| **P21 Strangler Fig** | 4 | 100% | 680% |
+| **P45 Chatbot FAQ** | 3 | 100% | 520% |
 | **P42 SRE Practices** | 3 | 100% | 420% |
-| **PA03 CI/CD Intelligent** | 3 | 100% | 380% |
+| **P42 Quality Gates Automated** | 3 | 100% | 380% |
 | **P07 Bounded Contexts** | 4 | 100% | 350% |
-| **PA12 Automated Code Review** | 3 | 100% | 310% |
+| **P37 Copilot Coding** | 3 | 100% | 310% |
 | **P40 Transparencia** | 2 | 100% | 890% (sector público) |
-| **PA16 Predictive Maintenance** | 2 | 100% | 740% (manufacturing) |
 | **P30 IDP (Internal Platform)** | 2 | 100% | 420% |
-| **PA15 Self-Healing** | 2 | 100% | 650% |
+| **P44 Auto-Rollback** | 2 | 100% | 650% |
 
 ### Antipatrones Más Frecuentes Pre-Transformación
 

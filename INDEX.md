@@ -7,7 +7,7 @@
 ## 🚀 Resumen Global
 
 - **Versión Actual:** 2.2.0 (Production Ready)
-- **Documentos Totales:** 54 archivos
+- **Documentos Totales:** 55 archivos
   - CORE: 9 docs
   - DOMINIOS: 4 docs
   - APLICACION: 5 docs
@@ -72,7 +72,7 @@
 - **[04_Delegacion.md](./CORE/04_Delegacion.md):** Los 6 modos de delegación Humano-IA + 4 propósitos.
 - **[05_Smartness.md](./CORE/05_Smartness.md):** La matriz de madurez de inteligencia 4x6 (C1-C6).
 - **[06_Trazabilidad.md](./CORE/06_Trazabilidad.md):** El grafo causal de 10 capas.
-- **[07_Validacion.md](./CORE/07_Validacion.md):** Las pruebas formales de consistencia del framework.
+- **[07_Validacion.md](./CORE/07_Validacion.md):** Pruebas formales de los 3 invariantes (Completitud, Minimalidad, Consistencia).
 - **[08_Crisis_Management.md](./CORE/08_Crisis_Management.md):** P52 Crisis Governance + AP31-33 consolidados.
 
 ### 域 DOMINIOS (4 Documentos)
@@ -182,6 +182,3 @@
   - `DOMINIOS/D3_Decision.md` §4 (Roadmaps)
   - `CORE/06_Trazabilidad.md` (Objetivos → Capacidades → Valor)
 
----
-
-**Framework KERNEL v1.4 - Refactored, coherente, y listo para usar.**

@@ -44,7 +44,7 @@ Este dominio especializado cubre **sistemas integrados de Datos, IA, Procesos y 
 **Dominios extendidos**:
 
 - **D1**: Tech stack patterns (reference E7), data architecture (lakehouse)
-- **D2**: Tech observables OT1-OT3 (Data Health, AI Performance, Process Effectiveness) - extension v2.0
+- **D2**: Se introducen Observables Técnicos de Diagnóstico (OT1-OT3) que sirven como métricas de causa raíz para los 16 observables canónicos.
 - **D3**: Algorithmic decision modes D5-D7 (RAG, ReAct, Plan) - extension v2.0
 - **D4**: Tech execution E4-E6 (Orquestada, Reactiva, Asistida) - extension v2.0
 
@@ -152,7 +152,7 @@ Este dominio especializado cubre **sistemas integrados de Datos, IA, Procesos y 
 
 **Conexión KERNEL**:
 
-- **I2 Ortogonalidad** (CORE/07 §2): E7-E8 satisface invariante
+- **I2 Ortogonalidad** (CORE/00_Manifiesto.md §1): E7-E8 satisface invariante
 - **P7 Separation of Concerns**: Capas ortogonales (cada una responsabilidad única)
 
 ---
@@ -2866,15 +2866,24 @@ PH_Score = 0.35×STP_Norm + 0.25×CycleTime_Norm + 0.20×Error_Norm + 0.15×HITL
 **KERNEL v2.0 extended** (14 observables):
 
 ```
-H_Score_v2 = weighted_avg(O1-O11 + OT1-OT3)
+H_Score_v2 = weighted_avg(O1-O11)
 ```
 
 - **O1-O11**: Base observables (CORE/05 §3, D2_Percepción)
+
+**Observables Técnicos de Diagnóstico (OT1-OT3) 0-100)**
+
+**Formula**:
+
+```
+PH_Score = 0.35×STP_Norm + 0.25×CycleTime_Norm + 0.20×Error_Norm + 0.15×HITL_Backlog_Norm + 0.05×Compensation_Norm
+```
+
 - **OT1**: Data Health (DH_Score)
 - **OT2**: AI Performance (AH_Score)
 - **OT3**: Process Effectiveness (PH_Score)
 
-**Pesos sugeridos**: O1-O11 (80%), OT1-OT3 (20%) - ajustable por org según tech intensity.
+**Relación con H_Score Canónico**: Los OT no forman parte del cálculo directo del H_Score, sino que actúan como **indicadores de causa raíz (drivers)** de los 16 observables principales. Un problema en un OT típicamente degrada uno o más de los observables canónicos.
 
 **Conexión**: A5_Medición §10 (extension v2.0)
 
@@ -3011,7 +3020,7 @@ H_Score_v2 = weighted_avg(O1-O11 + OT1-OT3)
 - **DH_Score**: >80 all products (excellent)
 - **AH_Score**: >85 all agents
 - **PH_Score**: >80 all processes
-- **H_Score_v2**: >85 org-wide (14 observables)
+- **H_Score**: >85 org-wide (14 observables)
 
 **Conexión KERNEL**:
 

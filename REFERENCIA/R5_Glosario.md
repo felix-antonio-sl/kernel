@@ -38,7 +38,9 @@
 
 ## E
 
-- **Evento:** (Primitivo E) Ocurrencia discreta que cambia estado sistema. Ejemplos: E_Deploy_Completed, E_Customer_Churned, E_CVE_Published. Difiere de Señal S (interpretación evento).
+- **Estado:** (Primitivo) Una "fotografía" de la configuración de un sistema en un punto específico en el tiempo. Es un snapshot de los Actores, Flujos, Datos y Recursos en un instante `t`. Ver `CORE/01_Primitivos.md` §5.
+
+- **Evento:** (Concepto) La causa de una transición entre dos estados (`Estado(t0) -> Estado(t1)`). Un evento es instantáneo y no es un primitivo, sino el mecanismo de cambio que es notificado por una `Señal`.
 
 ## F
 
@@ -68,7 +70,7 @@
 
 ## O
 
-- **Observable:** Métrica instrumentada que captura estado sistema. KERNEL define 16 observables: O1-O8 (externos), I1-I3 (internos), SO1-SO5 (security). Cada observable score 0-100, contribuye a H_Score. Ver `D2_Percepcion.md` §1-§4, §8.
+- **Observable:** Métrica instrumentada que captura estado sistema. KERNEL define 16 observables canónicos: O1-O8 (externos), IN1-IN3 (internos), SO1-SO5 (security). Cada observable score 0-100, contribuye a H_Score. Ver `D2_Percepcion.md` §1-§4, §8.
 
 - **Operación (Dominio D4):** Uno de los cuatro dominios de KERNEL, responsable de la ejecución de flujos, la gestión de equipos y la entrega de valor.
 
@@ -82,7 +84,7 @@
 
 - **Percepción (Dominio D2):** Uno de los cuatro dominios de KERNEL, responsable de observar, medir y entender el estado del sistema y su entorno.
 
-- **Primitivo:** Uno de los 7 bloques de construcción fundamentales e irreducibles del modelo KERNEL: Actor (A), Flujo (F), Dato (D), Señal (S), Evento (E), Límite (L), Recurso (R). Ver `CORE/01_Primitivos.md`.
+- **Primitivo:** Uno de los 7 bloques de construcción fundamentales e irreducibles del modelo KERNEL: Actor (A), Flujo (F), Dato (D), Señal (S), Límite (L), Estado y Recurso (R). Ver `CORE/01_Primitivos.md`.
 
 - **P_CX Patterns:** Patterns Customer Experience KERNEL-native: P_CX01 Flujo Valor Cliente, P_CX02 Eventos como Señales CX, P_CX03 Touchpoint Ownership. Operan sobre primitivos F, S, O2 (no inventa conceptos nuevos). Ver `A1_Patrones.md` §6.6.
 
@@ -104,7 +106,6 @@
 
 - **Smartness (C1-C6):** Modelo madurez inteligencia organizacional, estructurado en matriz 4 dominios × 6 niveles capacidad (24 celdas): C1 Opaco, C2 Reactivo, C3 Predecible, C4 Diagnóstico, C5 Prescriptivo, C6 Adaptativo. Ver `CORE/05_Smartness.md`.
 
-- **Estado:** (Primitivo) Una "fotografía" de la configuración de un sistema en un punto específico en el tiempo.
 
 ## T
 

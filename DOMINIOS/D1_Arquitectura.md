@@ -378,17 +378,17 @@ Recomendación_Estructural:
   ↓
 Implementación (reorg, redefinición boundaries):
   ↓
-Medición_Post (A_Score, I1, I2)
+Medición_Post (A_Score, IN1, IN2)
 ```
 
 ---
 
 ### Síntomas Comunes
 
-#### S1. Decisiones Lentas (I1 bajo)
+#### S1. Decisiones Lentas (IN1 bajo)
 
 ```yaml
-Síntoma: I1 (Velocidad decisional) <50/100
+Síntoma: IN1 (Velocidad decisional) <50/100
 Observable: Decisiones tardan >2 semanas promedio
 
 Root_Causes_Posibles:
@@ -901,7 +901,7 @@ Cuándo_Usar:
 ```yaml
 Síntoma: Cada 6 meses nueva estructura
 Causa: No diagnóstico root cause, "reorg fixes all"
-Consecuencia: Fatigue, I2 colapsa, no learning
+Consecuencia: Fatigue, IN2 colapsa, no learning
 
 Ejemplo:
   Q1: Functional silos
@@ -940,7 +940,7 @@ Fix:
 ```yaml
 Síntoma: Manager 25+ reports directos
 Causa: Growth sin crear management layer
-Consecuencia: No 1:1s, development nulo, I2 cae
+Consecuencia: No 1:1s, development nulo, IN2 cae
 
 Fix:
   - Target: 5-9 reports per manager
@@ -1003,13 +1003,13 @@ Semanas 11-16: TRANSICIÓN
   - Reassign: Personas a nuevos teams
   - Handoff: Responsabilidades
   - Train: New processes
-  - Monitor: I2 (Salud talento) intensivo
+  - Monitor: IN2 (Salud talento) intensivo
   - Output: Nueva estructura operando
 
 Semanas 17-20: ESTABILIZACIÓN
   - Adjust: Issues menores
   - Retro: ¿Qué funcionó/no funcionó?
-  - Measure: A_Score, I1, I2, I3 post-reorg
+  - Measure: A_Score, IN1, IN2, IN3 post-reorg
   - Output: Lessons learned
 
 Post-Week-20: SOSTENIBILIDAD
@@ -1222,6 +1222,6 @@ Building_Blocks implementan:
 - **Trazabilidad arquitectural:** `CORE/06_Trazabilidad.md`
 - **Antipatrones estructurales:** `APLICACION/A2_Antipatrones.md` §2
 - **Patrones org:** `APLICACION/A1_Patrones.md`amental.md` §6
-- **Observable I1 (Velocidad decisional):** `DOMINIOS/D2_Percepcion.md` §3.1
-- **Observable I2 (Salud talento):** `DOMINIOS/D2_Percepcion.md` §3.2
+- **Observable IN1 (Velocidad decisional):** `DOMINIOS/D2_Percepcion.md` §3.1
+- **Observable IN2 (Salud talento):** `DOMINIOS/D2_Percepcion.md` §3.2
 - **Casos estructurales:** `REFERENCIA/R1_Casos.md`

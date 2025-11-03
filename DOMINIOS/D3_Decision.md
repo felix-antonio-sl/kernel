@@ -1365,7 +1365,7 @@ Design_Implication:
 - **Ciclo SDA (Decide):** `CORE/02_Ciclo_Fundamental.md` §3
 - **Modos decisionales:** Este documento §6
 - **Awareness levels:** `DOMINIOS/D2_Percepcion.md` §5 (conecta Project con Mode 3-4)
-- **Observables para decisión:** `DOMINIOS/D2_Percepcion.md` (O1-O8, I1-I3)
+- **Observables para decisión:** `DOMINIOS/D2_Percepcion.md` (O1-O8, IN1-IN3)
 - **Trazabilidad Objetivos→Valor:** `CORE/06_Trazabilidad.md` §3,§12
 - **Delegación IA decisional:** `CORE/04_Delegacion.md` (M2-M5)
 - **Implementación roadmap:** `APLICACION/A4_Implementacion.md`

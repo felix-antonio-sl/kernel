@@ -24,11 +24,11 @@ Week_1: Observables Críticos (3 de 11)
     - Tool: Qualtrics, Typeform, o Google Forms
     - Frecuencia: Mensual minimum
   
-  ☐ I2_Salud_Talento: Turnover rate
+  ☐ IN2_Salud_Talento: Turnover rate
     - Data: HR system (attrition last 12 months)
     - Alert: Si >15% annualized
   
-  ☐ I3_Eficiencia_Flujo: Cycle time
+  ☐ IN3_Eficiencia_Flujo: Cycle time
     - Data: Jira or Linear (start date → done date)
     - Target: <7 días avg
 
@@ -65,15 +65,15 @@ Next_Steps_Post_MVP:
 ```yaml
 Tier_1_Críticos (Week 1-2):
   - O2_Valor: Customer satisfaction (NPS, churn)
-  - I2_Salud_Talento: Employee retention (attrition, engagement)
-  - I3_Eficiencia_Flujo: Delivery speed (cycle time)
+  - IN2_Salud_Talento: Employee retention (attrition, engagement)
+  - IN3_Eficiencia_Flujo: Delivery speed (cycle time)
   
   Rationale: Estos 3 predicen viabilidad org mejor (Pareto 80/20)
 
 Tier_2_Importantes (Week 3-8):
   - O1_Demanda: Pipeline health
   - O3_Capacidad: Resource availability (utilization, runway)
-  - I1_Velocidad_Decisional: Decision speed
+  - IN1_Velocidad_Decisional: Decision speed
   
   Rationale: Necessary para H_Score representativo
 
@@ -138,9 +138,9 @@ MVP_No_Suficiente_Si:
 ┌─────────────────────────────────────────┐
 │        ORGANIZACIÓN INTERNA             │
 ├─────────────────────────────────────────┤
-│ I1: Velocidad Decisional                │
-│ I2: Salud Talento                       │
-│ I3: Eficiencia Flujo                    │
+│ IN1: Velocidad Decisional                │
+│ IN2: Salud Talento                       │
+│ IN3: Eficiencia Flujo                    │
 └─────────────────────────────────────────┘
              ↓
 ┌─────────────────────────────────────────┐
@@ -496,7 +496,7 @@ Ejemplo_Malo (Score 40):
 
 ---
 
-### I1. VELOCIDAD DECISIONAL
+### IN1. VELOCIDAD DECISIONAL
 
 ```yaml
 Definición: Rapidez, calidad y distribución con la que organización toma e implementa decisiones
@@ -547,7 +547,7 @@ Ejemplo_Malo (Score 35):
 
 ---
 
-### I2. SALUD TALENTO
+### IN2. SALUD TALENTO
 
 ```yaml
 Definición: Bienestar, engagement, retención de personas
@@ -585,8 +585,8 @@ Score_Cálculo_Crisis (0-45):
     - Organizational knowledge hemorrhaging
 
 Señal_Emergency:
-  IF I2 < 30 THEN Emit(Señal: "Talent_Exodus_Crisis")
-  IF I2 < 15 THEN Emit(Señal: "Organizational_Knowledge_Collapse")
+  IF IN2 < 30 THEN Emit(Señal: "Talent_Exodus_Crisis")
+  IF IN2 < 15 THEN Emit(Señal: "Organizational_Knowledge_Collapse")
 
 Ejemplo_Bueno (Score 92):
   - Engagement: 82/100
@@ -608,7 +608,7 @@ Ejemplo_Crisis (Score 22):
 
 ---
 
-### I3. EFICIENCIA FLUJO
+### IN3. EFICIENCIA FLUJO
 
 ```yaml
 Definición: Rapidez con la que work e información fluyen desde idea hasta valor entregado
@@ -678,15 +678,15 @@ H_Score = (
   0.10 * O6_Competencia +
   0.08 * O7_Dependencias +
   0.07 * O8_Calidad_Info +
-  0.08 * I1_Velocidad_Decisional +
-  0.08 * I2_Salud_Talento +
-  0.04 * I3_Eficiencia_Flujo
+  0.08 * IN1_Velocidad_Decisional +
+  0.08 * IN2_Salud_Talento +
+  0.04 * IN3_Eficiencia_Flujo
 )
 
 Nota_Security_Extended:
   Esta es fórmula BASE (11 observables).
   Para enterprise security-critical, ver §8 que agrega SO1-SO5.
-  Fórmula extended: 70% base + 20% internal + 10% security.
+  Fórmula extended: 70% O1-O8 + 20% IN1-IN3 + 10% SO1-SO5.
 
 Ponderaciones justificadas (rationale):
   - O2 (Valor) mayor peso 15%: Es outcome final, customer-facing
@@ -953,7 +953,7 @@ Ejemplos_Concretos:
     - NPS -15 + Churn 32% + Attrition 40% → "Triple crisis (customer, talent, value)"
     - Backlog growth -8% + competitor launch → "Demanda shift to competitor"
   
-  Observables_O1_O8_I1_I3:
+  Observables_O1_O8_IN1_IN3:
     TODOS operan en Level 2 (comprehension)
     - O2 Valor: NPS score es synthesis de customer responses
     - I2 Talent: Engagement score es synthesis de survey + retention

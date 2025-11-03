@@ -9,7 +9,7 @@
 
 ```yaml
 ID_Aplicación: [YYYYMMDD-PatternID]
-Patrón_Aplicado: [ID y Nombre del Patrón, ej. "P15: Strangler Fig"]
+Patrón_Aplicado: [ID y Nombre del Patrón, ej. "P21: Strangler Fig"]
 Problema_Objetivo: [Descripción corta del problema que se resuelve]
 Equipo_Owner: [Nombre del equipo que implementa el patrón]
 Fecha: [YYYY-MM-DD]

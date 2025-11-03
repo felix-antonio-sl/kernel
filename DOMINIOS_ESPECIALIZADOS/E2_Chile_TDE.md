@@ -200,7 +200,7 @@
 
 - **Definición**: Uso óptimo recursos públicos, maximizar impacto calidad, seguridad, sostenibilidad
 - **Implicación**: FinOps, servicios compartidos (no cada OAE build own), EVALTIC riguroso
-- **Conexión KERNEL**: CORE/06 Capacidades §6 Efficiency
+- **Conexión KERNEL**: `CORE/00_Manifiesto.md` §1 §6 Efficiency
 
 **5. Gobierno Abierto, Transparente, Participativo**:
 

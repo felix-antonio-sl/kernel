@@ -6,7 +6,7 @@
 
 ## Invariante
 
-**Toda organización ejecutable se descompone en exactamente 7 primitivos ortogonales e irreducibles: Actor, Flujo, Dato, Señal, Límite, Estado, Recurso.**
+**Toda organización ejecutable se descompone en exactamente 7 primitivos ortogonales e irreducibles: Actor, Flujo, Dato, Señal, Límite, Estado y Recurso.**
 
 **Nota:** Señal agregado en v1.1 para distinguir disparadores (impulsos acción) de datos formales (registros estructurados).
 
@@ -81,11 +81,19 @@ Información que representa estado del mundo con significado explícito.
 
 ### Definición
 
-Disparador que inicia acción o flujo. Placeholder para conversación futura, no registro formal completo.
+Una **Señal** es un impulso atómico y transitorio que notifica la ocurrencia de un evento significativo, diseñado para disparar una acción o un flujo de manera inmediata. A diferencia del Dato, su propósito no es el almacenamiento persistente de información detallada, sino la comunicación urgente de un cambio de estado.
 
-### Nota sobre Relación con Dato (Minimalidad I1)
+### Ortogonalidad con el Primitivo Dato
 
-**Aclaración fundamental**: Señal y Dato están **relacionados temporalmente** (Señal precede y evoluciona a Dato), lo que plantea la pregunta: ¿Son primitivos verdaderamente ortogonales o Señal es un estado temporal de Dato?
+La Señal es ortogonal al Dato y su existencia como primitivo separado es fundamental para la minimalidad (I1) y la trazabilidad (I3) del framework.
+
+- **Propósito Distinto:** El propósito de un **Dato** es *registrar* un estado del mundo de forma estructurada y persistente para su consulta y análisis futuro. El propósito de una **Señal** es *notificar* un cambio de estado para provocar una reacción inmediata.
+- **Ciclo de Vida Diferente:** Una Señal es efímera por naturaleza; una vez consumida por un actor, ha cumplido su función. Un Dato está diseñado para perdurar. Una Señal puede *generar* un Dato (ej. la señal `Usuario_Creado` dispara la creación de un registro de `Dato` en la base de datos de usuarios), pero no es el dato en sí.
+- **Contenido Mínimo vs. Rico:** Una Señal contiene la mínima información necesaria para la notificación (ej. `evento: 'pago_fallido', usuario_id: '123'`). Un Dato contiene un registro completo y enriquecido (ej. el registro completo del cliente, su historial de pagos, etc.).
+
+**Analogía:** Un Dato es el *informe meteorológico completo* (temperatura, humedad, presión). Una Señal es el *sonido del trueno* que te hace buscar refugio inmediatamente. El trueno (Señal) notifica un evento (tormenta), pero no es el informe completo (Dato).
+
+Eliminar la Señal como primitivo obligaría a sobrecargar el concepto de Dato para manejar notificaciones en tiempo real, violando el principio de responsabilidad única y la parsimonia (P7).
 
 **Justificación de ambos como primitivos**:
 
@@ -235,11 +243,17 @@ Estado(t):
   health_score: 0-100
 ```
 
-### Transiciones
+### Transiciones y Eventos
+
+Un **Evento** es la causa de una transición entre dos estados. No es un primitivo en sí mismo, sino el *mecanismo de cambio* que mueve al sistema de `Estado(t0)` a `Estado(t1)`.
 
 ```
-Estado(t0) --[Evento]--> Estado(t1)
+Estado(t0) --(desencadenado por un Evento)--> Estado(t1)
 ```
+
+- Un **Evento** es instantáneo (ej: "Compra Realizada").
+- Un **Estado** tiene duración (ej: "Pedido Pagado").
+- Una **Señal** notifica que un Evento ha ocurrido para que un Actor reaccione.
 
 ---
 
@@ -287,7 +301,7 @@ Unidad_Trabajo:
   entorno: Set(Factor_Ambiental) # Fuerzas externas (competencia, mercado)
   
   # Estado temporal
-  estados: Secuencia(Estado)    # ≥2 (inicio, fin)
+  estados: Secuencia(Estado)    # ≥2 (inicio, fin) - Representa la evolución temporal
 ```
 
 **Nota crítica:** Esta composición formaliza perspectiva **Outside-In** (P3 Manifiesto). Primero se definen outputs (productos/servicios) y destinatarios (clientes/stakeholders), luego se diseña estructura interna para entregarlos.

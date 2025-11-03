@@ -36,7 +36,7 @@ Crisis_Threshold_Primary:
   → Transition governance normal → emergency protocols
 
 Crisis_Threshold_Observable_Based:
-  ANY(O1-O8, I1-I3) < 30 for 2 weeks consecutive
+  ANY(O1-O8, IN1-IN3) < 30 for 2 weeks consecutive
   → Evaluate activation
   → Multiple observables < 30 → Mandatory activation
 
@@ -44,7 +44,7 @@ Existential_Threshold:
   H_Score < 15 OR
   O3_Capacidad < 15 (cash runway < 7 días) OR
   O2_Valor < 15 (mass customer defection) OR
-  I2_Salud_Talento < 15 (organizational knowledge collapse)
+  IN2_Salud_Talento < 15 (organizational knowledge collapse)
   → IMMEDIATE emergency triage (Path 1)
 ```
 
@@ -136,7 +136,7 @@ Activación_Recomendada_Si:
   - Tech debt score > 70 (vs <30 target)
   - Velocity drop > 60% sustained
 
-Severity: Típicamente correlaciona con I3 (Eficiencia Flujo)
+Severity: Típicamente correlaciona con IN3 (Eficiencia Flujo)
   
 Nota: Operational crisis RARA VEZ es standalone
       Usualmente es CONSECUENCIA de otra crisis (financial, talent)
@@ -222,7 +222,7 @@ Agenda_Standard:
      - Incidents, escalations, external events
   
   2. Vital_Signs_Update (10 min):
-     - Observable readings (O1-O8, I1-I3)
+     - Observable readings (O1-O8, IN1-IN3)
      - H_Score trend (daily calculation crisis mode)
      - Key metrics: Cash runway, churn rate, attrition
      - Color coding: Green (stable), Yellow (concern), Red (critical)
@@ -426,7 +426,7 @@ Required_Conditions (ALL must be met):
      - Trend: Improving or stable (not volatile)
   
   2. Observable_Recovery:
-     - All observables O1-O8, I1-I3 > 30
+     - All observables O1-O8, IN1-IN3 > 30
      - No crisis thresholds active
   
   3. Financial_Stability:
@@ -440,7 +440,7 @@ Required_Conditions (ALL must be met):
      - Service delivery > 85% (if public)
   
   5. Talent_Stability:
-     - Attrition < 20% annualized (I2 > 45)
+     - Attrition < 20% annualized (IN2 > 45)
      - Engagement score > 50
      - Leadership team complete (no critical vacancies)
      - Flight risk reduced (<30% top talent job hunting)
@@ -511,14 +511,14 @@ Causa_Raíz:
 
 Consecuencia (12 meses):
   - Burnout rate +40%
-  - Attrition +15% (I2 collapse)
+  - Attrition +15% (IN2 collapse)
   - "Crisis fatigue" - next real crisis not taken seriously
   - Credibility leadership destroyed
   - Staff cynicism ("boy who cried wolf")
 
 Diagnóstico:
   Check_Real_Crisis:
-    IF H_Score < 45 AND (O3<30 OR O2<30 OR I2<30):
+    IF H_Score < 45 AND (O3<30 OR O2<30 OR IN2<30):
       → Real crisis, activate P52 justified
     ELSE:
       → Not crisis, don't declare crisis
@@ -763,7 +763,7 @@ Prevention_Future:
 
 ---
 
-### Talent Crisis (I2 < 30)
+### Talent Crisis (IN2 < 30)
 
 ```yaml
 Week_1_Emergency:
@@ -787,7 +787,7 @@ Week_2-4_Stabilization:
   - Implement quick wins culture (flexibility, tools, recognition)
   - Communication transparency (honesty about challenges)
   - Celebrate small wins (morale critical)
-  - Target: I2 > 30 (attrition < 25%, engagement > 40) before exit
+  - Target: IN2 > 30 (attrition < 25%, engagement > 40) before exit
 
 Prevention_Future:
   - Engagement surveys quarterly
@@ -885,7 +885,7 @@ Decision:
 ```yaml
 Modified_P52 (Single Domain Crisis):
   
-  Scenario: O3 < 30 (financial) pero O2, I2 > 45 (customer, talent OK)
+  Scenario: O3 < 30 (financial) pero O2, IN2 > 45 (customer, talent OK)
   
   Approach: Crisis governance SOLO financial domain
     - Daily financial check-ins (CFO + CEO)
@@ -914,7 +914,7 @@ H_Score: 28 (Critical)
 Observables:
   O3_Capacidad: 18 (cash runway 22 días)
   O2_Valor: 62 (churn OK, pero ingresos no crecen suficiente)
-  I2_Talent: 48 (attrition normal, pero riesgo si layoffs)
+  IN2_Talent: 48 (attrition normal, pero riesgo si layoffs)
 ```
 
 ---
@@ -1077,7 +1077,7 @@ Tech_Debt:
 ## Referencias Cruzadas
 
 - **H_Score calculation:** `DOMINIOS/D2_Percepcion.md` §4
-- **Observables thresholds:** `DOMINIOS/D2_Percepcion.md` §2 (O1-O8), §3 (I1-I3)
+- **Observables thresholds:** `DOMINIOS/D2_Percepcion.md` §2 (O1-O8), §3 (IN1-IN3)
 - **Readiness R1-R5:** `DOMINIOS/D3_Decision.md` §3
 - **Implementation playbook:** `APLICACION/A4_Implementacion.md` §0 (Triage Paths)
 - **Antipatrones consolidados:** Este documento §5 (AP31-AP33)

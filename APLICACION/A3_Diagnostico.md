@@ -24,7 +24,7 @@ Audiencia_Reporte: C-level, Board (strategic), Managers (tactical)
    - Definir scope, stakeholders clave, access datos
    
 2. RECOLECCIÓN_DATOS (5-10 días)
-   - 11 observables (O1-O8, I1-I3)
+   - 11 observables (O1-O8, IN1-IN3)
    - Entrevistas (20-30 personas)
    - Métricas sistemas
 
@@ -107,9 +107,9 @@ Outputs:
 | **O6 (Competencia)** | Market research, win/loss data | Entrevistas sales | G2, Crunchbase |
 | **O7 (Dependencias)** | Vendor contracts, integration logs | Entrevistas architects | Contract mgmt |
 | **O8 (Calidad Info)** | Data quality reports, trust surveys | Entrevistas data team | DBT, Alation |
-| **I1 (Velocidad Decisional)** | Decision log, escalations | Entrevistas managers | Custom tracking |
-| **I2 (Salud Talento)** | Engagement surveys, turnover | Entrevistas HR | Culture Amp, Lattice |
-| **I3 (Eficiencia Flujo)** | Cycle time, throughput, WIP | Git, Jira | LinearB, Jellyfish |
+| **IN1 (Velocidad Decisional)** | Decision log, escalations | Entrevistas managers | Custom tracking |
+| **IN2 (Salud Talento)** | Engagement surveys, turnover | Entrevistas HR | Culture Amp, Lattice |
+| **IN3 (Eficiencia Flujo)** | Cycle time, throughput, WIP | Git, Jira | LinearB, Jellyfish |
 
 ---
 
@@ -172,7 +172,7 @@ Paso_1: Score cada observable 0-100
 Paso_2: Aplicar ponderaciones
   H = 0.12*O1 + 0.15*O2 + 0.10*O3 + 0.08*O4 + 
       0.10*O5 + 0.10*O6 + 0.08*O7 + 0.07*O8 +
-      0.08*I1 + 0.08*I2 + 0.04*I3
+      0.08*IN1 + 0.08*IN2 + 0.04*IN3
 
 Paso_3: Interpretación
   90-100: Excelente
@@ -243,7 +243,7 @@ Checklist_Por_Level:
 
 S1_DETECT (Percibir):
   ☐ ¿Org captura metrics raw de systems críticos?
-  ☐ ¿Dashboards disponibles para observables O1-O8, I1-I3?
+  ☐ ¿Dashboards disponibles para observables O1-O8, IN1-IN3?
   ☐ ¿Telemetry real-time o near-real-time?
   ☐ ¿Logs aggregated y searchable (ELK, Splunk)?
   
@@ -551,9 +551,9 @@ Observables:
   O6_Competencia: 60 (perdiendo vs competitor X)
   O7_Dependencias: 80 (vendors estables)
   O8_Calidad_Info: 70 (data quality 75%, OK)
-  I1_Velocidad_Decisional: 45 (TTD 18 días - CRÍTICO)
-  I2_Salud_Talento: 50 (turnover 22%, engagement 55 - CRÍTICO)
-  I3_Eficiencia_Flujo: 40 (cycle time 16 días, efficiency 18% - CRÍTICO)
+  IN1_Velocidad_Decisional: 45 (TTD 18 días - CRÍTICO)
+  IN2_Salud_Talento: 50 (turnover 22%, engagement 55 - CRÍTICO)
+  IN3_Eficiencia_Flujo: 40 (cycle time 16 días, efficiency 18% - CRÍTICO)
 
 H_Score = 0.12*75 + 0.15*55 + 0.10*65 + 0.08*85 + 
           0.10*90 + 0.10*60 + 0.08*80 + 0.07*70 +
@@ -800,12 +800,12 @@ Ejemplo_Unhealthy:
 
 ```yaml
 Energy_Dissipation conecta con:
-  - I3 (Eficiencia Flujo): Flow efficiency = productive energy / cycle time
-  - I1 (Velocidad Decisional): Decision delays = energy waiting
+  - IN3 (Eficiencia Flujo): Flow efficiency = productive energy / cycle time
+  - IN1 (Velocidad Decisional): Decision delays = energy waiting
   - O7 (Dependencias): External dependencies = coordination overhead
   
 Uso_Diagnóstico:
-  Si I3 <50 → Ejecutar Energy Flow Analysis
+  Si IN3 <50 → Ejecutar Energy Flow Analysis
   → Identificar categorías waste específicas
   → Trace to structural root causes (P1-P10 violations)
 ```

@@ -1085,7 +1085,7 @@ Break_Even_Value:
 
 ## Referencias Cruzadas
 
-- **16 Observables:** `DOMINIOS/D2_Percepcion.md` (O1-O8, I1-I3, SO1-SO5)
+- **16 Observables Canónicos:** `DOMINIOS/D2_Percepcion.md` (O1-O8, IN1-IN3, SO1-SO5)
 - **H_Score fórmula:** `DOMINIOS/D2_Percepcion.md` §4
 - **Flow metrics:** `DOMINIOS/D4_Operacion.md` §2
 - **DORA metrics:** `DOMINIOS/D4_Operacion.md` §4.2

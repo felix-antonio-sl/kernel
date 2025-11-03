@@ -12,7 +12,7 @@
 | **Flujo** | F | Secuencia transforma inputs → outputs | CI/CD pipeline, customer journey |
 | **Dato** | D | Información reduce incertidumbre | Métrica, log, evento |
 | **Señal** | S | Interpretación meaningful dato/evento | S_High_Churn (>15%) |
-| **Evento** | E | Ocurrencia discreta cambia estado | E_Deploy_Completed |
+| **Estado** | - | Snapshot de (A, F, D, R) en `t` | Pedido "Pagado" |
 | **Límite** | L | Interfaz separa componentes | L1 Recursos, L2 Autoridad, L3 Constraints |
 | **Recurso** | R | Activo necesario para flujo | Dinero, servidores, tiempo, conocimiento |
 
@@ -31,9 +31,9 @@
 
 ## H_Score (0-100) - Health Organizacional
 
-**Fórmula Base**: Weighted avg 11 observables (O1-O8, I1-I3)
+**Fórmula Base**: Weighted avg 11 observables (O1-O8, IN1-IN3)
 
-**Fórmula Extended**: 70% O1-O8 + 20% I1-I3 + 10% SO1-SO5 (security)
+**Fórmula Extended**: 70% O1-O8 + 20% IN1-IN3 + 10% SO1-SO5 (security)
 
 ### 11 Observables Base
 
@@ -47,10 +47,10 @@
 7. O7 Alianzas (partners, ecosistema)
 8. O8 Reputación (brand, glassdoor)
 
-**Internos (I1-I3)**:
-- I1 Velocidad Decisional (cycle time decisions)
-- I2 Salud Talento (retention, engagement)
-- I3 Eficiencia Flujo (lead time, throughput)
+**Internos (IN1-IN3)**:
+- IN1 Velocidad Decisional (cycle time decisions)
+- IN2 Salud Talento (retention, engagement)
+- IN3 Eficiencia Flujo (lead time, throughput)
 
 ### 5 Security Observables (SO1-SO5)
 
