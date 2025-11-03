@@ -8,7 +8,7 @@
 
 ### Propósito
 
-Catalogo de 10 transformaciones organizacionales exitosas aplicando KERNEL. Cada caso sigue formato:
+Catálogo de 10 transformaciones organizacionales exitosas aplicando KERNEL. Cada caso sigue formato:
 
 ```yaml
 Contexto: Industria, tamaño, problema inicial
@@ -18,7 +18,7 @@ Resultados: Métricas antes/después, timeline, ROI
 Lecciones: Insights reutilizables
 ```
 
-### Selección Casos
+### Selección de Casos
 
 ```yaml
 Diversidad_Sectores:
@@ -274,7 +274,7 @@ ROI: 50× (crisis intervention saved company)
 
 ---
 
-## §2. CASO 1: SaaS B2B - De Monolito a Platform Engineering
+## §3. CASO 1: SaaS B2B - De Monolito a Platform Engineering
 
 ### Contexto
 
@@ -319,7 +319,7 @@ Operación (D4): 48/100
 - O3 Observable System: Deploy Datadog + custom dashboards
 
 **Fase 2: Arquitectura (M4-9)**
-- P07 Bounded Contexts: Extraer 8 servicios core (auth, billing, telemetry, etc.)
+- P07 Bounded Contexts: Extraer 8 servicios core (auth, billing, telemetría, etc.)
 - P30 IDP (Internal Developer Platform): Golden paths + service templates
 - P18 Infrastructure as Code: Terraform + GitOps (ArgoCD)
 
@@ -367,7 +367,7 @@ Operación (D4): 48/100
 
 ---
 
-## §3. CASO 2: Gobierno Regional - Modernización Digital Ciudadana
+## §4. CASO 2: Gobierno Regional - Modernización Digital Ciudadana
 
 ### Contexto Compacto
 
@@ -396,7 +396,7 @@ Operación (D4): 48/100
 
 ---
 
-## §4. CASOS ADICIONALES (Formato Tabla Compacta)
+## §5. CASOS ADICIONALES (Formato Tabla Compacta)
 
 ### CASO 3: Fintech Scale-up - Hipercrecimiento Sostenible
 
@@ -494,7 +494,9 @@ Operación (D4): 48/100
 
 ---
 
-## §5. ANÁLISIS TRANSVERSAL
+## §6. ANÁLISIS TRANSVERSAL
+
+**Nota sobre el análisis:** Las tablas de patrones y antipatrones se basan en un conjunto de datos más amplio que los 10 casos aquí presentados, de ahí las posibles discrepancias en los conteos. Los casos detallados sirven como ejemplos ilustrativos.
 
 ### Patrones Más Reutilizados (Top 10)
 
@@ -558,7 +560,7 @@ H_Score_Inicial > 55 (Optimización):
 
 ---
 
-## §6. APLICABILIDAD POR SECTOR
+## §7. APLICABILIDAD POR SECTOR
 
 ### Recomendaciones Específicas
 

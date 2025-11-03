@@ -1051,8 +1051,6 @@ Ejemplo_Team_Weekly:
 
 ### §11.1. DESARROLLO EVOLUTIVO (Piecemeal Growth)
 
-**Patrones refactorizados a:** `APLICACION/A1_Patrones.md` §14 (P54-P56)
-
 **Contexto operacional**: Esta sección mantiene perspectiva **operación continua** de cómo teams aplican desarrollo evolutivo day-to-day.
 
 #### Principios Operacionales

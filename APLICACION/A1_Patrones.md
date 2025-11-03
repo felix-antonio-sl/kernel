@@ -160,9 +160,9 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 
 | Pattern | Primitivos Usados | Observables Clave | Output KERNEL-Native |
 |---------|-------------------|-------------------|----------------------|
-| P_CX01 | F1 (Flujo valor cliente), R1 (Recursos customer-facing), L1 (Límites friction) | O2 (Valor entregado), I3 (Eficiencia flujo) | Flujo F mapeado con métricas flow efficiency, cycle time por etapa |
+| P_CX01 | F1 (Flujo valor cliente), R1 (Recursos customer-facing), L1 (Límites friction) | O2 (Valor entregado), IN3 (Eficiencia flujo) | Flujo F mapeado con métricas flow efficiency, cycle time por etapa |
 | P_CX02 | S1 (Señal friction), E1 (Evento abandono), D1 (Dato telemetry) | O2 (Valor), O4 (Eventos críticos) | Alerting system: IF friction_rate >threshold THEN Señal S emitida |
-| P_CX03 | A2 (Actor owner touchpoint), F1 (Flujo customer), L3 (Límites SLA touchpoint) | O2 (Valor NPS/CSAT), I1 (Velocidad decisional) | RACI matrix touchpoints, dashboard O2 segmentado por touchpoint |
+| P_CX03 | A2 (Actor owner touchpoint), F1 (Flujo customer), L3 (Límites SLA touchpoint) | O2 (Valor NPS/CSAT), IN1 (Velocidad decisional) | RACI matrix touchpoints, dashboard O2 segmentado por touchpoint |
 
 **Diferencia vs Design Thinking Tradicional**:
 
@@ -376,10 +376,10 @@ Alto impacto, alto riesgo, requiere madurez
 
 | Aspecto | Descripción |
 |---------|-------------|
-| **Activación** | H_Score < 45 OR any(O1-O8, I1-I3) < 30 sustained |
+| **Activación** | H_Score < 45 OR any(O1-O8, IN1-IN3) < 30 sustained |
 | **Problema** | Governance normal demasiado lento para crisis |
 | **Solución** | Crisis team 5-7 personas, daily meetings, decision protocols <4hrs critical |
-| **Cuándo Usar** | Financial (O3<30), Customer (O2<30), Talent (I2<30), Multiple observables <30 |
+| **Cuándo Usar** | Financial (O3<30), Customer (O2<30), Talent (IN2<30), Multiple observables <30 |
 | **Evitar Si** | H_Score > 60, crisis artificial (AP31), no sponsor, team unavailable |
 | **Duration** | 4-12 semanas típico (hasta H>45 stable 3 months) |
 | **Exit Criteria** | H>45 for 3 months + all observables >30 + specific domain stability |
@@ -690,7 +690,7 @@ Building_Blocks (D1_Arquitectura §4):
 
 ## §14. PATRONES DESARROLLO EVOLUTIVO (P54-P56)
 
-**Nota**: Patrones extraídos de `DOMINIOS/D4_Operacion.md` §11.1 para mayor aplicabilidad cross-domain. Fundamentados en Gall's Law y Christopher Alexander's pattern language.
+**Nota**: Patrones fundamentados en principios operacionales evolutivos (ver `DOMINIOS/D4_Operacion.md` §11 Continuous Learning). Basados en Gall's Law y Christopher Alexander's pattern language para sistemas que evolucionan incrementalmente.
 
 ### P54: Piecemeal Growth
 
@@ -853,4 +853,4 @@ Límites:
 - **Antipatrones:** `APLICACION/A2_Antipatrones.md`
 - **Ciclo SDA fundamental:** `CORE/02_Ciclo_Fundamental.md`
 - **Templates OKR/Roadmap:** `REFERENCIA/R6_Templates/`
-- **Piecemeal Growth detalle:** `DOMINIOS/D4_Operacion.md` §11 (context operacional)
+- **Principios Evolutivos:** `DOMINIOS/D4_Operacion.md` §11 (continuous learning context)

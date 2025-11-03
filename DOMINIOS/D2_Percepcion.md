@@ -881,7 +881,7 @@ Ejemplo:
 
 ---
 
-## §5. NIVELES AWARENESS COGNITIVA
+## §9. NIVELES AWARENESS COGNITIVA
 
 ### Estratificación Percepción
 
@@ -905,7 +905,7 @@ Nomenclatura:
 
 ---
 
-### Level 1: Detect (Percibir) = S1
+### §9.1. Level 1: Detect (Percibir) = S1
 
 ```yaml
 Referencia: S1 DETECTAR en CORE/02_Ciclo_Fundamental.md §2
@@ -937,7 +937,7 @@ Complejidad: O(1) - Captura directa sin procesamiento
 
 ---
 
-### Level 2: Comprehend (Comprender) = S2
+### §9.2. Level 2: Comprehend (Comprender) = S2
 
 ```yaml
 Referencia: S2 COMPRENDER en CORE/02_Ciclo_Fundamental.md §2
@@ -1251,19 +1251,47 @@ Ejemplo_Malo (Score 25):
 
 ```yaml
 H_Score_Security_Adjusted:
-  Base: O1-O8 (70%), I1-I3 (20%)
-  Security: SO1-SO5 (10%)
+  Base: 11 observables (O1-O8, IN1-IN3) con pesos §4
+  Extended: Agrega SO1-SO5 (security observables)
   
-  Fórmula:
-    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(I1-I3) + 0.10 * avg(SO1-SO5)
+  Fórmula_Extended_Detallada:
+    # Renormalizar pesos base a 90% (para dejar 10% a security)
+    H_Score = (
+      0.90 * [
+        0.12 * O1_Demanda +
+        0.15 * O2_Valor +
+        0.10 * O3_Capacidad +
+        0.08 * O4_Eventos +
+        0.10 * O5_Restricciones +
+        0.10 * O6_Competencia +
+        0.08 * O7_Dependencias +
+        0.07 * O8_Calidad_Info +
+        0.08 * IN1_Velocidad_Decisional +
+        0.08 * IN2_Salud_Talento +
+        0.04 * IN3_Eficiencia_Flujo
+      ] / 100 +
+      0.10 * avg(SO1, SO2, SO3, SO4, SO5)
+    )
+  
+  Fórmula_Extended_Simplificada (aproximación):
+    # Para cálculos rápidos, usar promedios categoría
+    # NOTA: Aproximación, no exacta. Usar detallada si precisión crítica.
+    H_Score ≈ 0.63 * avg(O1-O8) + 0.18 * avg(IN1-IN3) + 0.10 * avg(SO1-SO5)
+    # Adjustados: 0.70*0.90=0.63, 0.20*0.90=0.18
   
   Ponderación_Industry_Specific:
-    - Financial/Healthcare (regulated): SO weight 15-20%
-    - SaaS B2B (security-critical): SO weight 12-15%
-    - B2C low-sensitivity: SO weight 5-8%
+    - Financial/Healthcare (regulated): SO weight 15-20% (ajustar base a 80-85%)
+    - SaaS B2B (security-critical): SO weight 12-15% (ajustar base a 85-88%)
+    - B2C low-sensitivity: SO weight 5-8% (ajustar base a 92-95%)
+    - Default standard: SO weight 10% (base 90%)
+  
+  Nota_Implementación:
+    Use fórmula detallada si implementando desde cero.
+    Use fórmula simplificada solo para estimaciones rápidas.
+    Diferencia típica: <2 puntos H_Score en mayoría casos.
   
   Crisis_Threshold:
-    IF SO_avg < 30 OR any SO individual < 20:
+    IF avg(SO1-SO5) < 30 OR any(SO1, SO2, SO3, SO4, SO5) < 20:
       → Security crisis mode (emergency response P_SEC patterns)
 ```
 

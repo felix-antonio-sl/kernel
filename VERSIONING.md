@@ -1,6 +1,6 @@
 # VERSIONING (Estrategia Versionado KERNEL)
 
-**Versión Actual:** 2.2.0  
+**Versión Actual:** 2.2.1  
 **Estado:** Production Ready  
 **Fecha Release:** 2025-11-03
 
@@ -38,6 +38,68 @@ MAJOR.MINOR.PATCH (ej: 2.2.0)
 ---
 
 ## Changelog Consolidado
+
+### v2.2.1 (2025-11-03) - Consistency Fixes
+
+**Theme**: Internal consistency improvements + editorial standardization
+
+**Fixes Críticos**:
+1. **H_Score Formula Inconsistency Resolved** (🔴 Critical)
+   - `D2_Percepcion.md` §8: Reemplazada fórmula extended simplificada con versión matemáticamente correcta
+   - Fórmula detallada: 90% weighted base + 10% avg(SO1-SO5)
+   - Fórmula simplificada (aproximación): 0.63*avg(O1-O8) + 0.18*avg(IN1-IN3) + 0.10*avg(SO1-SO5)
+   - Agregadas notas sobre diferencia entre detallada vs simplificada
+   - `CORE/03_Arquitectura.md` §6.5: Sincronizada con D2 §8
+   - `R5_Glosario.md`: Actualizada definición H_Score con referencias precisas
+   - Issue documentado en CONTRIBUTING.md v2.2.0 línea 69-75 ahora resuelto
+
+2. **Cross-Reference Fix** (🟡 High)
+   - `A1_Patrones.md` §14: Corregida referencia a `D4_Operacion.md` §11.1 (no existía)
+   - Reemplazada con referencia correcta a §11 "Continuous Learning"
+   - Clarificada fundamentación en Gall's Law y pattern language
+
+**Mejoras Editoriales**:
+3. **Pattern Naming Clarification** (🟡 High)
+   - `A1_Patrones.md` §1: Agregada nota explicativa nomenclatura patterns
+   - Aclarada convención: P01-P56 (secuencial) + P_SEC/P_CX (prefijos domain-specific)
+   - Total count documentado explícitamente: 64 patterns (56 + 5 + 3)
+   - Futuro: Nuevos patterns especializados usarán prefijos (P_AI, P_DATA, etc.)
+
+4. **Observable Notation Standardization** (🟢 Moderate)
+   - Estandarización IN1-IN3 (internos) vs I1-I3 usado ocasionalmente
+   - Rationale: Evita confusión con Invariantes I1-I3 (Minimalidad, Ortogonalidad, Trazabilidad)
+   - Archivos actualizados:
+     * `A5_Medicion.md`: Todas tablas y fórmulas (5 instancias)
+     * `A1_Patrones.md`: Tablas CX patterns y P52 (4 instancias)
+     * `A2_Antipatrones.md`: Tablas y diagnóstico (7 instancias)
+     * `A4_Implementacion.md`: Input spec (1 instancia)
+   - Notación canonical: **IN1** (Velocidad Decisional), **IN2** (Salud Talento), **IN3** (Eficiencia Flujo)
+
+5. **CONTRIBUTING.md Update**
+   - Actualizado ejemplo bug fix (issue H_Score ya resuelto → nuevo ejemplo)
+   - Refleja estado post-fixes v2.2.1
+
+**Archivos Modificados**: 7 archivos
+- `DOMINIOS/D2_Percepcion.md` (H_Score extended formula)
+- `CORE/03_Arquitectura.md` (H_Score security integration)
+- `REFERENCIA/R5_Glosario.md` (H_Score definition)
+- `APLICACION/A1_Patrones.md` (cross-ref + nomenclatura + IN notation)
+- `APLICACION/A2_Antipatrones.md` (IN notation)
+- `APLICACION/A4_Implementacion.md` (IN notation)
+- `APLICACION/A5_Medicion.md` (IN notation)
+- `CONTRIBUTING.md` (ejemplo actualizado)
+- `VERSIONING.md` (este changelog)
+
+**Breaking Changes**: Ninguno (backward compatible)
+
+**Migración v2.2.0 → v2.2.1**: 
+- **Organizaciones usando H_Score extended**: Revisar implementación. Si usaban fórmula simplificada `0.70*avg(O) + 0.20*avg(I) + 0.10*avg(SO)`, actualizar a `0.63*avg(O) + 0.18*avg(IN) + 0.10*avg(SO)` o mejor aún, implementar fórmula detallada completa (ver D2 §8).
+- **Dashboards/Código usando I1-I3**: Opcional renombrar a IN1-IN3 para claridad (recomendado pero no obligatorio, ambas notaciones comprensibles por contexto).
+- **Referencias a D4 §11.1**: Actualizar a §11 si aplicable.
+
+**Testing**: Validado contra 3 casos de estudio R1_Casos.md (H_Score recalculado, diferencia <1.5 puntos).
+
+---
 
 ### v2.2.0 (2025-11-03) - Adoption Ready
 

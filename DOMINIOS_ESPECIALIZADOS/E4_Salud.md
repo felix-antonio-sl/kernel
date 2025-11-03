@@ -188,14 +188,7 @@
 
 ### P_HEALTH3-HEALTH8
 
-*[Structure defined, content abbreviated parsimony]*
-
-**P_HEALTH3**: FHIR Interoperability (labs ↔ EHR ↔ regional HIE seamless)  
-**P_HEALTH4**: Compliance by Design (HIPAA encryption, audit trails, BAAs embedded)  
-**P_HEALTH5**: Telemedicine Integration (video consults + EHR + prescriptions + billing unified)  
-**P_HEALTH6**: Clinical Decision Support (guidelines + alerts + order sets embedded workflows)  
-**P_HEALTH7**: Drug Interaction Checking (RxNorm, real-time alerts severe interactions)  
-**P_HEALTH8**: Readmissions Prevention (ML predict + care coordination + follow-up automated)
+*[Esta sección se encuentra en desarrollo. Se detallarán patrones adicionales como: Interoperabilidad con FHIR, Cumplimiento por Diseño (HIPAA), Integración de Telemedicina, Soporte a la Decisión Clínica, Chequeo de Interacción de Fármacos y Prevención de Readmisiones.]*
 
 ---
 

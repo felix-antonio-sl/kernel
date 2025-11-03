@@ -1,6 +1,6 @@
 # A3_Diagnostico
 
-**Versión:** 1.0.0 | **Estado:** Definitivo | **Audiencia:** Consultores, Arquitectos Empresariales, Líderes
+**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Consultores, Arquitectos, Líderes, Security, Product/UX
 
 ---
 
@@ -30,8 +30,8 @@ Audiencia_Reporte: C-level, Board (strategic), Managers (tactical)
 
 3. ANÁLISIS (3-5 días)
    - Calcular H_Score
-   - Identificar antipatrones (AP01-AP35: 30 base + 5 crisis/orchestration)
-   - Detectar patrones faltantes (P01-P53: 50 base + 3 emergentes)
+   - Identificar antipatrones (AP01-AP40)
+   - Detectar patrones faltantes (P01-P64)
 
 4. RECOMENDACIONES (2-3 días)
    - Priorizar top 5 iniciativas
@@ -186,17 +186,10 @@ Paso_3: Interpretación
 ### Detección Antipatrones
 
 ```yaml
-Por_Cada_Antipatrón (AP01-AP35):
-  1. Check síntomas (métricas + entrevistas)
+Por_Cada_Antipatrón (AP01-AP40):
+  1. Check síntomas (métricas de A5_Medicion + entrevistas)
   2. Si 2+ síntomas presentes → AP confirmado
   3. Severity: 🔴 Crítico / 🟡 Alto / 🟢 Moderado
-  
-  Antipatrones_v1.3_Nuevos:
-    - AP31 (Crisis Theater): Declarar crisis sin cambiar governance
-    - AP32 (Forcing Transformation Unprepared): Transform sin readiness R1-R5
-    - AP33 (Transforming During Crisis): Transform cuando H_Score<45
-    - AP34 (No Orchestration): N agents compiten, conflicts sin coordinator
-    - AP35 (Over-Orchestration): Orchestrator bottleneck, agents await approval
 
 Priorización:
   - Críticos first (AP con severidad 🔴)
@@ -204,7 +197,7 @@ Priorización:
 
 Ejemplo:
   AP14 (Tech Debt Perpetuo):
-    ✅ Síntoma 1: Tech debt score 68 (threshold <30)
+    ✅ Síntoma 1: Tech debt score 68 (O9 en A5_Medicion)
     ✅ Síntoma 2: Velocity -62% vs baseline
     ✅ Síntoma 3: Incident rate +200%
     → AP14 confirmado, Severity 🔴
@@ -217,7 +210,7 @@ Ejemplo:
 ### Patrones Faltantes
 
 ```yaml
-Por_Cada_Patrón (P01-P53):
+Por_Cada_Patrón (P01-P64):
   1. ¿Está implementado?
   2. Si NO y contexto aplica → Gap identificado
   3. ROI_Estimado patrón (Ver §8 A1_Patrones)
@@ -227,7 +220,7 @@ Ejemplo:
     Estado: No implementado
     Contexto: Deploy frequency <1/mes, rollback 30+ min
     → Patrón aplica
-    ROI: Deploy frequency 2×/día, rollback <1 min
+    ROI: Deploy frequency 10×, rollback <1 min
     → Recomendar implementar (quick win)
 ```
 
@@ -239,46 +232,26 @@ Ejemplo:
 Objetivo:
   Diagnosticar madurez percepción en 3 niveles cognitivos (CORE/02 §2, D2 §5)
 
-Checklist_Por_Level:
+Proceso:
+  - Usar los KPIs específicos de A5_Medicion.md §7.1 para evaluar cada nivel.
+  - Calcular el score de madurez general de Awareness.
+
+Checklist_Resumen:
 
 S1_DETECT (Percibir):
-  ☐ ¿Org captura metrics raw de systems críticos?
-  ☐ ¿Dashboards disponibles para observables O1-O8, IN1-IN3?
-  ☐ ¿Telemetry real-time o near-real-time?
-  ☐ ¿Logs aggregated y searchable (ELK, Splunk)?
+  ☐ ¿Monitoring coverage >95%? (KPI S1_Monitoring_Coverage)
+  ☐ ¿Latencia de telemetría <30s? (KPI S1_Telemetry_Latency)
   
-  Score_S1 (0-100):
-    = (% systems_monitored + dashboard_coverage + telemetry_quality) / 3
-  
-  Target: >80
-  Gap_Típico: M1 agents faltantes (monitoring automated)
-
 S2_COMPREHEND (Comprender):
-  ☐ ¿H_Score calculado automáticamente? (11 observables → 1 metric)
-  ☐ ¿Alerting context-aware? (no solo raw thresholds)
-  ☐ ¿Observables interpretados con contexto business?
-  ☐ ¿Pattern recognition automated? (anomaly detection)
-  
-  Score_S2 (0-100):
-    = (h_score_automated + alerting_quality + pattern_detection) / 3
-  
-  Target: >70
-  Gap_Típico: M2 agents faltantes (intelligent alerting, synthesis)
+  ☐ ¿H_Score se calcula automáticamente? (KPI S2_H_Score_Automated)
+  ☐ ¿Calidad de alertas >80%? (KPI S2_Alert_Quality)
 
 S3_PROJECT (Proyectar):
-  ☐ ¿Forecasting trends implementado? (revenue, churn, capacity)
-  ☐ ¿Crisis thresholds monitoreados? (H_Score<45 trigger alerts)
-  ☐ ¿Scenario planning tools available? (Monte Carlo, what-if)
-  ☐ ¿Predictive models en producción? (churn, demand, failures)
-  
-  Score_S3 (0-100):
-    = (forecasting + crisis_monitoring + scenarios + predictive_models) / 4
-  
-  Target: >60
-  Gap_Típico: M3 agents faltantes (predictive analytics, simulation)
+  ☐ ¿Precisión de forecasting <15% MAPE? (KPI S3_Forecast_Accuracy)
+  ☐ ¿Monitoreo de crisis activo? (KPI S3_Crisis_Monitoring)
 
 Awareness_Maturity_Overall:
-  Score = (S1 × 0.4) + (S2 × 0.35) + (S3 × 0.25)
+  Score = (S1_avg × 0.4) + (S2_avg × 0.35) + (S3_avg × 0.25)
   
   Interpretación:
     >80: Excelente - Full spectrum awareness
@@ -295,51 +268,27 @@ Awareness_Maturity_Overall:
 Objetivo:
   Diagnosticar madurez decisional en 4 modos complejidad (CORE/02 §3, D3 §6)
 
-Checklist_Por_Mode:
+Proceso:
+  - Usar los KPIs específicos de A5_Medicion.md §7.2 para evaluar cada modo.
+  - Calcular el score de madurez general de Decisión.
+
+Checklist_Resumen:
 
 D1_DIRECT_FEEDBACK (Automática):
-  ☐ ¿Qué decisiones automáticas existen? (list 10+)
-  ☐ Ejemplos: Autoscaling, circuit breakers, fraud rules simple
-  ☐ ¿Bounded autonomy clara? (M6 con limits explícitos)
-  
-  Automation_D1_Rate:
-    = # decisiones_D1_automated / # decisiones_D1_posibles
-    Target: >60%
-  
-  Gap: Opportunities para M6 automation (thermostat-style loops)
+  ☐ ¿Tasa de automatización D1 >60%? (KPI D1_Automation_Rate)
+  ☐ ¿Latencia del loop <1s? (KPI D1_Loop_Latency)
 
 D2_RULE_BASED (Condicional):
-  ☐ ¿Business rules explícitas? ¿Documentadas?
-  ☐ ¿Approval workflows automated? (>$10K require VP)
-  ☐ ¿Rules engine en uso? (Drools, decision tables)
-  
-  Rules_Coverage_D2:
-    = # business_rules_documented / # critical_decision_types
-    Target: >90%
-  
-  Gap: Rules engines faltantes, rules tribal knowledge (M4-M5)
+  ☐ ¿Cobertura de reglas de negocio >90%? (KPI D2_Rule_Coverage)
+  ☐ ¿Automatización de workflows >75%? (KPI D2_Workflow_Automation)
 
 D3_ASSOCIATIVE (Expertise-based):
-  ☐ ¿ML models en producción? ¿Qué deciden?
-  ☐ ¿Human validation required? (M4 control)
-  ☐ ¿Model monitoring? (drift, accuracy, fairness)
-  
-  ML_Production_D3:
-    = # ML_models_serving_decisions
-    Target: 5-10 models (depends on org size)
-  
-  Gap: ML/AI underutilized, no human-in-loop validation
+  ☐ ¿Modelos ML en producción >5? (KPI D3_ML_Models_Production)
+  ☐ ¿Tasa de validación humana >90%? (KPI D3_Human_Validation_Rate)
 
 D4_KNOWLEDGE_BASED (Analítica):
-  ☐ ¿Strategic planning structured? (OKRs, roadmaps)
-  ☐ ¿Simulation tools available? (Monte Carlo, scenarios)
-  ☐ ¿Decision latency acceptable? (<7 days strategic)
-  
-  Decision_Latency_D4:
-    = Avg time desde problem identified → decision made
-    Target: <7 days (strategic), <24hrs (tactical)
-  
-  Gap: Decision support tools (M2-M3 enable), analysis paralysis
+  ☐ ¿Latencia de decisión estratégica <7 días? (KPI D4_Decision_Latency_Strategic)
+  ☐ ¿Decisiones vinculadas a OKRs >80%? (KPI D4_OKR_Structure)
 
 Decision_Maturity_Overall:
   Automation_Score = % decisiones repeatables que están automated
@@ -544,9 +493,9 @@ Objetivo: Entender por qué velocity cayó 40% último año
 ```yaml
 Observables:
   O1_Demanda: 75 (backlog creciendo sano)
-  O2_Valor: 55 (NPS 28, churn 12% - CRÍTICO)
+  O2_Valor: 45 (NPS 15, churn 18% - CRÍTICO)
   O3_Capacidad: 65 (utilization 92%, capacity free 8% - límite)
-  O4_Eventos: 85 (sin disrupciones mayores)
+  O4_Eventos: 70 (MTTR 26 horas - CRÍTICO)
   O5_Restricciones: 90 (compliance OK)
   O6_Competencia: 60 (perdiendo vs competitor X)
   O7_Dependencias: 80 (vendors estables)
@@ -555,11 +504,11 @@ Observables:
   IN2_Salud_Talento: 50 (turnover 22%, engagement 55 - CRÍTICO)
   IN3_Eficiencia_Flujo: 40 (cycle time 16 días, efficiency 18% - CRÍTICO)
 
-H_Score = 0.12*75 + 0.15*55 + 0.10*65 + 0.08*85 + 
+H_Score = 0.12*75 + 0.15*45 + 0.10*65 + 0.08*70 + 
           0.10*90 + 0.10*60 + 0.08*80 + 0.07*70 +
           0.08*45 + 0.08*50 + 0.04*40
-        = 9 + 8.25 + 6.5 + 6.8 + 9 + 6 + 6.4 + 4.9 + 3.6 + 4 + 1.6
-        = 66.05/100 → ATENCIÓN REQUERIDA
+        = 9 + 6.75 + 6.5 + 5.6 + 9 + 6 + 6.4 + 4.9 + 3.6 + 4 + 1.6
+        = 63.35/100 → ATENCIÓN REQUERIDA
 ```
 
 ---
@@ -568,25 +517,18 @@ H_Score = 0.12*75 + 0.15*55 + 0.10*65 + 0.08*85 +
 
 ```yaml
 Críticos (🔴):
-  - AP14 (Tech Debt Perpetuo):
-      Síntomas: Velocity -40%, tech debt score 72, incident rate +180%
-      Cost: $200K/mes
-  
-  - AP09 (Handoff Hell):
-      Síntomas: 9 handoffs deploy process, cycle time 16 días, efficiency 18%
-      Cost: $120K/mes
+  - AP14 (Tech Debt Perpetuo): Velocity -40%, tech debt score 72.
+  - AP09 (Handoff Hell): 9 handoffs, cycle time 16 días.
+  - AP37 (Respuesta a Incidentes Lenta): MTTR 26 horas.
+  - AP39 (Fricción del Cliente Invisible): NPS 15, churn 18% sin causa raíz clara.
+  - AP40 ("Tragedia de los Comunes" en CX): Múltiples quejas sobre handoffs en el journey.
 
 Altos (🟡):
-  - AP03 (Silos Profundos):
-      Síntomas: Frontend/Backend/QA teams separados, "not my job" culture
-  
-  - AP08 (WIP Sin Límite):
-      Síntomas: WIP 42 items (team 20 eng), context switching alto
-  
-  - AP19 (Output Disguised):
-      Síntomas: OKRs "Launch 8 features", no outcomes medibles
+  - AP03 (Silos Profundos): Teams Frontend/Backend/QA separados.
+  - AP19 (Output Disguised): OKRs "Launch 8 features".
+  - AP38 (Diseño Inside-Out): El journey del cliente refleja la estructura interna.
 
-Total_Cost_of_Delay: ~$320K/mes + opportunity cost churn alto
+Total_Cost_of_Delay: ~$450K/mes (incluyendo nuevos APs)
 ```
 
 ---
@@ -598,51 +540,40 @@ REC-01 (Prioridad ALTA):
   Título: "Implementar 20% Rule Tech Debt"
   Antipatrón: AP14
   Impact: H_Score +8 pts, Velocity +35%
-  Effort: 2 sprints setup
-  ROI: $150K/mes (velocity recovery)
   Timeline: Inicio inmediato
   Owner: VP Engineering
 
 REC-02 (Prioridad ALTA):
-  Título: "Cross-Functional Feature Teams"
-  Antipatrón: AP03, AP09
-  Patrón: P01 (Feature Teams)
-  Impact: H_Score +12 pts, Cycle time 16d → 6d
-  Effort: 8 semanas reorg
-  ROI: $180K/mes
+  Título: "Mapeo y Ownership del Flujo de Cliente"
+  Antipatrón: AP38, AP39, AP40
+  Patrón: P_CX01, P_CX03
+  Impact: H_Score +10 pts (O2: 45 → 65), Churn 18% → 12%
   Timeline: Q1 2025
-  Owner: CTO
-  Preparación_R1-R5: 72/100 (GO CONDITIONAL - need address forces)
+  Owner: CPO
 
 REC-03 (Prioridad ALTA):
-  Título: "WIP Limits Kanban"
-  Antipatrón: AP08
-  Patrón: P15
-  Impact: H_Score +5 pts, Cycle time -30%
-  Effort: 2 semanas
-  ROI: $60K/mes
-  Timeline: Quick win (30 días)
-  Owner: Eng Managers
+  Título: "Automatizar Respuesta a Incidentes"
+  Antipatrón: AP37
+  Patrón: P_SEC05
+  Impact: H_Score +5 pts (O4: 70 → 85), MTTR 26h → 4h
+  Timeline: Q1 2025
+  Owner: CTO
 
 REC-04 (Prioridad MEDIA):
-  Título: "OKRs Bottom-Up Outcomes"
+  Título: "Cross-Functional Feature Teams"
+  Antipatrón: AP03, AP09
+  Patrón: P01
+  Impact: H_Score +7 pts, Cycle time 16d → 8d
+  Timeline: Q2 2025
+  Owner: CTO
+
+REC-05 (Prioridad MEDIA):
+  Título: "OKRs Basados en Outcomes"
   Antipatrón: AP19
   Patrón: P29
   Impact: H_Score +4 pts, Alignment strategy ↔ execution
-  Effort: 1 quarter rollout
-  ROI: Qualitativo (mejor priorización)
   Timeline: Q2 2025
   Owner: CPO
-
-REC-05 (Prioridad MEDIA):
-  Título: "Churn Prediction ML (M2)"
-  Observable: O2 bajo (churn 12%)
-  Patrón: P39
-  Impact: H_Score +6 pts (O2: 55 → 75), Churn 12% → 7%
-  Effort: 4 meses (hire DS, build model)
-  ROI: $200K/año (churn reduction)
-  Timeline: Q2-Q3 2025
-  Owner: Head of Data
 ```
 
 ---
@@ -974,4 +905,4 @@ Uso_Diagnóstico:
 - **Patrones:** `APLICACION/A1_Patrones.md`
 - **Preparación R1-R5:** `DOMINIOS/D3_Decision.md` §3
 - **Implementación roadmap:** `APLICACION/A4_Implementacion.md`
-- **Medición:** `APLICACION/A5_Medicion.md`
+- **Medición y KPIs detallados:** `APLICACION/A5_Medicion.md`

@@ -194,7 +194,7 @@ AP6_Top_Down_Imposition:
   Razón: Imposición top-down destruye ownership y motivación
   Ejemplo_Malo: "Team A: Implementarán chatbot, reducirán tickets 30%"
   Ejemplo_Bueno: "Necesitamos reducir carga support. ¿Cómo pueden ayudar?"
-           → Team propone: "Chatbot + knowledge base → -30% tickets"
+           → Team A propone: "Chatbot + knowledge base → -30% tickets"
   Consecuencia: Teams sin autonomía solo "cumplen órdenes", no innovan
 
 AP7_Linked_to_Compensation:

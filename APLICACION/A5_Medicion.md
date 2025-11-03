@@ -12,7 +12,7 @@
 P1_Outside_In:
   Filosofía:
     - Métricas externas (O1-O8) primero
-    - Métricas internas (I1-I3) segundo
+    - Métricas internas (IN1-IN3) segundo
     - Optimizar primero valor entregado, luego eficiencia interna
   
   Conexión_Composición:
@@ -82,9 +82,9 @@ A_Score = (A1 + A2 + A3 + (100 - (A4-5)*10) + (100 - A5*10) + A6) / 6
 | **O6_Competencia** | Win rate % (deals won / total deals) | >60% | Trimestral | Salesforce | Sales |
 | **O7_Dependencias** | Vendor health score avg | >80 | Trimestral | Vendor mgmt | Procurement |
 | **O8_Calidad_Info** | Data quality score % | >90% | Mensual | DBT, Alation | Data |
-| **I1_Velocidad_Decisional** | Time-to-decision avg (días) | <7 | Mensual | Decision log | COO |
-| **I2_Salud_Talento** | Engagement score | >75 | Trimestral | Culture Amp | HR |
-| **I3_Eficiencia_Flujo** | Flow efficiency % | >40% | Semanal | Jira | Engineering |
+| **IN1_Velocidad_Decisional** | Time-to-decision avg (días) | <7 | Mensual | Decision log | COO |
+| **IN2_Salud_Talento** | Engagement score | >75 | Trimestral | Culture Amp | HR |
+| **IN3_Eficiencia_Flujo** | Flow efficiency % | >40% | Semanal | Jira | Engineering |
 
 ---
 
@@ -153,7 +153,7 @@ Widgets:
      - Color: Verde >80, Amarillo 60-80, Rojo <60
   
   2. Observables Breakdown (Radar chart):
-     - 11 observables (O1-O8, I1-I3)
+     - 11 observables (O1-O8, IN1-IN3)
      - Actual vs Target
   
   3. Top 3 Risks (Table):
@@ -466,7 +466,7 @@ S2_COMPREHEND_Metrics:
   |-----|-----------|---------|--------|-------|
   | S2_H_Score_Automated | ¿H_Score calculado automáticamente? | Boolean (Yes/No) | Yes | Analytics |
   | S2_Alert_Quality | % alerts actionable (no false positives) | (Valid_Alerts / Total_Alerts) × 100 | >80% | SRE |
-  | S2_Observable_Coverage | % observables O1-O8, I1-I3 tracked | (Obs_Tracked / 11) × 100 | 100% | Product |
+  | S2_Observable_Coverage | % observables O1-O8, IN1-IN3 tracked | (Obs_Tracked / 11) × 100 | 100% | Product |
   | S2_Anomaly_Detection | ¿Pattern recognition automated? | Boolean + accuracy | >85% acc | ML Eng |
 
 S3_PROJECT_Metrics:
@@ -947,7 +947,7 @@ Panel_4_Business_Outcomes:
     - H_Score trend (0-100, target >70)
     - Time-to-market (features/quarter)
     - Customer churn rate (%, target <10%)
-    - Employee NPS (I2 Salud Talento)
+    - Employee NPS (IN2 Salud Talento)
   Visualization: Scorecard + trend lines
 ```
 

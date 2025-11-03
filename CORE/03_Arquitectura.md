@@ -463,19 +463,26 @@ Output:
 ```yaml
 Security_Impact_H_Score:
   Base_Formula (11 observables):
-    H_Score = weighted_avg(O1-O8, IN1-IN3)
+    H_Score = weighted_avg(O1-O8, IN1-IN3) con pesos detallados D2 §4
   
   Extended_Formula (16 observables):
-    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(IN1-IN3) + 0.10 * avg(SO1-SO5)
+    # Ver fórmula detallada completa: D2_Percepcion.md §8
+    H_Score = 0.90 * H_Score_Base + 0.10 * avg(SO1-SO5)
+    
+    # Simplificación aproximada (rápida pero no exacta):
+    H_Score ≈ 0.63 * avg(O1-O8) + 0.18 * avg(IN1-IN3) + 0.10 * avg(SO1-SO5)
   
   Rationale:
     - Security NO es dominio aparte (no "D5")
     - Security observables (SO1-SO5) complementan base observables
-    - Peso 10% refleja criticality security enterprise
-    - Adjustable por industry (financial 15-20%, B2C 5-8%)
+    - Peso default 10% refleja criticality security enterprise
+    - Adjustable por industry:
+        * Financial/Healthcare: 15-20% (base 80-85%)
+        * SaaS B2B: 12-15% (base 85-88%)
+        * B2C low-sensitivity: 5-8% (base 92-95%)
 
 Crisis_Threshold_Security:
-  IF SO_avg < 30 OR any SO individual < 20:
+  IF avg(SO1-SO5) < 30 OR any(SO1, SO2, SO3, SO4, SO5) < 20:
     → Activate Security Crisis Mode
     → Apply P_SEC emergency patterns
     → Escalate to CISO + C-level

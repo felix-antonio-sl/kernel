@@ -1,13 +1,13 @@
 # A2_Antipatrones
 
-**Versión:** 1.1.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos
+**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX
 
 ---
 
 ## §1. TAXONOMÍA ANTIPATRONES
 
 ```yaml
-Total: 33 antipatrones organizados en 6 categorías
+Total: 40 antipatrones organizados en 8 categorías
 
 Categorías:
   - Estructurales (AP01-AP06): Org design, teams, roles
@@ -16,6 +16,8 @@ Categorías:
   - Decisionales (AP19-AP24): OKRs, roadmaps
   - IA (AP25-AP30): Delegación incorrecta, bias
   - Crisis & Transformation (AP31-AP33): Emergency governance, readiness
+  - Seguridad (AP34-AP37): Security by design, response
+  - Customer Experience (AP38-AP40): Customer-centricity, value stream
 
 Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 ```
@@ -26,10 +28,10 @@ Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 
 | ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
 |---|---|---|---|---|---|---|
-| **AP01** | **Matrix sin Governance** | Dual reporting, nadie decide conflictos | Implementar matrix sin ARB/escalation | Paralysis decisional, I1<40 | Governance explícito: ARB semanal, RACI claro, escalation path | 🔴 |
-| **AP02** | **Reorg Perpetuo** | Cambio estructura cada 3-6 meses | No diagnosticar root cause, "reorg como magia" | I2 colapsa (fatigue), no learning | Diagnosticar antes reorg, pilot 1-2 teams, max 1 reorg/18 meses | 🔴 |
+| **AP01** | **Matrix sin Governance** | Dual reporting, nadie decide conflictos | Implementar matrix sin ARB/escalation | Paralysis decisional, IN1<40 | Governance explícito: ARB semanal, RACI claro, escalation path | 🔴 |
+| **AP02** | **Reorg Perpetuo** | Cambio estructura cada 3-6 meses | No diagnosticar root cause, "reorg como magia" | IN2 colapsa (fatigue), no learning | Diagnosticar antes reorg, pilot 1-2 teams, max 1 reorg/18 meses | 🔴 |
 | **AP03** | **Silos Profundos** | Departments no colaboran, handoffs eternos | Especialización sin interfaces, "not my job" | Cycle time >14 días, handoff_ratio >40% | Cross-functional squads, shared OKRs, interfaces claras | 🟡 |
-| **AP04** | **Span of Control Extremo** | Manager 25+ reports directos | Growth sin crear management layer | No 1:1s, I2 cae, development nulo | Target 5-9 reports/manager, split teams, promote leads | 🟡 |
+| **AP04** | **Span of Control Extremo** | Manager 25+ reports directos | Growth sin crear management layer | No 1:1s, IN2 cae, development nulo | Target 5-9 reports/manager, split teams, promote leads | 🟡 |
 | **AP05** | **Conway Inverse Fallacy** | Cambiar org para forzar arquitectura tech deseada | Malinterpretar Conway (org→tech, no tech→org) | Resistance, fracaso adoption | Alinear org con tech actual, evolucionar ambos coordinadamente | 🟡 |
 | **AP06** | **Teams Proyecto** | Teams formados para proyecto, disueltos post-completion | Project thinking vs Asset thinking | Knowledge loss, ramp-up perpetuo | Teams estables long-term, trabajo fluye a través team | 🟡 |
 
@@ -91,15 +93,17 @@ Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 
 | Dominio ↓ / Severidad → | 🔴 Crítico | 🟡 Alto | 🟢 Moderado |
 |------------------------|-----------|--------|------------|
-| **Arquitectura** | AP01, AP02 | AP03, AP04, AP05 | AP06 |
-| **Percepción** | — | — | — |
-| **Decisión** | AP22 | AP19, AP20, AP24 | AP21, AP23 |
-| **Operación** | AP09, AP13, AP14, AP15 | AP08, AP11, AP17, AP18 | AP07, AP10, AP12, AP16 |
+| **Arquitectura** | AP01, AP02, AP34 | AP03, AP04, AP05 | AP06 |
+| **Percepción** | AP39 | AP38 | — |
+| **Decisión** | AP22, AP40 | AP19, AP20, AP24 | AP21, AP23 |
+| **Operación** | AP09, AP13, AP14, AP15, AP36, AP37 | AP08, AP11, AP17, AP18, AP35 | AP07, AP10, AP12, AP16 |
 | **IA** | AP25, AP26, AP27, AP28 | AP29, AP30 | — |
+| **Seguridad** | AP34, AP36, AP37 | AP35 | — |
+| **Customer Experience** | AP38, AP39, AP40 | — | — |
 
-**Total críticos:** 10 (33%)  
-**Total altos:** 12 (40%)  
-**Total moderados:** 8 (27%)
+**Total críticos:** 17 (42.5%)  
+**Total altos:** 15 (37.5%)  
+**Total moderados:** 8 (20%)
 
 ---
 
@@ -121,6 +125,13 @@ Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 | AP23 (Planning Fallacy) | Forecasts probabilísticos (ver D3 §3.1) | Media |
 | AP25 (M6 Prematuro) | Progresión M1→M6 disciplinada | Alta |
 | AP27 (No Escalation) | Diseño resilience (circuit breakers) | Alta |
+| AP34 (Perímetro Confiable) | P_SEC02 (Zero Trust Architecture) | Alta |
+| AP35 (Seguridad Manual) | P_SEC03 (Security as Code) | Alta |
+| AP36 (Seguridad como Gate Final) | P_SEC04 (Shift-Left Security) | Alta |
+| AP37 (Respuesta a Incidentes Lenta) | P_SEC05 (Incident Response Automation) | Alta |
+| AP38 (Diseño Inside-Out) | P_CX01 (Flujo Valor Cliente) | Alta |
+| AP39 (Fricción Invisible) | P_CX02 (Eventos como Señales CX) | Alta |
+| AP40 (Tragedia Comunes CX) | P_CX03 (Touchpoint Ownership Explícita) | Alta |
 
 **Nota:** Para anti-patrones OKR adicionales (Top-Down Imposition, Linked to Compensation, Estimating OKRs, 100% Expected) ver `D3_Decision.md` §1 Anti-Patrones AP6-AP9. Todos mitigados por P29 + claridad filosófica OKRs.
 
@@ -132,7 +143,7 @@ Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 
 ```yaml
 Estructurales:
-  - I1 (Velocidad decisional) <40: AP01, AP02 probables
+  - IN1 (Velocidad decisional) <40: AP01, AP02 probables
   - Handoff_ratio >40%: AP03 confirmado
   - Avg reports/manager >12: AP04 confirmado
 
@@ -190,7 +201,7 @@ Recomendación_Uso:
 
 | Antipatrón | Cost of Delay ($/mes por 100 eng) | Fuente/Rationale | Severidad |
 |-----------|-----------------------------------|------------------|-----------|
-| **AP02 (Reorg Perpetuo)** | $200K (I2 churn 15%, productivity -30%) | Google re:Work study | 🔴 |
+| **AP02 (Reorg Perpetuo)** | $200K (IN2 churn 15%, productivity -30%) | Google re:Work study | 🔴 |
 | **AP03 (Silos Profundos)** | $180K (handoff overhead, cycle time 2×) | Lean Enterprise research | 🟡 |
 | **AP08 (WIP Sin Límite)** | $120K (context switching, cycle time +80%) | Personal Kanban studies | 🟡 |
 | **AP09 (Handoff Hell)** | $150K (cycle time 3×, flow efficiency <15%) | State of DevOps Report | 🔴 |
@@ -301,6 +312,29 @@ Review_Date: 2024-11-15 (check progress), 2025-01-15 (final)
 
 ---
 
+--- 
+
+## §6.5. ANTIPATRONES DE SEGURIDAD (AP34-AP37)
+
+| ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
+|---|---|---|---|---|---|---|
+| **AP34** | **Perímetro Confiable** | Foco exclusivo en seguridad perimetral (firewalls) | Mentalidad de "fortaleza", ignorar amenazas internas | Brechas por insiders, movimiento lateral atacantes | P_SEC02 (Zero Trust): verificar todo, nunca confiar | 🔴 |
+| **AP35** | **Seguridad Manual** | Configs de seguridad hechas a mano, no versionadas | Falta de IaC para seguridad, silos Sec-Ops | Errores, drift, inconsistencia entre entornos | P_SEC03 (Security as Code): políticas como código | 🟡 |
+| **AP36** | **Seguridad como Gate Final** | Security se revisa solo pre-producción | Cascada tradicional, "departamento del no" | Fixes costosos, lentitud, devs ven security como enemigo | P_SEC04 (Shift-Left): integrar seguridad en todo el ciclo | 🔴 |
+| **AP37** | **Respuesta a Incidentes Lenta** | MTTD y MTTR > 24 horas | Playbooks manuales, falta de automatización (SOAR) | Daño extendido, pérdida de confianza, multas | P_SEC05 (Incident Response Automation): playbooks automáticos | 🔴 |
+
+---
+
+## §6.6. ANTIPATRONES DE EXPERIENCIA DE CLIENTE (AP38-AP40)
+
+| ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
+|---|---|---|---|---|---|---|
+| **AP38** | **Diseño Inside-Out** | Servicios diseñados según estructura interna de la empresa | Foco en silos organizacionales, no en el cliente | Experiencia de cliente fragmentada, NPS bajo | P_CX01 (Flujo Valor Cliente): mapear journey outside-in | 🟡 |
+| **AP39** | **Fricción del Cliente Invisible** | Puntos de dolor del cliente no medidos, se opera a ciegas | Falta de instrumentación del journey (telemetry) | Churn inesperado, quejas reactivas, oportunidades perdidas | P_CX02 (Eventos como Señales CX): convertir fricción en alertas | 🔴 |
+| **AP40** | **"Tragedia de los Comunes" en CX** | CX es "responsabilidad de todos", pero nadie es dueño E2E | Falta de ownership explícito por touchpoint | Handoffs dolorosos, "no es mi problema", cliente sufre | P_CX03 (Touchpoint Ownership): asignar owner por etapa | 🔴 |
+
+---
+
 ## §7. ANTIPATRONES CRISIS & TRANSFORMATION (AP31-AP33)
 
 | ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
@@ -327,12 +361,12 @@ Diagnóstico:
   
 Consecuencia_12_Meses:
   - Burnout rate +40%
-  - Attrition +15% (I2 collapse)
+  - Attrition +15% (IN2 collapse)
   - "Crisis fatigue" - next real crisis ignored
   - Credibility leadership destroyed
   
 Fix_Pattern:
-  IF H_Score < 45 AND (O3<30 OR O2<30 OR I2<30):
+  IF H_Score < 45 AND (O3<30 OR O2<30 OR IN2<30):
     → Real crisis → Activate P52 (Crisis Governance)
     → Daily meetings, stop bleeding (cash, customers, talent)
     → NO structural changes
@@ -458,7 +492,7 @@ Fix_Pattern:
 - **Crisis Governance (P52):** `CORE/08_Crisis_Management.md` (consolidado)
 - **Crisis Antipatrones (AP31-33):** `CORE/08_Crisis_Management.md` §5
 - **Readiness Triage:** `APLICACION/A4_Implementacion.md` §0
-- **Crisis Thresholds:** `DOMINIOS/D2_Percepcion.md` (O2, O3, I2) + `CORE/08_Crisis_Management.md` §2
+- **Crisis Thresholds:** `DOMINIOS/D2_Percepcion.md` (O2, O3, IN2) + `CORE/08_Crisis_Management.md` §2
 - **Diagnóstico antipatrones:** `APLICACION/A3_Diagnostico.md`
 - **11 Observables:** `DOMINIOS/D2_Percepcion.md`
 - **Principios violados:** `CORE/00_Manifiesto.md` §3

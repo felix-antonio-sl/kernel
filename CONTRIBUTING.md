@@ -66,12 +66,14 @@ Gracias por tu interés en contribuir a KERNEL. Este documento establece guideli
 
 **Ejemplo Issue**:
 ```markdown
-**Title**: [BUG] H_Score fórmula inconsistente D2 vs A3
+**Title**: [BUG] Cross-reference a sección inexistente en A1
 
-**File**: DOMINIOS/D2_Percepcion.md, line 142
-**Current**: H_Score = avg(O1-O8) × 0.7 + avg(I1-I3) × 0.3
-**Proposed**: H_Score = avg(O1-O8) × 0.7 + avg(I1-I3) × 0.2 + avg(SO1-SO5) × 0.1
-**Rationale**: A3 Diagnostico usa fórmula extended, D2 debe sincronizar
+**File**: APLICACION/A1_Patrones.md, line 693
+**Current**: "Patrones extraídos de `DOMINIOS/D4_Operacion.md` §11.1"
+**Proposed**: "Patrones fundamentados en `DOMINIOS/D4_Operacion.md` §11 Continuous Learning"
+**Rationale**: Sección §11.1 no existe en D4, solo §11 (sin subsecciones numeradas)
+
+Nota: Este issue fue corregido en v2.2.1
 ```
 
 ---

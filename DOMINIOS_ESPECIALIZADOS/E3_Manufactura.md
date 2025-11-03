@@ -441,15 +441,9 @@ Quality = (Good_Count / Total_Count)
 
 **Conexión**: AP_TECH1 Premature Microservices (analogía)
 
-### AP_MFG3-MFG7 (60 líneas restantes)
+### AP_MFG3-MFG7
 
-*[Abbreviated por parsimonia - estructura similar, sectores específicos]*
-
-**AP_MFG3**: Ignoring Shop Floor Input (operators knowledge no capturado → Solutions teóricas fail)  
-**AP_MFG4**: Vendor Lock-In (propietario systems no interoperable → Migration impossible, costs hostage)  
-**AP_MFG5**: Quality Reactive (inspect-out defects vs build-in quality)  
-**AP_MFG6**: Maintenance Calendar-Only (vs condition-based)  
-**AP_MFG7**: No Digital Twin (optimize físico trial-error)
+*[Esta sección se encuentra en desarrollo. Se detallarán antipatrones adicionales como: ignorar el conocimiento del personal de planta, dependencia de proveedores (vendor lock-in), control de calidad reactivo, mantenimiento basado solo en calendario y no usar gemelos digitales para optimización.]*
 
 ---
 

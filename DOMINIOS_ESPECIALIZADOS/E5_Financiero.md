@@ -183,14 +183,9 @@
 
 **Conexión KERNEL**: A5_Medición §6 Backtesting (validation rigorous)
 
-### P_FIN3-FIN8 (180 líneas abbreviated)
+### P_FIN3-FIN8
 
-**P_FIN3**: Algorithmic Trading Adaptive (ML strategies adjust market regimes)  
-**P_FIN4**: Compliance Automated Audit (SOX trails immutable, MiFID II reporting automated)  
-**P_FIN5**: KYC/AML Automation (NLP extract docs, sanctions screening, risk scoring)  
-**P_FIN6**: Portfolio Optimization (Markowitz, Black-Litterman, ML alpha signals)  
-**P_FIN7**: Market Making (bid-ask spreads, inventory management, adverse selection)  
-**P_FIN8**: High-Frequency Trading (latency <1ms, co-location, FPGA)
+*[Esta sección se encuentra en desarrollo. Se detallarán patrones adicionales como: Trading Algorítmico Adaptativo, Auditoría de Cumplimiento Automatizada, Automatización de KYC/AML, Optimización de Portafolio, Market Making y High-Frequency Trading.]*
 
 ---
 

@@ -48,7 +48,7 @@
 
 ## H
 
-- **H_Score (Health Score):** Métrica compuesta (0-100) que mide salud organizacional. Fórmula base: weighted avg 11 observables (O1-O8, I1-I3). Fórmula extended: 70% O1-O8 + 20% I1-I3 + 10% SO1-SO5 (security). Interpretación: >90 Excelente, 75-89 Bueno, 60-74 Aceptable, 45-59 Pobre, <45 Crisis. Ver `D2_Percepcion.md` §4.
+- **H_Score (Health Score):** Métrica compuesta (0-100) que mide salud organizacional. Fórmula base: suma ponderada 11 observables (O1-O8, IN1-IN3) con pesos individuales específicos (ver D2 §4). Fórmula extended: 90% del base + 10% avg(SO1-SO5) security observables, con ajustes por industria. Interpretación: >90 Excelente, 75-89 Bueno, 60-74 Atención Requerida, <60 Crítico, <45 Crisis. Ver `D2_Percepcion.md` §4 (base) y §8 (extended).
 
 ## I
 

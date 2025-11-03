@@ -10,7 +10,7 @@
 
 ```yaml
 Purpose: Determinar approach correcto basado en organizational state
-Input: H_Score + Observables O1-O8, I1-I3
+Input: H_Score + Observables O1-O8, IN1-IN3
 Output: Go/No-Go decision + Implementation path
 ```
 

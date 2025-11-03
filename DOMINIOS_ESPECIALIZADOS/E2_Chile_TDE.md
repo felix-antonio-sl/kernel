@@ -1,4 +1,4 @@
-# E2_Chile_TDE (Transformación Digital del Estado - Chile)
+# E2_Chile_TDE
 
 **Versión:** 2.1.0  
 **Estado:** Production  
@@ -17,7 +17,7 @@
 
 **Minimum Viable Transformación Digital** para Órgano Administración del Estado (OAE) que debe cumplir **Ley 21.180** (plazo máximo 2027-12-31) con recursos limitados.
 
-### MVTD Checklist (90 días) - 8 Habilitadores Críticos
+### MVTD Checklist - 8 Habilitadores Críticos
 
 **1. Governance (Semana 1-2)**:
 
@@ -73,7 +73,7 @@
 - ✅ **Política Gestión Documental** (NT DS 10/2023, Art. 3)
 - ✅ **Roles designados**: Responsable Institucional Seguridad, Responsable Activos Información
 
-### MVTD Resultado (90 días)
+### MVTD Resultado
 
 **Cumplimiento Ley 21.180**: 40% (foundations, ready for incremental adoption)  
 **Costo estimado**: $15-30M CLP (cloud, herramientas, capacitación)  
@@ -92,7 +92,7 @@
 
 ## §1. FUNDAMENTOS GOBIERNO DIGITAL
 
-### Marco Legal TDE Chile (30 líneas)
+### Marco Legal TDE Chile
 
 **Ley 21.180** (Transformación Digital del Estado):
 
@@ -133,7 +133,7 @@
 - **Límite L3** (CORE/03 §3): Regulatory como límite externo mandatory
 - **D1_Arquitectura §5**: Legal framework como architectural constraint
 
-### Institucionalidad TDE Chile (30 líneas)
+### Institucionalidad TDE Chile
 
 **Secretaría de Gobierno Digital (SGD)**:
 
@@ -174,9 +174,9 @@
 - **Actor A3**: Specialized actors (CTD, Data Steward, Encargado Ciber)
 - **D1_Arquitectura §2**: Org structure (federado con rectoría central)
 
-### Principios Gobierno Digital (OCDE + Chile) (40 líneas)
+### Principios Gobierno Digital (OCDE + Chile)
 
-**6 Principios Estrategia GobDigital 2030** (kb_tde_920):
+**6 Principios Estrategia GobDigital 2030**:
 
 **1. Digital por Diseño**:
 
@@ -226,7 +226,7 @@
 - **CORE/00 Manifiesto §3**: Principios KERNEL alineados (minimalidad, ortogonalidad, trazabilidad)
 - **CORE/07 Invariantes**: I1-I3 como principios operacionales
 
-### Ecosistema Plataformas SGD (50 líneas)
+### Ecosistema Plataformas SGD
 
 **Identidad & Autenticación**:
 
@@ -307,7 +307,7 @@
 - **I1 Minimalidad**: Servicios compartidos vs cada OAE build own (parsimonia recursos)
 - **E7 §5**: Platform engineering patterns (reference infra)
 
-### Normas Técnicas (6 Decretos Supremos 2023) (30 líneas)
+### Normas Técnicas (6 Decretos Supremos 2023)
 
 **DS 7/2023: NT Seguridad Información y Ciberseguridad**:
 
@@ -330,8 +330,7 @@
 
 - **Función**: Estándares formatos, metadatos, trazabilidad, gestión docs/expedientes
 - **Mandato**: Política Gestión Documental institucional
-- **Metadatos**: 29 expedientes (18 obligatorios), 46 documentos (12 obligatorios) - Ver kb_tde_910 §3-§4
-- **Formatos**: PDF/A, XML, JSON, DOCX (según tipo doc)
+- **Metadatos**: 29 expedientes (18 obligatorios), 46 documentos (12 obligatorios)- **Formatos**: PDF/A, XML, JSON, DOCX (según tipo doc)
 
 **DS 11/2023: NT Calidad y Funcionamiento Plataformas**:
 
@@ -356,9 +355,9 @@
 - **CORE/07 §4**: Validación compliance (checklists)
 - **E8 §9**: Governance & Compliance (alignment)
 
-### Estrategias Nacionales (4 Ejes) (40 líneas)
+### Estrategias Nacionales (4 Ejes)
 
-**1. Estrategia Gobierno Digital 2030** (kb_tde_920):
+**1. Estrategia Gobierno Digital 2030**:
 
 **Visión 2030**: Sector público chileno superará promedio OCDE en transformación digital.
 
@@ -381,7 +380,7 @@
 - **E5 Habilitador**: Competencias y Talento Digital
 - **E6 Habilitador**: Identidad e Infraestructura Pública Digital
 
-**2. Estrategia Datos del Estado** (kb_tde_920):
+**2. Estrategia Datos del Estado**:
 
 **Visión 2030**: Administración Estado impulsada por datos, información, conocimiento.
 
@@ -399,7 +398,7 @@
 - Lago Datos compartido (nodos sectoriales, academia, evaluación políticas)
 - Repositorio Algoritmos Públicos (transparencia algorítmica)
 
-**3. Estrategia Identidad Digital** (kb_tde_920):
+**3. Estrategia Identidad Digital**:
 
 **Modelo Híbrido**:
 
@@ -408,7 +407,7 @@
 - **Corto plazo** (2025-2026): Broker identidad (ClaveÚnica + Cédula Digital)
 - **Mediano plazo** (2027-2030): Autoridad rectora única, múltiples proveedores trust services acreditados
 
-**4. Estrategia Capacitación TD** (kb_tde_920):
+**4. Estrategia Capacitación TD**:
 
 **Visión**: Talento digital sector público, capacitaciones accesibles, equitativas, gratuitas por rol.
 
@@ -433,15 +432,13 @@
 
 ## §2. ESTRATEGIAS NACIONALES (Detalle 4 Estrategias)
 
-[Contenido detallado 4 estrategias - 200 líneas según spec CONTEXTO]
-
-*[Nota: Sección extensa, continuaré en próximo bloque incremental para no exceder límites. Estructura definida, procedo con §3 MGDE primero por criticidad]*
+*[Esta sección se encuentra en desarrollo. Se detallarán las 4 estrategias nacionales de Gobierno Digital.]*
 
 ---
 
 ## §3. MGDE (Marco Gestión Datos Estado)
 
-### Fundamentos MGDE (30 líneas)
+### Fundamentos MGDE
 
 **Propósito**: Orientar OAEs adopción buenas prácticas gestión datos (alineación estratégica, calidad servicio, eficiencia, costos optimizados, roles definidos, sinergias personas-procesos-info-tecnología).
 
@@ -450,7 +447,7 @@
 - Ley 21.658 (SGD coordinar uso estratégico datos)
 - Ley 18.575 (Orgánica Administración Estado, define OAEs)
 
-**10 Principios Orientadores** (kb_tde_910 §1.2):
+**10 Principios Orientadores**:
 
 1. Datos mejoran servicios a personas
 2. Datos (internos/externos) son activos estratégicos (incluye documentos, contenidos digitales)
@@ -482,7 +479,7 @@
 
 **Mapeo E8**: Etapas 1-5 → §4 DATA (ingesta, storage, DQ), Etapa 6 → §5 AI (analytics), Etapas 7-8 → E7 §4.6 Data Visualization
 
-### 12 Dimensiones MGDE (60 líneas)
+### 12 Dimensiones MGDE
 
 **Resumen Cuantitativo**:
 
@@ -509,7 +506,7 @@
 - **Nivel 3 Medio**: [60%, 80%) - Profundiza dimensiones
 - **Nivel 4 Avanzado**: [80%, 100%] - Cabalidad cada dimensión
 
-**Cálculo Puntaje** (kb_tde_910 §3.2):
+**Cálculo Puntaje**:
 
 ```
 Pje(Dimensión) = ∑ Pje(Pregunta_i)
@@ -525,7 +522,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 **Dim 2: Gobernanza Datos**:
 
 - **Criterios**: Política gobernanza, Organización (CDO, stewards), Implementación, Herramientas, Capacitación, Gestión riesgos, Gestión ética
-- **Roles** (kb_tde_910 §3 Cpt):
+- **Roles**:
   - **Director Datos (CDO)**: Responsable integral estrategia y ejecución
   - **Admin/Custodio Datos (Data Steward)**: Experto funcional, metadatos, calidad
   - **Analista Datos**: Experto uso y análisis
@@ -556,7 +553,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §4. DATOS ABIERTOS (Estándar TDE Chile)
 
-### Marco Datos Abiertos (30 líneas)
+### Marco Datos Abiertos
 
 **Fundamento Legal**:
 
@@ -570,7 +567,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Función**: Garantizar datos públicos Estado disponibles abiertos y accesibles
 - **Usuarios**: Ciudadanos, entidades interesadas, investigadores, empresas
 
-**Definición Dato Abierto** (kb_tde_910):
+**Definición Dato Abierto**:
 
 - Dato digital con características técnicas/jurídicas para ser usado, reutilizado y redistribuido libremente por cualquier persona/entidad, en cualquier momento y lugar
 
@@ -593,7 +590,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Límite L3**: Transparencia activa como límite regulatory
 - **Recurso R1**: Datos abiertos como recurso público (no rival, no exclusible)
 
-### Formatos Abiertos (40 líneas)
+### Formatos Abiertos
 
 **Clasificación 5 Estrellas** (Tim Berners-Lee):
 
@@ -633,7 +630,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 **Recomendación**: Proveer **múltiples formatos** (ej. CSV + JSON + Parquet para tablas) → Flexibilidad usuarios.
 
-**Archivos Grandes** (kb_tde_910):
+**Archivos Grandes**:
 
 - **Límite**: 200 MB (excepción si naturaleza justifica)
 - **Partición**: Dividir archivos >200MB (por año, región, etc.)
@@ -646,7 +643,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 **Conexión**: E8 §4.3 Formatos datos (lakehouse standards aligned)
 
-### Metadatos DCAT (Estándar Internacional) (60 líneas)
+### Metadatos DCAT (Estándar Internacional)
 
 **DCAT** (Data Catalog Vocabulary):
 
@@ -719,9 +716,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **E8 §3.2 Contrato Datos**: DCAT metadatos subset contract (contract más comprehensive)
 - **I3 Trazabilidad**: Metadatos como trazabilidad dataset (proveniencia, cambios, ownership)
 
-### Licencias Datos Abiertos (30 líneas)
+### Licencias Datos Abiertos
 
-**Política Licenciamiento** (kb_tde_910 §5):
+**Política Licenciamiento**:
 
 - **Disponibilidad**: Datos para todas las personas (naturales/jurídicas)
 - **Default**: **CC0 1.0** (Creative Commons Zero - dominio público) si no se asigna explícita
@@ -748,7 +745,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ### Catálogos Institucionales
 
-**Requisitos Portal Datos Abiertos Institucional** (kb_tde_910 §6):
+**Requisitos Portal Datos Abiertos Institucional**:
 
 - ✅ Acceso inmediato (sin registro/identificación usuarios)
 - ✅ Listado completo, ordenado, clasificado datasets
@@ -769,9 +766,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §5. GESTIÓN DOCUMENTAL ELECTRÓNICA
 
-### NT Documentos y Expedientes (DS 10/2023) (50 líneas)
+### NT Documentos y Expedientes (DS 10/2023)
 
-**Objeto**: Definir estándares formatos, metadatos, trazabilidad, fases, procesos para administrar documentos y expedientes electrónicos en OAE (kb_tde_960 §3.4).
+**Objeto**: Definir estándares formatos, metadatos, trazabilidad, fases, procesos para administrar documentos y expedientes electrónicos en OAE.
 
 **Definiciones Clave**:
 
@@ -826,7 +823,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **I3 Trazabilidad**: Registros trazabilidad docs operationalizan invariante
 - **T18_Contrato_Conocimiento**: Docs como knowledge products
 
-### Metadatos Docs/Expedientes (Estándar Chile) (80 líneas)
+### Metadatos Docs/Expedientes (Estándar Chile)
 
 **Base Normativa**:
 
@@ -926,7 +923,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §6. CALIDAD & UX SERVICIOS DIGITALES
 
-### Guía Evaluación Calidad Web (kb_tde_910) (60 líneas)
+### Guía Evaluación Calidad Web
 
 **Instrumento**: Pauta Evaluación Calidad Sitios Web y Servicios Digitales Estado (SGD).
 
@@ -982,7 +979,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **D2_Percepción O1**: UX quality como observable
 - **A5_Medición §4**: Quality scoring methodologies
 
-### 14 Recomendaciones Diseño Servicios (kb_tde_910) (60 líneas)
+### 14 Recomendaciones Diseño Servicios
 
 **Dimensión I: Foco Persona Usuaria y Diseño Servicio** (6 recs):
 
@@ -1088,7 +1085,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **E7 §4**: UX best practices detailed (recs operacionalizan)
 - **A4_Implementación**: Service design playbook
 
-### Voz y Tono Gubernamental (kb_tde_910 Guía) (40 líneas)
+### Voz y Tono Gubernamental (kb_tde_910 Guía)
 
 **Conceptos Clave**:
 
@@ -1151,7 +1148,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §7. GOBERNANZA TIC INSTITUCIONAL
 
-### Sistema TD (PMG 2025) - 4 Etapas (kb_tde_940) (80 líneas)
+### Sistema TD (PMG 2025) - 4 Etapas
 
 **Objetivo Sistema**: Instalar progresivamente principios y estándares gobierno digital en gestión institucional para mejorar calidad servicios (Decreto Exento 432, Min. Hacienda).
 
@@ -1211,7 +1208,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **A3_Diagnóstico**: 3 instrumentos operationalizan diagnostic systematic
 - **CORE/06 §5**: Governance como capacidad C5
 
-### Roles Clave TIC Institucional (kb_tde_940) (40 líneas)
+### Roles Clave TIC Institucional
 
 **Comité TIC** (o Comité TD fusionado):
 
@@ -1266,9 +1263,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §8. SEGURIDAD (NT DS 7/2023)
 
-### 5 Funciones Ciberseguridad (60 líneas)
+### 5 Funciones Ciberseguridad
 
-**Marco NT Seguridad** (kb_tde_960 §3.1):
+**Marco NT Seguridad**:
 
 - **Fundamento**: Resguardar CID (Confidencialidad, Integridad, Disponibilidad) información e infraestructura plataformas electrónicas
 - **Mandato**: Política Seguridad Información y Ciberseguridad institucional (Art. 5)
@@ -1340,9 +1337,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §9. IA & PROTECCIÓN DATOS (Forward-Compatible 2026)
 
-### Proyecto Ley IA Chile (Vigencia Estimada 2026) (90 líneas)
+### Proyecto Ley IA Chile (Vigencia Estimada 2026)
 
-**Status Legal** (kb_tde_960): Proyecto fusionado (Boletín 16.821-19 Mensaje Presidencial + Boletín 15.869-19 Moción) - Aprobado general Cámara Diputados 04-AGO-2025, trámite Senado pendiente.
+**Status Legal**: Proyecto fusionado (Boletín 16.821-19 Mensaje Presidencial + Boletín 15.869-19 Moción) - Aprobado general Cámara Diputados 04-AGO-2025, trámite Senado pendiente.
 
 **Objeto Ley**: Promover creación, desarrollo, innovación e implementación sistemas IA al servicio ser humano, coherente con principios democráticos y derechos fundamentales.
 
@@ -1445,9 +1442,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **CORE/04 Delegación §8**: Principles IA aligned con M1-M6 bounded autonomy
 - **P60 HITL Checkpoint**: Operationaliza "supervisión humana" Ley IA
 
-### Ley 21.719 Protección Datos Personales (Vigencia 2026) (90 líneas)
+### Ley 21.719 Protección Datos Personales (Vigencia 2026)
 
-**Status Legal** (kb_tde_960): Promulgada 02-FEB-2024, Publicación 09-FEB-2024, **Vigencia**: Primer día mes 24 post-publicación ≈ **2026-02-09**.
+**Status Legal**: Promulgada 02-FEB-2024, Publicación 09-FEB-2024, **Vigencia**: Primer día mes 24 post-publicación ≈ **2026-02-09**.
 
 **Cambios vs Ley 19.628 Actual**:
 
@@ -1570,7 +1567,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §10. ANONIMIZACIÓN DATOS (Guía TDE)
 
-### Framework Anonimización (kb_tde_910) (50 líneas)
+### Framework Anonimización
 
 **Conceptos Fundamentales**:
 
@@ -1631,9 +1628,9 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Límite L3**: Privacy como límite (anonimización técnica compliance)
 - **E8 §9.2 Privacy**: Techniques aplicadas (seudonimización, k-anonymity)
 
-### Técnicas Anonimización (4 Enfoques) (50 líneas)
+### Técnicas Anonimización (4 Enfoques)
 
-**Matriz Riesgo × Técnica** (kb_tde_910):
+**Matriz Riesgo × Técnica**:
 
 | Técnica | Singularización | Vinculabilidad | Inferencia |
 |:---|:---|:---|:---|
@@ -1700,7 +1697,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §11. ARQUITECTURA KERNEL (Mapeo Sector Público)
 
-### Primitivos KERNEL en Gobierno (40 líneas)
+### Primitivos KERNEL en Gobierno
 
 **Mapeo Sector Público** ↔ **CORE/01-03**:
 
@@ -1715,7 +1712,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 **Conexión**: CORE/01-03 Primitivos (E2 especializa para sector público)
 
-### Dominios KERNEL en Gobierno (40 líneas)
+### Dominios KERNEL en Gobierno
 
 **D1_Arquitectura**:
 
@@ -1750,7 +1747,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §12. CASOS GOBIERNO (3 Completos con H_Score)
 
-### Caso 1: GORE Ñuble - Flota Agentes IA Institucional (80 líneas)
+### Caso 1: GORE Ñuble - Flota Agentes IA Institucional
 
 **Contexto Institución**:
 
@@ -1856,7 +1853,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Delegation**: M1-M6 spectrum completo aplicado
 - **Integration Depth**: 95% (todas capas KERNEL activated)
 
-### Caso 2: Municipio - Digitalización Trámites + Interoperabilidad (80 líneas)
+### Caso 2: Municipio - Digitalización Trámites + Interoperabilidad
 
 **Contexto Institución**:
 
@@ -1929,7 +1926,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Platforms**: §1 Ecosistema SGD (5 plataformas integradas)
 - **Compliance**: 6 NTs cumplimiento (Autent, Interop, Notif, Docs, Seguridad, Calidad)
 
-### Caso 3: Ministerio - Estrategia Datos + IA a Escala (90 líneas)
+### Caso 3: Ministerio - Estrategia Datos + IA a Escala
 
 **Contexto Institución**:
 
@@ -2023,7 +2020,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - Estructura: Principios 8 Ley 21.719, Derechos ARCO+, Medidas seguridad, EIPD process, Breach response, DPO contact
 - Ejemplo: Política GORE Ñuble (kb_920 como base)
 
-### Métricas Madurez Digital Gobierno (30 líneas)
+### Métricas Madurez Digital Gobierno
 
 **MGDE Score** (0-100):
 
@@ -2072,7 +2069,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **E8 §5-§6**: AI + KM (agents gobierno, RAG normativa)
 - **E8 §7**: BPA (workflows PA, SIMPLE low-code)
 
-### Roadmap Implementación (3 Horizontes) (30 líneas)
+### Roadmap Implementación (3 Horizontes)
 
 **Horizonte 1: Compliance** (M1-12, año 2025):
 
@@ -2099,7 +2096,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - MGDE score >80% (avanzado, referente)
 - Ley 21.180 cumplimiento 100% (plazo 2027-12-31)
 
-### Referencias y Bibliografía (40 líneas)
+### Referencias y Bibliografía
 
 **Fuentes Normativas Primarias**:
 
@@ -2145,7 +2142,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 - **R7_Bibliografia**: Full sources (Week 8, detailed citations)
 
-### Glosario TDE Chile (30 líneas)
+### Glosario TDE Chile
 
 Términos críticos sector público (alphabetical):
 
