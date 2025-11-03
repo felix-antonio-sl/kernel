@@ -4,4 +4,4 @@
 # Archivos de configuración de IDEs
 .vscode/
 .idea/
-/DEV/
+DEV/**
