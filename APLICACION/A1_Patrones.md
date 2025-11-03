@@ -1,13 +1,13 @@
 # A1_Patrones
 
-**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX
+**Versión:** 2.2.1 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX, Data/AI Engineers
 
 ---
 
 ## §1. TAXONOMÍA DE PATRONES
 
 ```yaml
-Total: 64 patrones (50 base + 3 emergentes v1.1 + 3 refactored v1.4 + 5 security v2.1 + 3 CX v2.2)
+Total: 71 patrones (50 base + 3 emergentes v1.1 + 3 refactored v1.4 + 5 security v2.1 + 3 CX v2.2 + 7 data/AI v2.2.1)
 
 Categorías_Base (v1.0):
   - Estructurales (P01-P12): Organización, equipos, responsabilidades
@@ -27,6 +27,15 @@ Patrones_Customer_Experience (v2.2):
   - P_CX01: Flujo Valor Cliente (§6.6)
   - P_CX02: Eventos como Señales CX (§6.6)
   - P_CX03: Touchpoint Ownership Explícita (§6.6)
+
+Patrones_Datos_IA_Procesos (v2.2.1):
+  - P57: Data Product Pattern (§15)
+  - P58: RAG Auditable Pattern (§15)
+  - P59: Saga Compensation Pattern (§15)
+  - P60: HITL Checkpoint Pattern (§15)
+  - P61: Multi-Agent Orchestration (§15)
+  - P62: Contract-Driven Evolution (§15)
+  - P63: Hybrid Search Pattern (§15)
 
 Patrones_Emergentes (v1.1):
   - P51: Carry-Over Management (§11)
@@ -842,6 +851,123 @@ Límites:
 
 ---
 
+## §15. PATRONES DATOS/IA/PROCESOS (P57-P63)
+
+**Nota**: Patrones especializados para Data-as-Product, Intelligent Systems y Process Automation. Fundamentados en principios contract-driven, observabilidad unificada y governance embebida (ver `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` para ejemplos concretos y casos de estudio).
+
+---
+
+### P57: Data Product Pattern
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Datos tratados como subproducto, no asset → Calidad baja, no reusable, undiscoverable |
+| **Contexto** | Equipos múltiples necesitan mismos datos, cada uno extrae/transforma independiente (duplicación, inconsistencia) |
+| **Solución** | Treat data as product: Contract (schema, SLO, DQ, security), Owner responsable, Lineage as-designed + as-implemented, Serving múltiples interfaces (SQL, REST, GraphQL) |
+| **Primitivos** | Dato → ProductoDeDatos (D1), Actor → Data_Product_Owner (A3), Recurso → Lakehouse (R3), Límite → SLO (L1) |
+| **Cuándo Usar** | Multi-team organization, data reuse alto, compliance strict, analytics-driven |
+| **Evitar Si** | Single-team app, data uso único, overhead governance > benefit |
+| **Ejemplo** | `billing_invoices` product (E8 §3.2, §4.4) - 3 consumers: BI team, Finance app, Auditor dashboard |
+| **Antipatrón** | AP37 Data Sin Contrato (datos compartidos sin schema, breaks consumers silent) |
+| **Conexión** | T15_Contrato_Datos.yaml (template), T20_Data_Product_Spec.yaml (product spec), E8 §4 DATA-AS-PRODUCT (detalle) |
+
+---
+
+### P58: RAG Auditable Pattern
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | LLMs alucinan, no citan fuentes → Responses no confiables, compliance risk |
+| **Contexto** | Domain con high-authority requirements (legal, medical, gov) donde accuracy > fluency |
+| **Solución** | RAG pipeline con curation + hybrid index + mandatory citations: Curation (solo fuentes oficiales, vigencia validated), Indexing (BM25 + Vector + Reranking), Serving (ACL pre-filters, citations mandatory, modo extractivo), Evaluation (citation exactness ≥0.95, faithfulness ≥0.90) |
+| **Primitivos** | Dato → Chunks indexed (D1), Actor → LLM_Agent (A3), Flujo → RAG_Pipeline (F3: retrieve → rerank → assemble → generate), Límite → Citation policy (L3 regulatory) |
+| **Cuándo Usar** | Normativa, medical advice, financial regulations, legal research |
+| **Evitar Si** | Creative content, brainstorming, hallucinations acceptable (fiction, marketing drafts) |
+| **Ejemplo** | Chatbot normativa GORE Ñuble (E8 §12 Caso 2) - citas artículos Ley 21.180 |
+| **Antipatrón** | AP38 RAG Sin Curation (no authority validation, retrievals garbage) |
+| **Conexión** | T18_Contrato_Conocimiento.yaml (knowledge contract), E8 §6 KNOWLEDGE MANAGEMENT + RAG (detalle) |
+
+---
+
+### P59: Saga Compensation Pattern
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Transacción distribuida (multi-services, no ACID global) → Partial failures leave inconsistent state |
+| **Contexto** | BPMN workflows, microservices, process automation (invoice approval, order fulfillment) |
+| **Solución** | Orchestrated saga con compensations: Forward steps (cada step ejecuta API calls, DB writes), Compensation steps (cada step define acción inversa determinista), Orchestrator (BPMN engine coordina: Camunda, Temporal), Idempotency (compensations idempotent, safe re-execute) |
+| **Primitivos** | Flujo → Saga_Flow (F3 complejo con branches), Señal → Eventos success/failure (S2), Actor → BPMN_Orchestrator (A3) |
+| **Cuándo Usar** | Distributed transactions, multiple systems of record, eventual consistency acceptable |
+| **Evitar Si** | Single database (use ACID local transactions), real-time consistency mandatory (use 2PC si available) |
+| **Ejemplo** | E8 §7.3 Invoice pipeline - Post_ERP → Compensation Revert_Posting |
+| **Antipatrón** | AP41 Dual Write (write two DBs simultaneously, no coordination → inconsistency) |
+| **Conexión** | T16_Contrato_Proceso.yaml (process contract), T22_Process_Model_BPMN.yaml (BPMN spec), E8 §7 PROCESS AUTOMATION (detalle) |
+
+---
+
+### P60: HITL Checkpoint Pattern
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Full automation high-stakes decisions → Errors costosos, compliance risk, user trust loss |
+| **Contexto** | AI confidence <threshold, ambiguous cases, regulatory requirement human oversight |
+| **Solución** | Pause workflow + human decision + resume: Triggers (confidence <0.85, conflict detected, amount >$10K, sensitive data), Queue (HITL exception queue, SLA 24-48h), UI (form-based task completion low-code), Resume (workflow continues con human input, state preserved) |
+| **Primitivos** | Actor → Human (A1 Principal), Flujo → Pausable workflow (F3), Señal → Escalation event (S2) |
+| **Cuándo Usar** | High-stakes (financial, medical, legal), AI uncertainty high, compliance mandates |
+| **Evitar Si** | Low-risk decisions, AI confidence consistently high (>0.95), latency critical (<1s SLA) |
+| **Ejemplo** | E8 §7.3 Invoice >$10K → HITL approval queue |
+| **Antipatrón** | AP39 Observabilidad Mínima IA (no monitoring confidence → errors silent) |
+| **Conexión** | T17_Contrato_Agente.yaml (agent contract HITL section), E8 §5 AI ORCHESTRATION (detalle) |
+
+---
+
+### P61: Multi-Agent Orchestration
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Single agent limitaciones (capabilities, context window, specialization) |
+| **Contexto** | Tareas complejas multi-dominio (research multi-source, customer support multi-producto) |
+| **Solución** | Router/Supervisor coordinates specialized agents: Router Agent (classifies query → routes specialized agent, M4 Control), Supervisor Agent (decomposes task → assigns workers → aggregates, M5 Co-produce), Specialized Agents (domain-experts: billing, support, product - focused capabilities) |
+| **Primitivos** | Actor → N agentes (A3 specialized), Flujo → Coordination flow (F3 con routing logic), Recurso → Shared tools, knowledge bases (R3) |
+| **Cuándo Usar** | Multi-domain queries, task decomposition beneficial, specialized knowledge deep |
+| **Evitar Si** | Simple queries, single-domain, coordination overhead > benefit |
+| **Ejemplo** | E8 §5.6 Multi-Agent Patterns (4 patterns detallados) |
+| **Conexión** | P53 Orchestration Agent (CORE/04 §8) pattern base, E8 §5 AI ORCHESTRATION (detalle) |
+
+---
+
+### P62: Contract-Driven Evolution
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Schema changes break consumers silently → Production outages, data corruption |
+| **Contexto** | Data products shared multi-teams, APIs public/partner, long-lived systems |
+| **Solución** | Semantic versioning + backward compatibility + deprecation windows: Semver (Major breaking, Minor backward-compat features, Patch fixes), Backward compat (additive changes only: new fields optional, old fields preserved), Deprecation (notice 90-120 días, coexistence period v1 + v2 parallel, migration support), Adapters (shim layer v1 → v2 backward compat for legacy consumers) |
+| **Primitivos** | Dato → Contract (D2), Límite → Deprecation policy (L2 contractual), Flujo → Schema evolution process (F2 governed) |
+| **Cuándo Usar** | Shared data/APIs, multiple consumers, production stability critical |
+| **Evitar Si** | Internal single-team use, breaking changes acceptable (experimental, prototype) |
+| **Ejemplo** | E8 §3.2 billing_invoices v2.1.0 → v3.0.0 (add field `tax_id` optional, 120 días deprecation v2) |
+| **Antipatrón** | Big-Bang schema changes (no coexistence, all-or-nothing migration) |
+| **Conexión** | T15_Contrato_Datos.yaml (data contract evolution section), E8 §3 CONTRATOS UNIFICADOS (detalle) |
+
+---
+
+### P63: Hybrid Search Pattern
+
+| Aspecto | Descripción |
+|---------|-------------|
+| **Problema** | Keyword search misses semantic matches, vector search misses exact keywords → Recall/precision suboptimal |
+| **Contexto** | Knowledge bases heterogeneous (normativa, FAQs, technical docs), users query both exact (codes, dates) and semantic (concepts) |
+| **Solución** | BM25 + Vector + Reranking + ACL filters: Dual index (Lexical BM25 + Vector embeddings parallel), Fusion (combine scores: weighted, RRF Reciprocal Rank Fusion), Rerank (cross-encoder top-K precision boost), Filter (ACL query-time security by design) |
+| **Primitivos** | Dato → Chunks indexed dual (D2), Flujo → Retrieval pipeline (F3: query → dual-search → fuse → rerank → filter) |
+| **Cuándo Usar** | Heterogeneous corpus, users query styles diverse, accuracy critical |
+| **Evitar Si** | Homogeneous corpus (all semantic or all keyword), simple keyword search sufficient |
+| **Ejemplo** | E8 §6.3 RAG normativa (BM25 Ley numbers + Vector concepts + Rerank autoridad) |
+| **Antipatrón** | Single-index search (pure keyword → misses semantics, pure vector → misses exact codes) |
+| **Conexión** | T18_Contrato_Conocimiento.yaml (indexing section), E8 §6 KNOWLEDGE MANAGEMENT (detalle) |
+
+---
+
 ## Referencias Cruzadas
 
 - **Dominios detallados:** `DOMINIOS/D1-D4_*.md`
@@ -854,3 +980,4 @@ Límites:
 - **Ciclo SDA fundamental:** `CORE/02_Ciclo_Fundamental.md`
 - **Templates OKR/Roadmap:** `REFERENCIA/R6_Templates/`
 - **Principios Evolutivos:** `DOMINIOS/D4_Operacion.md` §11 (continuous learning context)
+- **Patterns Datos/IA/Procesos detalle:** `DOMINIOS_ESPECIALIZADOS/E8_Intelligent_Data_AI_Systems.md` §10-12 (P57-P63 ejemplos concretos)

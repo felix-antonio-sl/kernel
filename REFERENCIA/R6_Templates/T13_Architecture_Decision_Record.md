@@ -1,5 +1,9 @@
 # T13: Architecture Decision Record (ADR) Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Documentar decisiones de arquitectura importantes de forma asíncrona.
 **Audiencia:** Arquitectos, Tech Leads, Ingenieros Senior.
 

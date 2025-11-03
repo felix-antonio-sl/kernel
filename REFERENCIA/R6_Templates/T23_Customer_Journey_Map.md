@@ -1,8 +1,47 @@
 # T23_Customer_Journey_Map (KERNEL-Native)
 
-**Versión:** 2.2.0  
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x  
 **Audiencia:** Product Managers, UX, Customer Success, Engineering  
 **Patterns Aplicables:** P_CX01 (Flujo Valor Cliente), P_CX02 (Eventos Señales CX), P_CX03 (Touchpoint Ownership)
+
+---
+
+## ⚠️ PREREQUISITOS
+
+**Capacidades Técnicas Requeridas:**
+- ✅ **Instrumentación básica** (analytics web/app, event tracking)
+- ✅ **Observable O2 tracked** (NPS, CSAT, o equivalente medido actualmente)
+- ✅ **Ownership claro touchpoints** (al menos RACI draft existe)
+- ✅ **Data infrastructure** (warehouse, dashboards, o capacidad implementar en 3-6 meses)
+
+**Nivel Madurez Mínimo:**
+- ✅ **D2 Percepción ≥50** (observables básicos funcionando)
+- ✅ **Product-market fit alcanzado** (no pre-PMF startups)
+- ✅ **Customer base >100 activos** (statistically significant)
+
+**Señales de Alerta - NO USAR si:**
+- 🚫 **No tracking actual** → Implementar analytics básico primero (3-6 meses)
+- 🚫 **Pre-PMF startup** → Usar journey map tradicional (qualitative), demasiado early para instrumentación
+- 🚫 **No data team/capability** → Journey será insights sin acción, build capability primero
+- 🚫 **Customer base <50** → Sample size insuficiente, grow primero
+- 🚫 **Crisis churn** → Firefighting mode, no es momento para journey mapping estratégico
+
+**MVP Alternativo (si no cumples full prerequisites):**
+1. **Fase 1 (Manual):** Journey map cualitativo tradicional (workshops, sticky notes)
+2. **Fase 2 (Hybrid):** Instrumentar 2-3 touchpoints críticos solamente
+3. **Fase 3 (Full KERNEL):** Expandir a journey completo instrumentado
+
+**Timing Óptimo:**
+- Post-PMF, pre-scale (50-500 customers)
+- Cuando O2 (NPS/CSAT) ya se mide (aunque sea manualmente)
+- Budget disponible para tooling ($10K-50K típico)
+
+**Si Dudas:**
+- Empezar con journey map tradicional, migrar a KERNEL cuando maduro
+- Ver `A1_Patrones.md` §6.6 P_CX01-03 para entender patterns primero
+- Considerar contratar CX expert si team no tiene experiencia journey mapping
 
 ---
 
@@ -516,7 +555,7 @@ ROI:
 
 **Observables**:
 - `DOMINIOS/D2_Percepcion.md` §2: O2 Valor (NPS, CSAT)
-- `DOMINIOS/D2_Percepcion.md` §4: I3 Eficiencia Flujo
+- `DOMINIOS/D2_Percepcion.md` §4: IN3 Eficiencia Flujo
 
 **Dominios**:
 - `CORE/03_Arquitectura.md`: D1-D4 mapping CX

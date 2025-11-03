@@ -1,5 +1,9 @@
 # T14: User Story Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Escribir historias de usuario efectivas, consistentes y accionables.
 **Audiencia:** Product Owners, Ingenieros, Diseñadores, QA.
 

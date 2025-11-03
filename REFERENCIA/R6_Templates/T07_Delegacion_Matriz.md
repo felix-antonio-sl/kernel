@@ -1,5 +1,9 @@
 # T07: Matriz de Delegación Humano-IA
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Definir y gobernar los niveles de autonomía de los agentes de IA en diferentes tareas.
 **Audiencia:** AI Product Owners, Arquitectos, Líderes de Equipo, Equipos de Ética y Riesgo.
 

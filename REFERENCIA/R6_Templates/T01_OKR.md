@@ -1,5 +1,9 @@
 # T01: OKR Template (Quarterly)
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Framework OKRs trimestre siguiente (13 semanas)  
 **Ciclo:** Q1: Ene-Mar | Q2: Abr-Jun | Q3: Jul-Sep | Q4: Oct-Dic
 
@@ -19,7 +23,7 @@
 **Ejemplo Real:**
 ```yaml
 Objective: Convertirse en plataforma más confiable del mercado
-KR1.1: Uptime 99.5% → 99.95% (P50)
+KR1.1: Uptime 99.5% → 99.95% (P10 SRE Model)
 KR1.2: MTTR incidents 4hrs → 30min (SRE Lead)
 KR1.3: NPS clientes enterprise 45 → 70 (Product VP)
 ```

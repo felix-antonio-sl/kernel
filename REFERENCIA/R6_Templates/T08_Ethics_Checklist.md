@@ -1,5 +1,9 @@
 # T08: AI Ethics Checklist
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Asegurar que los sistemas de IA se diseñen, construyan y operen de manera justa, transparente y responsable.
 **Audiencia:** AI/ML Engineers, Product Owners, Equipos Legales y de Cumplimiento.
 

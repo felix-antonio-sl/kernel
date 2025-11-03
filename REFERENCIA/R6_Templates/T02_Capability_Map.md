@@ -1,5 +1,9 @@
 # T02: Capability Map Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Modelar, analizar y planificar las capacidades de negocio de la organización.
 **Audiencia:** Arquitectos Empresariales, Estrategas, Product Managers.
 

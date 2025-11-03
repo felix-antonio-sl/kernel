@@ -245,10 +245,5 @@ operations:
 ## CONEXIÓN KERNEL
 
 **Primitivos**: Dato D2 (product), Actor A3 (owner), Límite L1-L3 (SLOs, security, regulatory)  
-**Patterns**: P57 Data Product, P62 Contract-Driven Evolution  
+**Patterns**: P57 Data Product (A1 §15), P62 Contract-Driven Evolution (A1 §15)  
 **Referenced By**: E8 §3.2 (estructura base), E8 §4 (DATA lifecycle), E2 §4 (datos abiertos gobierno)
-
-**Versión Template**: 2.0.0  
-**Creado**: 2025-11-03  
-**Líneas**: 85 (target 80, +6%)
-

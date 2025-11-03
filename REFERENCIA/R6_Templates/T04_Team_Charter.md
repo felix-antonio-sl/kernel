@@ -1,5 +1,9 @@
 # T04: Team Formation Checklist
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Formar equipos efectivos 5-8 personas, cross-funcionales, ownership claro
 
 ---
@@ -179,4 +183,4 @@ Completeness_Check:
 
 **Ver también:**
 - D4_Operacion.md (KERNEL) para detalles completos
-- P01_Team_Topologies (A1_Patrones.md)
+- A1_Patrones.md §2 (P01-P12 Patrones Estructurales - Team Topologies aplicados)

@@ -1,6 +1,6 @@
 # A2_Antipatrones
 
-**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX
+**Versión:** 2.2.1 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX, Data/AI Engineers
 
 ---
 
@@ -18,7 +18,16 @@ Categorías:
   - Crisis & Transformation (AP31-AP33): Emergency governance, readiness
   - Seguridad (AP34-AP37): Security by design, response
   - Customer Experience (AP38-AP40): Customer-centricity, value stream
-
+  - Tecnológicos Especializados (AP41-AP49): Tech/Data/AI/Process (v2.2.1)
+    - AP41: Premature Microservices (§8)
+    - AP42: Frontend-Backend Coupling (§8)
+    - AP43: Big Design Up Front (BDUF) (§8)
+    - AP44: RPA Universal Hammer (§8)
+    - AP45: Data Sin Contrato (§8)
+    - AP46: RAG Sin Curation (§8)
+    - AP47: Observabilidad Mínima IA (§8)
+    - AP48: Automatizar Procesos Rotos (§8)
+    - AP49: Dual Write Pattern (§8)
 Severidad: 🔴 Crítico | 🟡 Alto | 🟢 Moderado
 ```
 
@@ -332,6 +341,38 @@ Review_Date: 2024-11-15 (check progress), 2025-01-15 (final)
 | **AP38** | **Diseño Inside-Out** | Servicios diseñados según estructura interna de la empresa | Foco en silos organizacionales, no en el cliente | Experiencia de cliente fragmentada, NPS bajo | P_CX01 (Flujo Valor Cliente): mapear journey outside-in | 🟡 |
 | **AP39** | **Fricción del Cliente Invisible** | Puntos de dolor del cliente no medidos, se opera a ciegas | Falta de instrumentación del journey (telemetry) | Churn inesperado, quejas reactivas, oportunidades perdidas | P_CX02 (Eventos como Señales CX): convertir fricción en alertas | 🔴 |
 | **AP40** | **"Tragedia de los Comunes" en CX** | CX es "responsabilidad de todos", pero nadie es dueño E2E | Falta de ownership explícito por touchpoint | Handoffs dolorosos, "no es mi problema", cliente sufre | P_CX03 (Touchpoint Ownership): asignar owner por etapa | 🔴 |
+
+---
+
+## §8. ANTIPATRONES TECNOLÓGICOS ESPECIALIZADOS (AP41-AP50)
+
+**Nota**: Antipatrones especializados para aplicaciones enterprise, data products, AI systems y process automation. Ver `DOMINIOS_ESPECIALIZADOS/E7_Enterprise_Technology.md` y `E8_Intelligent_Data_AI_Systems.md` para ejemplos concretos de implementación.
+
+### Antipatrones Tech Enterprise (AP41-AP43)
+
+| ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
+|---|---|---|---|---|---|---|
+| **AP41** | **Premature Microservices** | Startup 5 engineers comienza con 15 microservicios sin justificar | Hype-driven architecture, no pain real con monolito | Complejidad operacional >10×, dev velocity -70%, cognitive load insostenible | Start monolito modular → Extract microservicios cuando dolor > complejidad. P54 Piecemeal Growth | 🟡 |
+| **AP42** | **Frontend-Backend Coupling** | Frontend directamente acopla a backend DB schemas/internal APIs | No BFF (Backend-for-Frontend) layer, no API contracts estables | Deploy dependencies, violates team autonomy, API versioning imposible | API Gateway con contracts estables (OpenAPI), BFF layer, semantic versioning | 🟡 |
+| **AP43** | **Big Design Up Front (BDUF)** | 6 meses diseño arquitectónico detallado antes de escribir código | Waterfall mindset, fear of refactoring, architecture astronauts | Requirements drift, sunk cost fallacy, time-to-market delay massive | P54 Piecemeal Growth + P55 Walking Skeleton: iterate con feedback real, P56 Continuous Refactoring | 🟡 |
+
+### Antipatrones Data/AI/Process (AP44-AP50)
+
+| ID | Nombre | Síntoma | Causa Raíz | Consecuencia | Fix | Severidad |
+|---|---|---|---|---|---|---|
+| **AP44** | **RPA Universal Hammer** | Usar RPA para toda automatización, incluso cuando APIs/ETL existen | RPA vendor hype, falta expertise APIs, "quick win" presión | Bots frágiles (UI changes → break), maintenance overhead alto (>60%), no escala, security risk | Audit APIs disponibles (99% sistemas tienen), API-first design, RPA solo legacy absoluto sin APIs | 🟡 |
+| **AP45** | **Data Sin Contrato** | Datos compartidos sin schema documentado, SLO, ownership | "Move fast" cultura, no data governance, silos | Breaking changes silent (consumers crash), quality unknown, no ownership, no lineage | Implementar data contracts (P57, P62), schema registry, ownership RACI, lineage tools | 🔴 |
+| **AP46** | **RAG Sin Curation** | RAG sobre corpus sin curate (fuentes no oficiales, vigencia unknown, calidad baja) | "Quick win" LLM without data quality investment | Hallucinations altas (>20%), citas inválidas, info desactualizada, compliance risk | Curation pipeline (E8 §6.3), authority validation, vigencia tracking, ACL enforcement. P58 RAG Auditable | 🔴 |
+| **AP47** | **Observabilidad Mínima IA** | LLM en producción sin monitoring faithfulness, cost, latency | Treat LLM como "black box", no ML observability expertise | Degradation silent, cost overruns (no budgets), incidents slow resolution | Evaluation harness (offline + online), metrics dashboards, alerts critical thresholds, OpenTelemetry traces | 🟡 |
+| **AP48** | **Automatizar Procesos Rotos** | Automatizar proceso ineficiente as-is (no optimize primero) | Urgencia delivery, no time process mining, "digitize ≠ optimize" confusion | "Mal pero rápido" (inefficiency amplified), user frustration, ROI bajo | Process mining (Celonis, Disco) → Identify bottlenecks, redesign process, THEN automate optimized | 🟡 |
+| **AP49** | **Dual Write Pattern** | Write simultaneously a dos databases sin coordinación (DB1, DB2 parallel updates) | No event sourcing, no CDC, "just sync both" naive | Inconsistency inevitable (partial state), no rollback coordination, race conditions | Single source truth, CDC (Change Data Capture), Outbox Pattern (transactional). P57 Data Product | 🔴 |
+| **AP50** | **Prompt Injection Undefended** | LLM sin input validation, user prompts ejecutan instrucciones maliciosas | No security awareness LLMs, treat como traditional apps | Data exfiltration, privilege escalation, jailbreak (bypass guardrails) | Input guardrails (prompt rewrite, injection defense), user input sandboxed, allowlist tools, output validation. OWASP Top-10 LLMs | 🔴 |
+
+**Conexión KERNEL**:
+- **E7 §10**: Ejemplos tech enterprise concretos (AP41-AP43)
+- **E8 §11**: Ejemplos data/AI/process concretos (AP44-AP50)
+- **P54-P56**: Patterns desarrollo evolutivo (previenen AP43)
+- **P57-P63**: Patterns Data/AI especializados (previenen AP44-AP50)
 
 ---
 

@@ -1,8 +1,33 @@
 # T05: Assessment Interview Guide
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Guía estructurada entrevistas diagnóstico organizacional (Fase 0)  
 **Duración:** 60-90 min por stakeholder  
 **Audiencia:** C-Suite, VPs, Team Leads, IC contributors
+
+---
+
+## ⚠️ PREREQUISITOS
+
+**Nivel Madurez Mínimo:**
+- ✅ **Sponsor ejecutivo comprometido** (C-level con mandate y budget)
+- ✅ **Acceso a stakeholders clave** (al menos 8-12 entrevistas cross-functional)
+- ✅ **Tiempo disponible** (4-6 semanas para diagnóstico completo)
+- ✅ **Apertura a cambio** (org dispuesta a actuar sobre findings)
+
+**Señales de Alerta - NO USAR si:**
+- 🚫 **Crisis activa** → Ir directo a `A4_Implementacion.md` §0 Path 1-2 (estabilización)
+- 🚫 **No hay sponsor real** → Assessment será ignorado, waste of time
+- 🚫 **Resistencia cultural alta** → Hacer readiness building primero (3-6 meses)
+- 🚫 **Org <20 personas** → Assessment too heavy, usar diagnóstico simplificado
+
+**Si Dudas:**
+- Ver `A4_Implementacion.md` §0 para determinar path correcto (crisis vs transformation)
+- Ver `A1_Patrones.md` §9 P35 Preparación R1-R5 para score readiness
+- Considerar assessment MVP (solo 4-5 entrevistas, 2 semanas) si recursos limitados
 
 ---
 
@@ -262,7 +287,7 @@ Score_S1: [___] / 5
 Checklist:
   ☐ ¿H_Score u otra métrica composite calculada automáticamente?
   ☐ ¿Alerting context-aware (no solo raw thresholds)?
-  ☐ ¿Observables O1-O8, I1-I3 tracked y visibles?
+  ☐ ¿Observables O1-O8, IN1-IN3 tracked y visibles?
   ☐ ¿Pattern recognition automated (anomaly detection)?
   ☐ ¿Alert quality >80% (actionable, no noise)?
 

@@ -1,5 +1,9 @@
 # T06: AI Agent Design Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Diseñar y documentar agentes de IA que colaboran con equipos humanos.
 **Audiencia:** AI/ML Engineers, Product Owners, Arquitectos.
 

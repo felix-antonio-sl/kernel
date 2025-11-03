@@ -1,6 +1,39 @@
 # T10: Transformation Roadmap Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Planificar transformación 12-24 meses basada en H_Score diagnóstico
+
+---
+
+## ⚠️ PREREQUISITOS
+
+**Nivel Madurez Requerido:**
+- ✅ **H_Score baseline confirmado** (diagnóstico completo D1-D4)
+- ✅ **No crisis activa** (H_Score ≥45, no observables <30)
+- ✅ **Sponsor ejecutivo comprometido** (budget aprobado, mandate claro)
+- ✅ **Readiness Score R1-R5 ≥3.0** promedio (ver P35 Preparación)
+- ✅ **Capacidad ejecución** (al menos 1-2 FTEs dedicados a transformación)
+
+**Señales de Alerta - NO USAR si:**
+- 🚫 **Crisis mode** (H<45) → Ir a `A4_Implementacion.md` §0 Path 1-2 (estabilización)
+- 🚫 **H_Score no calculado** → Completar assessment primero (T05)
+- 🚫 **Budget no aprobado** → Roadmap será papel mojado, conseguir funding primero
+- 🚫 **Resistencia cultural crítica** → Hacer readiness building antes (6-12 meses)
+- 🚫 **Multiple transformations paralelas** → Risk overload, priorizar una sola
+
+**Timing Óptimo:**
+- Post-assessment (T05 completado)
+- Post-stabilization si hubo crisis
+- Budget cycle aligned (Q4 para planning año siguiente)
+- Leadership stable (no reorganizaciones inminentes)
+
+**Si Dudas:**
+- Ver `A4_Implementacion.md` para determinar si estás en Path correcto
+- Considerar roadmap incremental 6 meses (vs 12-24) si incertidumbre alta
+- Consultar con KERNEL expert si R1-R5 score <3.0
 
 ---
 
@@ -40,7 +73,7 @@ Timeline: [Meses]
 |----|-----------|--------|-------|--------|----------------|
 | A1 | Reestructurar equipos Conway-compliant | P01 | CTO | - | 0 handoffs cross-team |
 | A2 | Extraer bounded contexts top-3 | P07 | Arch Lead | $400K | 3 servicios prod M9 |
-| A3 | Implementar IaC | P18 | Platform | $120K | 80% infra Terraform |
+| A3 | Implementar IaC | P_SEC03 | Platform | $120K | 80% infra Terraform |
 | A4 | Tech debt paydown 20% | P14 | All teams | $600K | Λ de 45%→25% |
 
 **Gate Crítico M9:** D1_Score ≥60 + arquitectura modular desplegada

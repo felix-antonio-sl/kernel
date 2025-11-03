@@ -1,5 +1,9 @@
 # T09: Plantilla de Aplicación de Patrón
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Documentar la aplicación de un patrón específico de KERNEL a un problema concreto.
 **Audiencia:** Arquitectos, Ingenieros, Product Owners.
 

@@ -1,5 +1,9 @@
 # T03: Weekly Executive Dashboard
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Vista ejecutiva salud organizacional (actualización semanal)  
 **Audiencia:** C-Suite, Board  
 **Formato:** 1 página, lectura <5 min
@@ -44,7 +48,7 @@ Target Q[X]: 75/100 - On track para alcanzar
 🚨 CRISIS INDICATORS ACTIVE:
 ├─ O3 Capacity:      [22/100] Cash runway 18 días
 ├─ O2 Valor:         [25/100] Churn 28%, NPS -8
-├─ I2 Talent Health: [28/100] Attrition 32% annual
+├─ IN2 Talent Health: [28/100] Attrition 32% annual
 └─ Observable < 30 threshold crossed
 
 ┌──────────────────────────────────────────────────┐
@@ -69,7 +73,7 @@ Crisis Team Roles:
   • Executive Sponsor: [Name] (CEO/COO)
   • Financial Lead: [Name] (CFO) - O3 focus
   • Customer Lead: [Name] (VP CS) - O2 focus
-  • People Lead: [Name] (CHRO) - I2 focus
+  • People Lead: [Name] (CHRO) - IN2 focus
   • Operations Lead: [Name] (VP Eng)
   • Communications: [Name] (CCO)
   • Legal/Compliance: [Name] (as needed)

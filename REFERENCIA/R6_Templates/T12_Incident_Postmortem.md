@@ -1,5 +1,9 @@
 # T12: Incident Postmortem Template
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Análisis estructurado y sin culpa de incidentes para prevenir recurrencia.
 **Audiencia:** Equipos de ingeniería, SRE, Product Owners.
 

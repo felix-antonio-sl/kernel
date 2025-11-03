@@ -1,5 +1,9 @@
 # T11: Technical Debt Register
 
+**Versión:** 2.2.1  
+**Última Actualización:** 2025-11-03  
+**Compatibilidad:** KERNEL v2.2.x
+
 **Propósito:** Visualizar, cuantificar y priorizar deuda técnica para pago sistemático
 **Audiencia:** Engineering Managers, Tech Leads, Arquitectos
 

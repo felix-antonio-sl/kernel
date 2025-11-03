@@ -2042,228 +2042,38 @@ hitl_required {
 
 ---
 
-## §10. PATRONES INTEGRACIÓN P57-P63
+## §10. PATRONES ESPECIALIZADOS (P57-P63)
 
-### Estructura Pattern (cada 17 líneas × 7 = 120 líneas)
+**IMPORTANTE**: Definiciones canónicas de patterns P57-P63 viven en `APLICACION/A1_Patrones.md` §15 (single source of truth). Esta sección provee **ejemplos concretos E8-specific** y detalles de implementación.
 
-**P57: Data Product Pattern**
-
-**Problema**: Datos tratados como subproducto, no asset → Calidad baja, no reusable, undiscoverable.
-
-**Contexto**: Equipos múltiples necesitan mismos datos, cada uno extrae/transforma independiente (duplicación, inconsistencia).
-
-**Solución**: Treat data as product:
-
-- **Contract**: Schema, SLO, DQ, security, deprecation (§3.2)
-- **Owner**: Data Product Owner responsable (SLO, quality, roadmap)
-- **Lineage**: As-designed + as-implemented (§4.5)
-- **Serving**: Interfaces múltiples (SQL, REST, GraphQL) según consumer needs
-
-**Primitivos KERNEL**:
-
-- **Dato** → ProductoDeDatos (D1 specialized)
-- **Actor** → Data_Product_Owner (A3)
-- **Recurso** → Lakehouse (R3)
-- **Límite** → SLO (L1)
-
-**Cuándo Usar**: Multi-team organization, data reuse alto, compliance strict, analytics-driven.
-
-**Evitar Si**: Single-team app, data uso único, overhead governance > benefit.
-
-**Ejemplo Concreto**: `billing_invoices` product (§3.2, §4.4) - 3 consumers (BI team, Finance app, Auditor dashboard).
-
-**Antipatrón Relacionado**: AP37 Data Sin Contrato (datos compartidos sin schema, breaks consumers silent).
-
-**Fuente**: DATA.md §4-§5
+**Ejemplo Implementación**: §3.2 Contrato completo, §4.4 Operating Model Federado (3 consumers: BI, Finance, Auditor).
 
 ---
 
-**P58: RAG Auditable Pattern**
-
-**Problema**: LLMs alucinan, no citan fuentes → Responses no confiables, compliance risk.
-
-**Contexto**: Domain con high-authority requirements (legal, medical, gov) donde accuracy > fluency.
-
-**Solución**: RAG pipeline con curation + hybrid index + mandatory citations:
-
-- **Curation**: Solo fuentes oficiales, vigencia validated (§6.3 Fase 1-2)
-- **Indexing**: BM25 + Vector + Reranking (§6.3 Fase 4)
-- **Serving**: ACL pre-filters, citations mandatory, modo extractivo (§6.3 Fase 5)
-- **Evaluation**: Citation exactness ≥0.95, faithfulness ≥0.90 (§6.4)
-
-**Primitivos KERNEL**:
-
-- **Dato** → Chunks indexed (D1)
-- **Actor** → LLM_Agent (A3)
-- **Flujo** → RAG_Pipeline (F3 complejo: retrieve → rerank → assemble → generate)
-- **Límite** → Citation policy (L3 regulatory)
-
-**Cuándo Usar**: Normativa, medical advice, financial regulations, legal research.
-
-**Evitar Si**: Creative content, brainstorming, hallucinations acceptable (fiction, marketing drafts).
-
-**Ejemplo Concreto**: Chatbot normativa GORE Ñuble (§12 Caso 2) - citas artículos Ley 21.180.
-
-**Antipatrón Relacionado**: AP38 RAG Sin Curation (no authority validation, retrievals garbage).
-
-**Diferencia P55**: P55 Conversational Interface (APLICACION/A1 v1.4) es UX pattern general, P58 es RAG technical implementation específico.
-
-**Fuente**: KNOW.md §10 + OCE evaluation
+**Ver A1 §15 para**: Problema, Contexto, Solución, Cuándo Usar, Evitar Si, Primitivos KERNEL, Antipatrones.
 
 ---
 
-**P59: Saga Compensation Pattern**
+**P57: Data Product Pattern - (`A1_Patrones.md` §15 P57)**
+**Ejemplo Concreto E8**: `billing_invoices` Data Product
 
-**Problema**: Transacción distribuida (multi-services, no ACID global) → Partial failures leave inconsistent state.
+**P58: RAG Auditable** (`A1_Patrones.md` §15 P58)  
+**Ejemplo E8**: Chatbot normativa GORE Ñuble (§12 Caso 2) - Citations artículos Ley 21.180, curation pipeline §6.3, evaluation §6.4.
 
-**Contexto**: BPMN workflows, microservices, process automation (invoice approval, order fulfillment).
+**P59: Saga Compensation** (`A1_Patrones.md` §15 P59)  
+**Ejemplo E8**: Invoice approval workflow §7.3 - Post_ERP step con compensation Revert_Posting, BPMN orchestration Camunda.
 
-**Solución**: Orchestrated saga con compensations:
+**P60: HITL Checkpoint** (`A1_Patrones.md` §15 P60)  
+**Ejemplo E8**: Invoice >$10K trigger §7.3, exception queue SLA 24-48h, form-based UI approval, resume workflow state preserved.
 
-- **Forward steps**: Cada step ejecuta (API calls, DB writes)
-- **Compensation steps**: Cada step define acción inversa determinista
-- **Orchestrator**: BPMN engine coordina (Camunda, Temporal)
-- **Idempotency**: Compensations idempotent (safe re-execute)
+**P61: Multi-Agent Orchestration** (`A1_Patrones.md` §15 P61)  
+**Ejemplo E8**: §5.6 Multi-Agent Patterns (Router, Supervisor-Worker, Specialist Pool, Debate) - 4 arquitecturas detalladas.
 
-**Primitivos KERNEL**:
+**P62: Contract-Driven Evolution** (`A1_Patrones.md` §15 P62)  
+**Ejemplo E8**: `billing_invoices` v2.1.0 → v3.0.0 migration §3.2 - Add field `tax_id` optional, 120 días deprecation, adapter v1→v2.
 
-- **Flujo** → Saga_Flow (F3 complejo con branches)
-- **Señal** → Eventos success/failure (S2)
-- **Actor** → BPMN_Orchestrator (A3)
-
-**Cuándo Usar**: Distributed transactions, multiple systems of record, eventual consistency acceptable.
-
-**Evitar Si**: Single database (use ACID local transactions), real-time consistency mandatory (use 2PC si available).
-
-**Ejemplo Concreto**: §7.3 Invoice pipeline - Post_ERP → Compensation Revert_Posting.
-
-**Antipatrón Relacionado**: AP41 Dual Write (write two DBs simultaneously, no coordination → inconsistency).
-
-**Fuente**: BPA.md §2 + OCE workflows
-
----
-
-**P60: HITL Checkpoint Pattern**
-
-**Problema**: Full automation high-stakes decisions → Errors costosos, compliance risk, user trust loss.
-
-**Contexto**: AI confidence <threshold, ambiguous cases, regulatory requirement human oversight.
-
-**Solución**: Pause workflow + human decision + resume:
-
-- **Triggers**: Confidence <0.85, conflict detected, amount >$10K, sensitive data
-- **Queue**: HITL exception queue (SLA 24-48h)
-- **UI**: Form-based task completion (low-code)
-- **Resume**: Workflow continues con human input (state preserved)
-
-**Primitivos KERNEL**:
-
-- **Actor** → Human (A1 Principal)
-- **Flujo** → Pausable workflow (F3)
-- **Señal** → Escalation event (S2)
-
-**Cuándo Usar**: High-stakes (financial, medical, legal), AI uncertainty high, compliance mandates.
-
-**Evitar Si**: Low-risk decisions, AI confidence consistently high (>0.95), latency critical (<1s SLA).
-
-**Ejemplo Concreto**: §7.3 Invoice >$10K → HITL approval queue.
-
-**Antipatrón Relacionado**: AP39 Observabilidad Mínima IA (no monitoring confidence → errors silent).
-
-**Fuente**: BPA.md §2 HITL + OCE guardrails
-
----
-
-**P61: Multi-Agent Orchestration**
-
-**Problema**: Single agent limitaciones (capabilities, context window, specialization).
-
-**Contexto**: Tareas complejas multi-dominio (research multi-source, customer support multi-producto).
-
-**Solución**: Router/Supervisor coordinates specialized agents:
-
-- **Router Agent**: Classifies query → Routes specialized agent (M4 Control)
-- **Supervisor Agent**: Decomposes task → Assigns workers → Aggregates (M5 Co-produce)
-- **Specialized Agents**: Domain-experts (billing, support, product) - focused capabilities
-
-**Primitivos KERNEL**:
-
-- **Actor** → N agentes (A3 specialized)
-- **Flujo** → Coordination flow (F3 con routing logic)
-- **Recurso** → Shared tools, knowledge bases (R3)
-
-**Cuándo Usar**: Multi-domain queries, task decomposition beneficial, specialized knowledge deep.
-
-**Evitar Si**: Simple queries, single-domain, coordination overhead > benefit.
-
-**Ejemplo Concreto**: §5.6 Multi-Agent Patterns (4 patterns detallados).
-
-**Antipatrón Relacionado**: Single monolithic agent (jack-of-all, master-of-none).
-
-**Conexión**: P53 Orchestration Agent (CORE/04 §8) - pattern base.
-
-**Fuente**: OCE multi-agent patterns
-
----
-
-**P62: Contract-Driven Evolution**
-
-**Problema**: Schema changes break consumers silently → Production outages, data corruption.
-
-**Contexto**: Data products shared multi-teams, APIs public/partner, long-lived systems.
-
-**Solución**: Semantic versioning + backward compatibility + deprecation windows:
-
-- **Semver**: Major (breaking), Minor (backward-compat features), Patch (fixes)
-- **Backward compat**: Additive changes only (new fields optional, old fields preserved)
-- **Deprecation**: Notice 90-120 días, coexistence period (v1 + v2 parallel), migration support
-- **Adapters**: Shim layer v1 → v2 (backward compat for legacy consumers)
-
-**Primitivos KERNEL**:
-
-- **Dato** → Contract (D2)
-- **Límite** → Deprecation policy (L2 contractual)
-- **Flujo** → Schema evolution process (F2 governed)
-
-**Cuándo Usar**: Shared data/APIs, multiple consumers, production stability critical.
-
-**Evitar Si**: Internal single-team use, breaking changes acceptable (experimental, prototype).
-
-**Ejemplo Concreto**: §3.2 billing_invoices v2.1.0 → v3.0.0 (add field `tax_id` optional, 120 días deprecation v2).
-
-**Antipatrón Relacionado**: AP41 Dual Write, Big-Bang schema changes (no coexistence, all-or-nothing migration).
-
-**Fuente**: DATA.md §7 schema evolution + SIGMA contracts
-
----
-
-**P63: Hybrid Search Pattern**
-
-**Problema**: Keyword search misses semantic matches, vector search misses exact keywords → Recall/precision suboptimal.
-
-**Contexto**: Knowledge bases heterogeneous (normativa, FAQs, technical docs), users query both exact (codes, dates) and semantic (concepts).
-
-**Solución**: BM25 + Vector + Reranking + ACL filters:
-
-1. **Dual index**: Lexical (BM25) + Vector (embeddings) parallel
-2. **Fusion**: Combine scores (weighted, RRF - Reciprocal Rank Fusion)
-3. **Rerank**: Cross-encoder top-K (precision boost)
-4. **Filter**: ACL query-time (security by design)
-
-**Primitivos KERNEL**:
-
-- **Dato** → Chunks indexed dual (D2)
-- **Flujo** → Retrieval pipeline (F3: query → dual-search → fuse → rerank → filter)
-
-**Cuándo Usar**: Heterogeneous corpus, users query styles diverse, accuracy critical.
-
-**Evitar Si**: Homogeneous corpus (all semantic or all keyword), simple keyword search sufficient.
-
-**Ejemplo Concreto**: §6.3 RAG normativa (BM25 Ley numbers + Vector concepts + Rerank autoridad).
-
-**Antipatrón Relacionado**: Single-index search (pure keyword → misses semantics, pure vector → misses exact codes).
-
-**Fuente**: KNOW.md §10.3-10.4 indexación
+**P63: Hybrid Search** (`A1_Patrones.md` §15 P63)  
+**Ejemplo E8**: RAG normativa §6.3 - BM25 (Ley numbers exact match) + Vector (semantic concepts) + Cross-encoder rerank (autoridad score) + ACL filters
 
 ---
 
