@@ -1,6 +1,15 @@
-# KERNEL v1.4: El Sistema Operativo para Organizaciones Adaptativas
+# KERNEL v2.2: El Sistema Operativo para Organizaciones Adaptativas
 
-**Versión:** 1.4.0 | **Estado:** Production Ready (Refactored) | **Fecha:** 2025-11-02
+![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)
+![Status](https://img.shields.io/badge/status-production_ready-green.svg)
+![License](https://img.shields.io/badge/license-open-brightgreen.svg)
+![Patterns](https://img.shields.io/badge/patterns-64-orange.svg)
+![Observables](https://img.shields.io/badge/observables-16-purple.svg)
+![Contributors](https://img.shields.io/badge/contributors-welcome-ff69b4.svg)
+
+**Versión:** 2.2.0 | **Estado:** Production Ready | **Release:** 2025-11-03
+
+> **Nuevo en v2.2**: Positioning Statement, Learning Path (4 tracks), Customer Experience KERNEL-native, E2 Gobierno Digital internacional, Security enterprise-grade. Ver `VERSIONING.md` para changelog completo.
 
 ---
 
@@ -23,10 +32,30 @@ Su diferenciador clave es la **integración nativa de la IA**, tratando a los ag
 
 ---
 
-## Inicio Rápido: Tu Organización en 3 Pasos (30 Minutos)
+## Inicio Rápido: Elige Tu Ruta
+
+### 🎯 Opción A: Learning Path Estructurado (Recomendado)
+
+**[LEARNING_PATH.md](./LEARNING_PATH.md)** - Guía adoption progresiva según tu rol:
+
+| Rol | Track | Tiempo | Output |
+|-----|-------|--------|---------|
+| **CEO, C-level** | Executive | 4-6 hrs | Decisión adopt/no-adopt, business case |
+| **CTO, Arquitecto** | Architect | 12-16 hrs | Roadmap implementation 12 meses |
+| **ML Engineer** | AI Engineer | 8-12 hrs | Delegation strategy M1-M6, agents specs |
+| **Consultor, Académico** | Full | 40-60 hrs | Expertise completo framework |
+
+**Ventajas**: Roadmap claro, outputs específicos por rol, evita overwhelm.
+
+---
+
+### ⚡ Opción B: Quick Start 30 Minutos (Overview)
+
+**Alternativa rápida**: Lee `QUICK_REFERENCE.md` (cheat sheet 1 página imprimible)
 
 1. **Entender el Núcleo (10 min):**
-    - Lee el `CORE/00_Manifiesto.md` para internalizar los 3 invariantes y 9 principios.
+    - Lee el `CORE/00_Manifiesto.md` §0 (Positioning Statement) para elevator pitch + diferenciadores.
+    - Internaliza §1-§2: 3 invariantes y 10 principios.
     - Revisa los 7 primitivos en `CORE/01_Primitivos.md`. Todo en tu organización es un `Actor`, `Flujo`, `Dato`, `Señal`, `Límite`, `Estado` o `Recurso`.
 
 2. **Hacer un Diagnóstico Rápido (15 min):**
@@ -46,37 +75,87 @@ Su diferenciador clave es la **integración nativa de la IA**, tratando a los ag
 ├── CORE/                    # 9 docs: La teoría fundamental e inmutable.
 ├── DOMINIOS/                # 4 docs: La implementación de los subsistemas.
 ├── APLICACION/              # 5 docs: Guías prácticas para la ejecución.
-├── DOMINIOS_ESPECIALIZADOS/ # 6 docs: Adaptaciones para contextos específicos.
-├── REFERENCIA/              # 14 docs: Casos, plantillas y recursos de apoyo.
-└── README.md                # Este portal.
+├── DOMINIOS_ESPECIALIZADOS/ # 8 docs: Adaptaciones para contextos específicos (E1-E8).
+├── REFERENCIA/              # R1-R7 + R6_Templates (15 templates).
+├── README.md                # Este portal.
+├── INDEX.md                 # Navegación completa 52 archivos.
+├── LEARNING_PATH.md         # 4 tracks adoption.
+├── VERSIONING.md            # Changelog + roadmap.
+└── CONTRIBUTING.md          # Guía contribuciones.
 ```
 
 **Para una navegación completa, consulta `INDEX.md`.**
 
 ---
 
-## Changelog v1.4 (2025-11-02)
+## Novedades v2.2 (2025-11-03)
 
-### Refactorizaciones Críticas
+### Nuevos Recursos Adoption
 
-1. **Trade-off Señal/Dato Clarificado** (CORE/01, CORE/07)
-   - Justificación formal de overlap temporal consciente
-   - Mantiene 7 primitivos con transparencia sobre cuasi-ortogonalidad
-   - Impacto: Minimalidad I1 ahora documentada como trade-off explícito
+1. **Positioning Statement** (CORE/00 §0)
+   - Elevator pitch 30 segundos: "Sistema operativo organizacional"
+   - Audiencia primaria/secundaria (quién es/no es KERNEL)
+   - Diferenciadores vs TOGAF, SAFe, McKinsey (tabla comparativa)
+   - Cuándo usar/NO usar KERNEL (checklist decisión)
 
-2. **C7 Smartness Eliminado** (CORE/05)
-   - Resuelve contradicción C7 ↔ P8 (Herramienta no Oráculo)
-   - Matriz 4×7 → 4×6 (28 → 24 celdas)
-   - C6 Adaptativo es máximo nivel bajo bounded autonomy
-   - Impacto: Validación lógica restaurada
+2. **LEARNING_PATH.md** (4 tracks especializados)
+   - Executive Track (4-6 hrs): Business case adoption
+   - Architect Track (12-16 hrs): Implementation roadmap
+   - AI Engineer Track (8-12 hrs): Delegation M1-M6
+   - Full Track (40-60 hrs): Deep expertise framework
 
-3. **Crisis Management Consolidado** (CORE/08 nuevo)
-   - P52 + AP31-33 + Path 1-2 en single source of truth
-   - Reducción ~250 líneas redundancia
-   - Mejor mantenibilidad, trazabilidad unificada
-   - Impacto: Minimalidad I1 mejorada, referencias consistentes
+3. **Customer Experience KERNEL-Native** (P_CX01-03 + T23)
+   - P_CX01: Flujo Valor Cliente (outside-in, O2 instrumentado)
+   - P_CX02: Eventos como Señales CX (friction alerts)
+   - P_CX03: Touchpoint Ownership Explícita (RACI, dashboards)
+   - T23_Customer_Journey_Map.md: Template operationalizable (vs Design Thinking visual)
 
-### Expansiones Importantes
+4. **E2 Gobierno Digital Refactored** (Internacional-first)
+   - E2_Gov_Digital_Base.md: Principios universales OCDE eGov (~300L)
+   - E2_Chile_TDE.md: Implementación Chile Ley 21.180 (~2,160L)
+   - E2_Template_Gov.md: Guía adaptación otros países (~200L)
+
+5. **Security Integration Complete**
+   - D2 §8: Security Observables SO1-SO5 (vulnerabilities, secrets, access, compliance, IR)
+   - A1 §6.5: Security Patterns P_SEC01-05 (Defense in Depth, Zero Trust, Security as Code, Shift-Left, IR Automation)
+   - CORE/03 §6: Security como Límite Transversal (L3)
+
+**Impacto**: KERNEL ahora adoption-ready internacional (gobierno digital scalable), CX operationalizable (no solo workshops), security enterprise-grade.
+
+**Para changelog completo y roadmap**: Ver [`VERSIONING.md`](./VERSIONING.md)
+
+---
+
+## Próximos Pasos
+
+### Si eres nuevo en KERNEL
+
+1. **Lee Positioning Statement** (5 min)
+   - `CORE/00_Manifiesto.md` §0: ¿Qué es KERNEL? ¿Para quién es? ¿Por qué vs otros frameworks?
+
+2. **Elige tu Learning Path** (ver tabla arriba)
+   - Executive, Architect, AI Engineer, o Full track
+
+3. **Explora casos sector** (15 min)
+   - `REFERENCIA/R1_Casos.md`: 10 casos transformaciones reales
+
+### Si ya usas KERNEL
+
+1. **Upgrade v2.1 → v2.2** (backward compatible)
+   - No breaking changes
+   - Review nuevos patterns P_CX01-03, P_SEC01-05
+   - Considerar instrumentar SO1-SO5 (security observables)
+
+2. **Explora nuevos recursos**
+   - `T23_Customer_Journey_Map.md`: CX operationalización
+   - `E2_Gov_Digital_Base.md`: Si sector público
+   - `VERSIONING.md`: Roadmap v2.3, v3.0
+
+3. **Contribuye a KERNEL**
+   - `CONTRIBUTING.md`: Guidelines patterns, templates, casos, traducciones
+   - Prioritario v2.3: Translations (inglés), E9 Retail, P_CX04-06
+
+### Expansiones Históricas
 
 4. **Smartness Framework Expandido** (CORE/05: 77 → 715 líneas)
    - Desarrollo completo 24 celdas (C1-C6 × D1-D4)

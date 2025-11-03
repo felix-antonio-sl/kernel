@@ -905,7 +905,7 @@ Puntuacion_Salud_Tecnica = (Salud_Infraestructura + Salud_Seguridad + Salud_Obse
 - **D1_Arquitectura §1 P4**: Conway's Law awareness
 - **D1 §14** (extension v2.0): Tech Stack Patterns detallado
 - **D2_Percepción §2**: Observables base O1-O11
-- **D2 §8** (extension v2.0): Tech Observables T1-T3
+- **D2 §8** (extension v2.0): Tech Observables OT1-OT3
 - **D3_Decisión §3**: Decision modes arquitectónicos
 - **D4_Operación §4**: CI/CD detallado (primary reference)
 - **D4 §5**: Tech debt management

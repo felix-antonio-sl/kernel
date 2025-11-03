@@ -1,13 +1,13 @@
 # A1_Patrones
 
-**Versión:** 1.1.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos
+**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, Arquitectos, Security, Product/UX
 
 ---
 
 ## §1. TAXONOMÍA DE PATRONES
 
 ```yaml
-Total: 56 patrones (50 base + 3 emergentes v1.1 + 3 refactored v1.4)
+Total: 64 patrones (50 base + 3 emergentes v1.1 + 3 refactored v1.4 + 5 security v2.1 + 3 CX v2.2)
 
 Categorías_Base (v1.0):
   - Estructurales (P01-P12): Organización, equipos, responsabilidades
@@ -15,6 +15,18 @@ Categorías_Base (v1.0):
   - Tecnológicos (P21-P28): Arquitectura técnica, infra, datos
   - Decisionales (P29-P36): Estrategia, roadmaps, planning
   - IA (P37-P50): Delegación, agentes, automatización
+
+Patrones_Seguridad (v2.1):
+  - P_SEC01: Defense in Depth (§6.5)
+  - P_SEC02: Zero Trust Architecture (§6.5)
+  - P_SEC03: Security as Code (§6.5)
+  - P_SEC04: Shift-Left Security (§6.5)
+  - P_SEC05: Incident Response Automation (§6.5)
+
+Patrones_Customer_Experience (v2.2):
+  - P_CX01: Flujo Valor Cliente (§6.6)
+  - P_CX02: Eventos como Señales CX (§6.6)
+  - P_CX03: Touchpoint Ownership Explícita (§6.6)
 
 Patrones_Emergentes (v1.1):
   - P51: Carry-Over Management (§11)
@@ -114,6 +126,62 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 
 ---
 
+## §6.5. PATRONES SEGURIDAD (P_SEC01-P_SEC05)
+
+| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
+|---|---|---|---|---|---|---|
+| **P_SEC01** | **Defense in Depth** | Single security layer vulnerable | Múltiples capas defensa independientes (network, app, data, identity) | Toda org enterprise, alto impacto breach | Org <20 personas, low-risk data |
+| **P_SEC02** | **Zero Trust Architecture** | Perimeter security insufficient | Verify explícitamente every access (never trust, always verify), least privilege | Remote workforce, cloud-native, high-value assets | Legacy systems no soportan auth granular |
+| **P_SEC03** | **Security as Code** | Manual security configs error-prone, no versionados | Security policies, firewall rules, access controls en IaC (versionado, testeable, auditable) | DevOps maduro, multi-environment, compliance | Sin IaC básico (implementar P18 primero) |
+| **P_SEC04** | **Shift-Left Security** | Security descubierta tarde (pre-prod o prod) → costoso fix | Security integrado desde design: threat modeling, SAST/DAST en CI/CD, security training devs | Deploy frequency >semanal, regulated industry | Security team inexistente (contratar primero) |
+| **P_SEC05** | **Incident Response Automation** | Manual IR lento (MTTD >24hrs, MTTC >24hrs) | SOAR platform: automated detection (SIEM), containment playbooks, orchestrated response | >5 security incidents/mes, 24/7 operations | <1 incident/trimestre, no SOC |
+
+**Conexión Observables**: Estos patterns implementan mejoras en SO1-SO5 (D2_Percepcion §8).
+
+| Pattern | Observable Mejorado | Impacto Típico |
+|---------|---------------------|----------------|
+| P_SEC01 | SO1 Vulnerabilities, SO5 IR | MTTP -40%, MTTC -50% |
+| P_SEC02 | SO3 Access Control, SO2 Secrets | Breach risk -70%, over-provisioning -60% |
+| P_SEC03 | SO4 Compliance, SO1 Vulnerabilities | Audit findings -50%, config drift 0% |
+| P_SEC04 | SO1 Vulnerabilities, SO5 IR | Vulnerabilities found design -80% cost |
+| P_SEC05 | SO5 IR | MTTD -70% (<1hr), MTTC -65% (<4hrs) |
+
+---
+
+## §6.6. PATRONES CUSTOMER EXPERIENCE (P_CX01-P_CX03)
+
+| ID | Nombre | Problema | Solución | Cuándo Usar | Evitar Si |
+|---|---|---|---|---|---|---|
+| **P_CX01** | **Flujo Valor Cliente (Outside-In)** | Org diseña servicios desde estructura interna (inside-out) → no fit customer needs | Mapear Flujo F completo desde trigger cliente hasta valor entregado, instrumentar observables O2 (valor) por touchpoint | B2C, B2B con múltiples touchpoints, NPS <30 | B2B simple (1 touchpoint), producto commodity |
+| **P_CX02** | **Eventos como Señales CX** | Customer friction invisible (no instrumentado) → reactive fixes | Convertir customer friction points en Señales S explícitas, alertas proactivas cuando S threshold violated | Digital products, customer journey complejo (>5 pasos), churn >15% | Producto offline sin telemetry |
+| **P_CX03** | **Touchpoint Ownership Explícita** | Nadie responsible customer experience end-to-end → handoff hell, blame game | Asignar Actor A2 owner por touchpoint crítico, RACI claro, dashboards O2 (NPS/CSAT) por touchpoint | Product-led growth, multi-team product, customer complaints >50/mes | Single team product, touchpoints <3 |
+
+**Conexión Primitivos KERNEL**: CX patterns operan sobre primitivos core (no inventa conceptos nuevos).
+
+| Pattern | Primitivos Usados | Observables Clave | Output KERNEL-Native |
+|---------|-------------------|-------------------|----------------------|
+| P_CX01 | F1 (Flujo valor cliente), R1 (Recursos customer-facing), L1 (Límites friction) | O2 (Valor entregado), I3 (Eficiencia flujo) | Flujo F mapeado con métricas flow efficiency, cycle time por etapa |
+| P_CX02 | S1 (Señal friction), E1 (Evento abandono), D1 (Dato telemetry) | O2 (Valor), O4 (Eventos críticos) | Alerting system: IF friction_rate >threshold THEN Señal S emitida |
+| P_CX03 | A2 (Actor owner touchpoint), F1 (Flujo customer), L3 (Límites SLA touchpoint) | O2 (Valor NPS/CSAT), I1 (Velocidad decisional) | RACI matrix touchpoints, dashboard O2 segmentado por touchpoint |
+
+**Diferencia vs Design Thinking Tradicional**:
+
+| Aspecto | Design Thinking Clásico | KERNEL P_CX Patterns |
+|---------|-------------------------|----------------------|
+| **Conceptos** | Journey maps (visuales), personas, empathy | Flujos F, Señales S, Observables O2 (cuantitativos) |
+| **Output** | Diagramas journey, insights cualitativos | Métricas flow efficiency, alertas automatizadas, RACI |
+| **Instrumentación** | Manual (workshops, interviews) | Telemetry (eventos E, datos D, observables O) |
+| **Ownership** | Ambiguo (todos responsible CX) | Explícito (Actor A2 por touchpoint, RACI) |
+| **Escalabilidad** | Difícil (requiere facilitators) | Alta (automated dashboards O2, alerting S) |
+
+**Cuándo Usar Customer Journey tradicional vs KERNEL CX**:
+
+- **Use Journey Mapping tradicional** (workshops, visuales): Discovery fase temprana (no tienes telemetry, exploring problem space)
+- **Use KERNEL P_CX patterns**: Execution post-discovery (instrumentar journey, operationalizar, metrics-driven)
+- **Combinación ideal**: Design Thinking → insights cualitativos → KERNEL P_CX → operationalización cuantitativa
+
+---
+
 ## §7. MATRIZ PATRONES × DOMINIOS
 
 | Patrón | Arquitectura | Percepción | Decisión | Operación |
@@ -123,8 +191,33 @@ Patrones_Desarrollo_Evolutivo (v1.4):
 | **P21-P28 (Tecnológicos)** | ◐ | — | — | ✅✅✅ |
 | **P29-P36 (Decisionales)** | — | ◐ | ✅✅✅ | ◐ |
 | **P37-P50 (IA)** | ◐ | ✅✅ | ✅✅ | ✅✅✅ |
+| **P_SEC01-05 (Seguridad)** | ✅✅ | ✅✅✅ | ◐ | ✅✅✅ |
+| **P_CX01-03 (Customer Experience)** | ◐ | ✅✅✅ | ◐ | ✅✅ |
 
 **Leyenda:** ✅✅✅ Primario | ✅✅ Secundario | ◐ Terciario | — No aplica
+
+**Nota Seguridad**: Patterns security son transversales. D2 Percepción primario (implementan observables SO1-SO5), D1 Arquitectura y D4 Operación secundarios (design + execution).
+
+**Nota CX**: Patterns CX son D2 primario (instrumentar O2 Valor por touchpoint), D4 secundario (ejecutar mejoras flujo), D1/D3 terciarios (estructura + roadmap CX).
+
+---
+
+## §7.5. TRAZABILIDAD DETALLADA PATTERNS SELECCIONADOS
+
+**Propósito:** Mapeo explícito dominio primario y primitivos involucrados para patterns clave.
+
+| ID | Nombre | Dominio Primario | Primitivos Involucrados |
+|---|---|---|---|
+| **P17** | Mob Programming | D4 Operación | A1 (Actor: equipo colaborativo), F1 (Flujo: trabajo sincronizado) |
+| **P23** | Feature Flags | D4 Operación | R1 (Recurso: feature toggle config), L2 (Límite: activation control) |
+| **P31** | RICE Scoring | D3 Decisión | D1 (Dato: métricas RICE), F2 (Flujo: scoring process) |
+| **P38** | Anomaly Detection | D2 Percepción | D1 (Dato: events stream), E1 (Evento: anomaly), S1 (Señal: alert), A2 (Actor: ML agent M2) |
+| **P41** | Auto-Prioritization | D3 Decisión | D1 (Dato: backlog metadata), A2 (Actor: agent M4), L1 (Límite: reglas prioritization) |
+| **P44** | Auto-Rollback | D4 Operación | E1 (Evento: error threshold), A2 (Actor: rollback agent M6), L2 (Límite: error budget SLO) |
+| **P47** | Portfolio Optimizer | D3 Decisión | D1 (Dato: portfolio initiatives), A2 (Actor: optimizer M2), L1 (Límite: constraints) |
+| **P49** | Doc Auto-Generate | D4 Operación | D1 (Dato: código + comments), A2 (Actor: doc generator M3), R1 (Recurso: docs) |
+
+**Nota:** Patterns no listados tienen trazabilidad implícita via §7 Matriz Patrones × Dominios.
 
 ---
 

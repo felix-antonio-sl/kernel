@@ -44,7 +44,7 @@ Este dominio especializado cubre **sistemas integrados de Datos, IA, Procesos y 
 **Dominios extendidos**:
 
 - **D1**: Tech stack patterns (reference E7), data architecture (lakehouse)
-- **D2**: Tech observables T1-T3 (Data Health, AI Performance, Process Effectiveness) - extension v2.0
+- **D2**: Tech observables OT1-OT3 (Data Health, AI Performance, Process Effectiveness) - extension v2.0
 - **D3**: Algorithmic decision modes D5-D7 (RAG, ReAct, Plan) - extension v2.0
 - **D4**: Tech execution E4-E6 (Orquestada, Reactiva, Asistida) - extension v2.0
 
@@ -2690,9 +2690,9 @@ hitl_required {
 **D2_Percepción + §8 Tech Observables** (extension v2.0 Week 6):
 
 - **O_Base**: O1-O11 (CORE/05, D2 existentes)
-- **T1 Data Health**: Freshness p95, DQ violations/1k, Lineage coverage %
-- **T2 AI Performance**: Faithfulness, Citation exactness, TTFT p95, Cost/task
-- **T3 Process Effectiveness**: STP %, Cycle time p95, HITL backlog, MTTR
+- **OT1 Data Health**: Freshness p95, DQ violations/1k, Lineage coverage %
+- **OT2 AI Performance**: Faithfulness, Citation exactness, TTFT p95, Cost/task
+- **OT3 Process Effectiveness**: STP %, Cycle time p95, HITL backlog, MTTR
 
 **D3_Decisión + §8 Algorithmic Modes** (extension v2.0 Week 6):
 
@@ -2866,15 +2866,15 @@ PH_Score = 0.35×STP_Norm + 0.25×CycleTime_Norm + 0.20×Error_Norm + 0.15×HITL
 **KERNEL v2.0 extended** (14 observables):
 
 ```
-H_Score_v2 = weighted_avg(O1-O11 + T1-T3)
+H_Score_v2 = weighted_avg(O1-O11 + OT1-OT3)
 ```
 
 - **O1-O11**: Base observables (CORE/05 §3, D2_Percepción)
-- **T1**: Data Health (DH_Score)
-- **T2**: AI Performance (AH_Score)
-- **T3**: Process Effectiveness (PH_Score)
+- **OT1**: Data Health (DH_Score)
+- **OT2**: AI Performance (AH_Score)
+- **OT3**: Process Effectiveness (PH_Score)
 
-**Pesos sugeridos**: O1-O11 (80%), T1-T3 (20%) - ajustable por org según tech intensity.
+**Pesos sugeridos**: O1-O11 (80%), OT1-OT3 (20%) - ajustable por org según tech intensity.
 
 **Conexión**: A5_Medición §10 (extension v2.0)
 
@@ -3039,7 +3039,7 @@ H_Score_v2 = weighted_avg(O1-O11 + T1-T3)
 - **D1_Arquitectura §1-§2**: Org structure, stack patterns, data architecture
 - **D1 §14** (extension v2.0 Week 6): Tech Stack Patterns detallado
 - **D2_Percepción §2**: Observables base O1-O11
-- **D2 §8** (extension v2.0 Week 6): Tech Observables T1-T3 (DH, AH, PH)
+- **D2 §8** (extension v2.0 Week 6): Tech Observables OT1-OT3 (DH, AH, PH)
 - **D3_Decisión §3**: Decision modes base D1-D4
 - **D3 §8** (extension v2.0 Week 6): Algorithmic Modes D5-D7 (RAG, ReAct, Plan)
 - **D4_Operación §2-§4**: Execution modes, CI/CD

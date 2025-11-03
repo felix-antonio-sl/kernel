@@ -1,6 +1,6 @@
 # 03_Arquitectura
 
-**Versión:** 1.0.0 | **Estado:** Definitivo | **Audiencia:** Arquitectos, Líderes
+**Versión:** 2.1.0 | **Estado:** Definitivo | **Audiencia:** Arquitectos, Líderes, Security
 
 ---
 
@@ -71,7 +71,7 @@ Responsabilidad: DETECTAR estado interno/externo
 Función: Sensado continuo, observables, health monitoring
 
 Actividades:
-  - Instrumentar 11 observables (O1-O8, I1-I3)
+  - Instrumentar 16 observables (O1-O8, I1-I3, SO1-SO5)
   - Detectar anomalías y drift
   - Generar insights desde datos
   - Proyectar tendencias futuras
@@ -318,7 +318,239 @@ Nivel_Operacional:
 
 ---
 
-## §6. PATRONES ESTRUCTURALES
+## §6. SECURITY COMO LÍMITE TRANSVERSAL
+
+**Concepto**: Security no es dominio independiente, sino **límite transversal** (L3) que permea los 4 dominios organizacionales.
+
+### Límite L3 Security
+
+```yaml
+Definición:
+  Security = Constraints operacionales, regulatorios, reputacionales
+  que restringen decisiones/acciones en todos los dominios.
+
+Naturaleza_Transversal:
+  - NO es dominio separado (no hay "D5 Security")
+  - ES límite que aplica a D1-D4 simultáneamente
+  - Análogo a compliance, ética, legal (también límites L3)
+
+Diferencia_vs_Dominios:
+  Dominios (D1-D4): Tienen responsabilidad funcional única
+  Límites (L1-L3): Restricciones aplicables a múltiples dominios
+  
+  Security cruza:
+    - D1 Arquitectura: Secure by design, threat modeling
+    - D2 Percepción: Security observables SO1-SO5
+    - D3 Decisión: Risk assessment en roadmap
+    - D4 Operación: Secure deployment, IR
+```
+
+---
+
+### Security en cada Dominio
+
+**D1 ARQUITECTURA (Security by Design)**:
+```yaml
+Responsabilidad: Diseñar seguridad en estructura organizacional y técnica
+
+Actividades:
+  - Threat modeling (STRIDE, DREAD) en arquitectura
+  - Define security roles (CISO, SecOps, AppSec)
+  - Establece security governance (policies, standards)
+  - Diseña security architecture (Defense in Depth, Zero Trust)
+  - Define security boundaries (network segmentation, data classification)
+
+Patterns_Aplicables:
+  - P_SEC01: Defense in Depth
+  - P_SEC02: Zero Trust Architecture
+  - P_SEC03: Security as Code
+
+Output:
+  - Security architecture diagrams
+  - Threat models documentados
+  - Security standards/policies
+  - Data classification schemes
+```
+
+**D2 PERCEPCIÓN (Security Observability)**:
+```yaml
+Responsabilidad: Detectar estado security interno/externo
+
+Actividades:
+  - Instrumentar 5 security observables (SO1-SO5)
+  - Monitorear vulnerabilities (CVE tracking)
+  - Detectar anomalías security (SIEM, EDR)
+  - Proyectar security posture trends
+  - Alertar security thresholds violados
+
+Observables_Security:
+  - SO1: Vulnerabilidades (MTTP, CVE count)
+  - SO2: Gestión Secretos (vault adoption, rotation)
+  - SO3: Control Acceso (MFA, privileged accounts)
+  - SO4: Cumplimiento (certifications, audit findings)
+  - SO5: Incident Response (MTTD, MTTC)
+
+Patterns_Aplicables:
+  - P38: Anomaly Detection (security events)
+  - P48: Root Cause Analysis (security incidents)
+
+Output:
+  - Security dashboards (SO1-SO5 scores)
+  - Vulnerability reports
+  - Incident alerts
+  - Security posture H_Score extended
+```
+
+**D3 DECISIÓN (Risk-Informed Planning)**:
+```yaml
+Responsabilidad: Incorporar security risk en decisiones estratégicas/tácticas
+
+Actividades:
+  - Risk assessment en roadmap features
+  - Security vs velocity tradeoffs explícitos
+  - Budget allocation security initiatives
+  - Priorización tech debt security
+  - Compliance deadline planning
+
+Decision_Modes_Security:
+  - Mode D2 (Rule-Based): Compliance automático (SOC2 controls)
+  - Mode D3 (Associative): Risk scoring ML (threat intelligence)
+  - Mode D4 (Analytical): Strategic security planning
+
+Patterns_Aplicables:
+  - P31: RICE Scoring (incluir security risk)
+  - P35: Readiness R1-R5 (security readiness dimension)
+
+Output:
+  - Security-informed roadmaps
+  - Risk registers actualizados
+  - Security OKRs
+  - Budget allocation security
+```
+
+**D4 OPERACIÓN (Secure Execution)**:
+```yaml
+Responsabilidad: Ejecutar operaciones seguras día-a-día
+
+Actividades:
+  - Secure SDLC (SAST, DAST, code scanning)
+  - Secrets management (vault, rotation)
+  - Secure deployment (image scanning, signing)
+  - Incident response execution (SOAR playbooks)
+  - Security drills/exercises
+
+Delegation_Modes:
+  - M4-M5: Automated security gates (CI/CD blocks)
+  - M6: Auto-remediation (patch automation, auto-scaling blockers)
+
+Patterns_Aplicables:
+  - P_SEC04: Shift-Left Security
+  - P_SEC05: Incident Response Automation
+  - P42: Quality Gates Automated (incluye security)
+  - P44: Auto-Rollback (triggered por security threshold)
+
+Output:
+  - Security-compliant deployments
+  - Patched systems (<7 días MTTP)
+  - Incident response playbooks executed
+  - Post-incident action items
+```
+
+---
+
+### Integration H_Score Extended
+
+```yaml
+Security_Impact_H_Score:
+  Base_Formula (11 observables):
+    H_Score = weighted_avg(O1-O8, I1-I3)
+  
+  Extended_Formula (16 observables):
+    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(I1-I3) + 0.10 * avg(SO1-SO5)
+  
+  Rationale:
+    - Security NO es dominio aparte (no "D5")
+    - Security observables (SO1-SO5) complementan base observables
+    - Peso 10% refleja criticality security enterprise
+    - Adjustable por industry (financial 15-20%, B2C 5-8%)
+
+Crisis_Threshold_Security:
+  IF SO_avg < 30 OR any SO individual < 20:
+    → Activate Security Crisis Mode
+    → Apply P_SEC emergency patterns
+    → Escalate to CISO + C-level
+    → Daily security standup until SO > 30
+```
+
+---
+
+### Governance Security Cross-Domain
+
+```yaml
+Security_Governance_Model:
+  
+  Security_Champions (Distributed):
+    - Embedded en cada team (D1-D4)
+    - 20% time security-focused
+    - Training by central SecOps
+    - Represent security in team decisions
+  
+  Central_Security_Team (Platform):
+    - CISO + SecOps + AppSec (D1 Arquitectura)
+    - Build security platforms/tools (D4 Operación)
+    - Monitor security posture (D2 Percepción)
+    - Define security roadmap (D3 Decisión)
+  
+  Security_Review_Board (Governance):
+    - CISO + CTO + Legal + Risk
+    - Monthly: Review SO1-SO5, incidents, roadmap
+    - Approve high-risk changes (M&A, new markets)
+    - Set security OKRs
+
+Anti-Pattern_Avoid:
+  AP_Security_Silo:
+    - Security como departamento aislado
+    - "No es mi responsabilidad" actitud devs
+    - Security discovered late (post-deployment)
+    → Fix: Security Champions + Shift-Left + SO observables
+```
+
+---
+
+### Conexión Primitivos KERNEL
+
+```yaml
+Security_Through_Primitives:
+  
+  Límite_L3 (Security Constraint):
+    - Security policies restrict actions
+    - Compliance requirements bound decisions
+    - Ejemplos: "No PII en logs", "MFA mandatory", "SOC2 required"
+  
+  Actor_A (Security Roles):
+    - A2_CISO: Chief Information Security Officer
+    - A2_SecOps: Security Operations team
+    - A2_Security_Champion: Embedded en teams
+  
+  Evento_E (Security Events):
+    - E_CVE_Published: Nueva vulnerabilidad disclosed
+    - E_Security_Incident: Breach o attempt detected
+    - E_Audit_Finding: Compliance gap identified
+  
+  Señal_S (Security Alerts):
+    - S_Vulnerability_Threshold: CVE count >threshold
+    - S_Access_Anomaly: Unusual login pattern
+    - S_Compliance_Risk: Audit due, gaps exist
+  
+  Dato_D (Security Data):
+    - D_Vulnerability_DB: CVE database
+    - D_Audit_Logs: Security events stream
+    - D_Threat_Intelligence: Known attack patterns
+```
+
+---
+
+## §7. PATRONES ESTRUCTURALES
 
 ### P1. Federación
 
@@ -388,7 +620,7 @@ Ejemplo: Netflix (Content, Streaming, Growth as mini-businesses)
 
 ---
 
-## §7. EVOLUCIÓN ARQUITECTURAL
+## §8. EVOLUCIÓN ARQUITECTURAL
 
 ### Triggers de Cambio Estructural
 
@@ -454,7 +686,7 @@ Trigger_5_Tech_Debt:
 
 ---
 
-## §8. INTEGRACIÓN CON CICLO SDA
+## §9. INTEGRACIÓN CON CICLO SDA
 
 ### Arquitectura en SDA
 
@@ -478,7 +710,7 @@ Act (Operación):
 
 ---
 
-## §9. MÉTRICAS DE ARQUITECTURA
+## §10. MÉTRICAS DE ARQUITECTURA
 
 ### Health Score Arquitectural
 
@@ -503,7 +735,7 @@ A_Score (0-100):
 
 ---
 
-## §10. ANTI-PATRONES
+## §11. ANTI-PATRONES
 
 ### AP1. "Matrix sin Governance"
 
@@ -551,7 +783,7 @@ Fix: Alinear org con tech actual, evolucionar ambos coordinadamente
 
 ---
 
-## §11. VALIDACIÓN
+## §12. VALIDACIÓN
 
 ### Completitud
 
@@ -584,9 +816,12 @@ Fix: Alinear org con tech actual, evolucionar ambos coordinadamente
 ## Referencias Cruzadas
 
 - **Dominio Arquitectura detallado:** `DOMINIOS/D1_Arquitectura.md`
-- **Dominio Percepción detallado:** `DOMINIOS/D2_Percepcion.md`
+- **Dominio Percepción detallado:** `DOMINIOS/D2_Percepcion.md` (incluye §8 Security Observables SO1-SO5)
 - **Dominio Decisión detallado:** `DOMINIOS/D3_Decision.md`
 - **Dominio Operación detallado:** `DOMINIOS/D4_Operacion.md`
 - **Ciclo SDA:** `CORE/02_Ciclo_Fundamental.md`
-- **Patrones org:** `APLICACION/A1_Patrones.md` (sección estructurales)
+- **Security como límite transversal:** Este documento §6
+- **Security Patterns:** `APLICACION/A1_Patrones.md` §6.5 (P_SEC01-P_SEC05)
+- **Security practices detalladas:** `DOMINIOS_ESPECIALIZADOS/E7_Enterprise_Technology.md` §6
+- **Patrones org:** `APLICACION/A1_Patrones.md` §7 (patrones estructurales)
 - **Casos aplicados:** `REFERENCIA/R1_Casos.md`

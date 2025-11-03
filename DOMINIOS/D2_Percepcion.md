@@ -1,12 +1,12 @@
 # D2_Percepcion
 
-**Versión:** 1.0.0 | **Estado:** Definitivo | **Audiencia:** Líderes, Analistas, Data Teams
+**Versión:** 2.1.0 | **Estado:** Definitivo | **Audiencia:** Líderes, Analistas, Data Teams, Security
 
 ---
 
 ## Responsabilidad
 
-**PERCEPCIÓN detecta ESTADO interno/externo:** Sensado continuo de 11 observables críticos, health monitoring, drift detection.
+**PERCEPCIÓN detecta ESTADO interno/externo:** Sensado continuo de 16 observables (11 base + 5 security), health monitoring, drift detection.
 
 **Pregunta clave:** ¿Cuál es nuestro estado actual y hacia dónde vamos?
 
@@ -117,7 +117,7 @@ MVP_No_Suficiente_Si:
 
 ---
 
-## §1. MODELO SENSORIAL (11 OBSERVABLES)
+## §1. MODELO SENSORIAL (16 OBSERVABLES)
 
 ### Arquitectura Sensing
 
@@ -141,6 +141,16 @@ MVP_No_Suficiente_Si:
 │ I1: Velocidad Decisional                │
 │ I2: Salud Talento                       │
 │ I3: Eficiencia Flujo                    │
+└─────────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────────┐
+│        SEGURIDAD TRANSVERSAL            │
+├─────────────────────────────────────────┤
+│ SO1: Vulnerabilidades                   │
+│ SO2: Gestión Secretos                   │
+│ SO3: Control Acceso                     │
+│ SO4: Cumplimiento Normativo             │
+│ SO5: Respuesta Incidentes               │
 └─────────────────────────────────────────┘
              ↓
         H_Score (0-100)
@@ -673,6 +683,11 @@ H_Score = (
   0.04 * I3_Eficiencia_Flujo
 )
 
+Nota_Security_Extended:
+  Esta es fórmula BASE (11 observables).
+  Para enterprise security-critical, ver §8 que agrega SO1-SO5.
+  Fórmula extended: 70% base + 20% internal + 10% security.
+
 Ponderaciones justificadas (rationale):
   - O2 (Valor) mayor peso 15%: Es outcome final, customer-facing
   - O1 (Demanda) alto 12%: Sin demanda, no hay negocio viable
@@ -1048,12 +1063,220 @@ Crisis_Triage (A4 §0):
 
 ---
 
+## §8. OBSERVABLES SEGURIDAD (SO1-SO5)
+
+**Propósito**: Extender modelo sensorial con observables específicos security, críticos para enterprise compliance y risk management.
+
+**Integración H_Score**: Estos observables complementan O1-O8, I1-I3. Peso sugerido: SO1-SO5 (10% total H_Score) ajustable según industry regulated.
+
+---
+
+### SO1. VULNERABILIDADES
+
+```yaml
+Definición: Exposición a exploits conocidos en stack tecnológico
+
+Indicadores:
+  - CVE count por severidad (critical, high, medium, low)
+  - Mean Time to Patch (MTTP) vulnerabilidades críticas
+  - % sistemas con patches actualizados (< 30 días)
+  - Zero-day exposure (días desde disclosure hasta patch)
+  - Vulnerability backlog (# pendientes >90 días)
+
+Score_Cálculo (0-100):
+  - 0 CVE critical unpatched, MTTP <7 días, >95% updated: 90-100
+  - 1-5 CVE critical, MTTP 7-30 días, 80-95% updated: 70-85
+  - >5 CVE critical, MTTP >30 días, <80% updated: 0-65
+
+Ejemplo_Bueno (Score 95):
+  - CVE critical: 0 (patched within 48hrs discovery)
+  - MTTP: 3 días promedio
+  - Systems updated: 98% (automation Ansible)
+  - Vulnerability backlog: 12 low-severity items
+  → Security hygiene excelente
+
+Ejemplo_Malo (Score 35):
+  - CVE critical: 8 unpatched (oldest 4 months)
+  - MTTP: 45 días promedio
+  - Systems updated: 62% (manual process)
+  - Zero-day exposure: 15 días Log4Shell sin patch
+  → Alto riesgo exploitation
+```
+
+---
+
+### SO2. GESTIÓN SECRETOS
+
+```yaml
+Definición: Protección credenciales, API keys, certificates, tokens
+
+Indicadores:
+  - Secrets hardcoded en código (# detectados scans)
+  - Secrets rotation rate (% rotados <90 días)
+  - Secrets vault adoption (% apps usando Vault/KMS)
+  - Certificate expiration incidents (# vencidos últimos 12M)
+  - Leaked secrets (# detectados GitHub/logs)
+
+Score_Cálculo (0-100):
+  - 0 secrets hardcoded, >90% vault, rotation <90d: 90-100
+  - 1-10 secrets hardcoded, 70-90% vault, rotation 90-180d: 70-85
+  - >10 secrets hardcoded, <70% vault, rotation >180d: 0-65
+
+Ejemplo_Bueno (Score 92):
+  - Secrets hardcoded: 0 (GitGuardian pre-commit hooks)
+  - Vault adoption: 95% apps (HashiCorp Vault)
+  - Rotation: 100% credentials <60 días
+  - Certificate expirations: 0 incidents (automated renewal)
+  → Secrets management robusto
+
+Ejemplo_Malo (Score 40):
+  - Secrets hardcoded: 23 encontrados (DB passwords, API keys)
+  - Vault adoption: 45% apps (mayoría env vars plaintext)
+  - Rotation: Passwords never rotated (algunos 3+ años)
+  - Leaked secrets: 2 AWS keys found GitHub public repos
+  → Alto riesgo credential compromise
+```
+
+---
+
+### SO3. CONTROL ACCESO
+
+```yaml
+Definición: Gobernanza identities, autenticación, autorización
+
+Indicadores:
+  - MFA adoption rate (% usuarios con 2FA enabled)
+  - Privileged accounts (# con sudo/admin sin justificación)
+  - Access reviews completed (% scheduled reviews on-time)
+  - Over-provisioned permissions (% usuarios con more than needed)
+  - Orphaned accounts (# accounts ex-employees >30 días)
+
+Score_Cálculo (0-100):
+  - MFA >95%, 0 orphaned, access reviews 100%, least-privilege: 90-100
+  - MFA 80-95%, <5 orphaned, reviews >80%: 70-85
+  - MFA <80%, >10 orphaned, reviews <80%, over-provisioning >30%: 0-65
+
+Ejemplo_Bueno (Score 94):
+  - MFA: 98% usuarios (enforced policies)
+  - Privileged accounts: 8 justified (exec + security team)
+  - Access reviews: 100% quarterly reviews completed
+  - Least-privilege: 92% compliance (automated RBAC)
+  - Orphaned accounts: 0 (auto-deprovisioning HR integration)
+  → Identity governance excelente
+
+Ejemplo_Malo (Score 38):
+  - MFA: 45% usuarios (voluntary, not enforced)
+  - Privileged accounts: 87 con sudo (developers, contractors, legacy)
+  - Access reviews: 32% overdue (última review 18 meses ago)
+  - Over-provisioning: 68% usuarios admin rights unnecessary
+  - Orphaned accounts: 34 ex-employees (oldest 2 años)
+  → Access control disfuncional, alto riesgo insider/external threat
+```
+
+---
+
+### SO4. CUMPLIMIENTO NORMATIVO
+
+```yaml
+Definición: Adherencia a regulaciones security/privacy (SOC2, ISO27001, GDPR, etc.)
+
+Indicadores:
+  - Compliance frameworks certificados (# activos)
+  - Controls compliance rate (% controles implemented)
+  - Audit findings (# high/critical open)
+  - Policy exceptions granted (# no revisadas >180 días)
+  - Regulatory fines ($ pagados últimos 24M)
+
+Score_Cálculo (0-100):
+  - ≥2 certifications, >95% controls, 0 findings críticos, 0 fines: 90-100
+  - 1 certification, 80-95% controls, <5 findings críticos: 70-85
+  - 0 certifications, <80% controls, >5 findings críticos, fines: 0-65
+
+Ejemplo_Bueno (Score 96):
+  - Certifications: SOC2 Type II, ISO27001 (ambos current)
+  - Controls: 98% implemented (automated compliance checks)
+  - Audit findings: 3 low-priority open (en remediation)
+  - Policy exceptions: 2 active, reviewed quarterly
+  - Fines: $0 (100% compliant)
+  → Compliance excellence
+
+Ejemplo_Malo (Score 30):
+  - Certifications: 0 (SOC2 failed audit 2× attempts)
+  - Controls: 68% implemented (manual processes unreliable)
+  - Audit findings: 18 high-critical open (backlog 14 meses)
+  - Policy exceptions: 47 no revisadas (majority >2 años)
+  - Fines: $850K GDPR (data residency violations)
+  → Compliance crisis, regulatory risk alto
+```
+
+---
+
+### SO5. RESPUESTA INCIDENTES SECURITY
+
+```yaml
+Definición: Capacidad detectar, contener, remediar security incidents
+
+Indicadores:
+  - Mean Time to Detect (MTTD) security incident
+  - Mean Time to Contain (MTTC) post-detection
+  - Incident response plan tested (# drills/año)
+  - Security incidents last 12M (# y severidad)
+  - Post-incident actions completed (% dentro 30 días)
+
+Score_Cálculo (0-100):
+  - MTTD <1hr, MTTC <4hrs, ≥4 drills/año, actions 100%: 90-100
+  - MTTD 1-24hrs, MTTC 4-24hrs, 2-3 drills/año, actions >80%: 70-85
+  - MTTD >24hrs, MTTC >24hrs, <2 drills/año, actions <80%: 0-65
+
+Ejemplo_Bueno (Score 93):
+  - MTTD: 35 minutos promedio (SIEM + EDR alerts)
+  - MTTC: 2.5 horas promedio (runbooks automated)
+  - IR drills: 6/año (quarterly + 2 surprise)
+  - Incidents: 3 minor (phishing attempts contained), 0 breaches
+  - Post-incident actions: 100% completed <30 días
+  → Incident response maduro
+
+Ejemplo_Malo (Score 25):
+  - MTTD: 45 días promedio (discovered by customer!)
+  - MTTC: 12 días promedio (manual investigation, no playbooks)
+  - IR drills: 0 últimos 3 años (plan obsoleto)
+  - Incidents: 2 breaches (customer data exfiltrated, ransomware)
+  - Post-incident actions: 28% completed (majority abandoned)
+  → Incident response inexistente, alto impacto breaches
+```
+
+---
+
+### Integración H_Score Extended
+
+```yaml
+H_Score_Security_Adjusted:
+  Base: O1-O8 (70%), I1-I3 (20%)
+  Security: SO1-SO5 (10%)
+  
+  Fórmula:
+    H_Score = 0.70 * avg(O1-O8) + 0.20 * avg(I1-I3) + 0.10 * avg(SO1-SO5)
+  
+  Ponderación_Industry_Specific:
+    - Financial/Healthcare (regulated): SO weight 15-20%
+    - SaaS B2B (security-critical): SO weight 12-15%
+    - B2C low-sensitivity: SO weight 5-8%
+  
+  Crisis_Threshold:
+    IF SO_avg < 30 OR any SO individual < 20:
+      → Security crisis mode (emergency response P_SEC patterns)
+```
+
+---
+
 ## Referencias Cruzadas
 
 - **Ciclo SDA (Sense):** `CORE/02_Ciclo_Fundamental.md` §2
 - **Niveles awareness:** Este documento §5
 - **Primitivo Señal:** `CORE/01_Primitivos.md` §3A
-- **11 Observables H_Score:** Este documento §2-§4
+- **16 Observables H_Score:** Este documento §2-§4 (O1-O8, I1-I3), §8 (SO1-SO5 security)
+- **Security Patterns:** `APLICACION/A1_Patrones.md` §6.5 P_SEC01-P_SEC05 (implementación observables security)
 - **Modos decisionales:** `DOMINIOS/D3_Decision.md` §6 (conecta Level 3 Project con Decision)
 - **OKRs vinculados:** `DOMINIOS/D3_Decision.md` §1
 - **Medición detallada:** `APLICACION/A5_Medicion.md`
+- **Security E7:** `DOMINIOS_ESPECIALIZADOS/E7_Enterprise_Technology.md` §6 (security practices detalladas)

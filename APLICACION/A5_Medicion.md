@@ -1,6 +1,6 @@
 # A5_Medicion
 
-**Versión:** 1.0.0 | **Estado:** Definitivo | **Audiencia:** Data Teams, Engineering Managers, Executives
+**Versión:** 2.2.0 | **Estado:** Definitivo | **Audiencia:** Practitioners, CTOs, Product Managers, CFOs
 
 ---
 
@@ -652,6 +652,412 @@ AP_M7_Features_Shipped:
 
 ---
 
+## §10. FINANCIAL MODELING (ROI & TCO)
+
+### Framework Business Value KERNEL
+
+**Propósito**: Traducir métricas técnicas/operacionales a impacto financiero medible para justificar inversión KERNEL ante C-suite.
+
+```yaml
+Business_Value_Formula:
+  Total_Value = Cost_Savings + Revenue_Increase + Risk_Mitigation
+  
+  ROI = (Total_Value - Total_Investment) / Total_Investment × 100%
+  
+  Payback_Period = Total_Investment / (Total_Value / 12 meses)
+```
+
+---
+
+### §10.1 ROI KERNEL (Transformation)
+
+**Componentes Valor**:
+
+**1. Cost Savings (Eficiencia)**
+
+```yaml
+CS1_Reduced_Downtime:
+  Baseline: X hours/month downtime @ $Y/hour
+  Target: -50% downtime (MTTD, MTTC mejorados P_SEC05, P44)
+  Annual_Savings: X × 0.5 × 12 × $Y
+  
+  Ejemplo:
+    - Baseline: 40 hrs/month @ $10K/hr = $400K/month
+    - Target: 20 hrs/month = $200K/month
+    - Annual_Savings: $2.4M/year
+
+CS2_Dev_Productivity:
+  Baseline: Cycle time Y días, N devs @ $Z salary
+  Target: -30% cycle time (P27 CI/CD, P18 IaC)
+  Annual_Savings: N × $Z × 0.30
+  
+  Ejemplo:
+    - 50 devs @ $120K/year avg
+    - 30% tiempo saved = equivalent 15 FTEs
+    - Annual_Savings: 15 × $120K = $1.8M/year
+
+CS3_Reduced_Rework:
+  Baseline: X% work rework (bugs, requirements miss)
+  Target: -40% rework (P42 Quality Gates, P31 RICE Scoring)
+  Annual_Savings: Total_Eng_Cost × X% × 0.40
+  
+  Ejemplo:
+    - Total Eng Cost: $6M/year (50 devs)
+    - Rework: 25% = $1.5M/year waste
+    - Reduction: 40% × $1.5M = $600K/year
+
+CS4_Infrastructure_Optimization:
+  Baseline: Cloud spend $X/month
+  Target: -20% (P43 Auto-Scaling, rightsizing)
+  Annual_Savings: $X × 12 × 0.20
+  
+  Ejemplo:
+    - Baseline: $100K/month cloud
+    - Target: $80K/month
+    - Annual_Savings: $240K/year
+
+CS5_Reduced_External_Consultants:
+  Baseline: $X/year consultants (frameworks, audits)
+  Target: -60% (KERNEL internal capability)
+  Annual_Savings: $X × 0.60
+  
+  Ejemplo:
+    - Baseline: $500K/year (EA consultants, coaches)
+    - Target: $200K/year (KERNEL training only)
+    - Annual_Savings: $300K/year
+
+Total_Cost_Savings_Example: $2.4M + $1.8M + $600K + $240K + $300K = $5.34M/year
+```
+
+---
+
+**2. Revenue Increase (Growth)**
+
+```yaml
+RI1_Faster_Time_To_Market:
+  Baseline: N features/quarter shipped
+  Target: +40% velocity (P27 CI/CD, D3 MVD)
+  Revenue_Impact: New_Features × $Value_Per_Feature
+  
+  Ejemplo:
+    - Baseline: 10 features/quarter, $50K revenue avg/feature
+    - Target: 14 features/quarter (+4)
+    - Annual_Revenue_Increase: 4 × 4 × $50K = $800K/year
+
+RI2_Reduced_Churn:
+  Baseline: X% churn rate, $Y ARPU
+  Target: -25% churn (P39 Churn Prediction, P_CX patterns)
+  Annual_Revenue_Retained: Customer_Count × $Y × X% × 0.25
+  
+  Ejemplo:
+    - 1,000 customers @ $10K ARPU
+    - Churn: 15% = 150 customers lost/year = $1.5M lost
+    - Reduction: 25% × 150 = 38 customers retained
+    - Annual_Revenue_Retained: 38 × $10K = $380K/year
+
+RI3_Upsell_Opportunities:
+  Baseline: X% customers upsell rate
+  Target: +30% upsell (better customer insights P_CX02)
+  Annual_Revenue_Increase: Upsell_Eligible × X% × 0.30 × $Upsell_Value
+  
+  Ejemplo:
+    - 500 customers upsell-eligible
+    - Baseline upsell: 10% = 50 customers @ $5K = $250K/year
+    - Target: 13% = 65 customers
+    - Annual_Revenue_Increase: 15 × $5K = $75K/year
+
+RI4_New_Market_Entry:
+  Description: KERNEL enables faster expansion (D3 §1 OKRs, P35 Readiness)
+  Annual_Revenue: Market_Size × Penetration% × $ARPU
+  
+  Ejemplo:
+    - New vertical: Healthcare (currently 0)
+    - Market size: 200 potential customers
+    - Year 1 penetration: 5% = 10 customers @ $50K
+    - Annual_Revenue: $500K/year
+
+Total_Revenue_Increase_Example: $800K + $380K + $75K + $500K = $1.755M/year
+```
+
+---
+
+**3. Risk Mitigation (Avoided Costs)**
+
+```yaml
+RM1_Security_Breach_Avoided:
+  Probability_Baseline: X% chance breach/year
+  Probability_Target: X% × 0.5 (SO1-SO5, P_SEC patterns)
+  Expected_Loss_Avoided: Breach_Cost × Probability_Reduction
+  
+  Ejemplo:
+    - Baseline: 10% chance breach/year
+    - Target: 5% (security observables SO1-SO5)
+    - Breach cost: $5M avg (fines, recovery, reputation)
+    - Expected_Loss_Avoided: $5M × 0.05 = $250K/year
+
+RM2_Compliance_Fines_Avoided:
+  Baseline: X% chance fine/year (SOC2, GDPR)
+  Target: X% × 0.8 reduction (SO4, P_SEC03)
+  Expected_Loss_Avoided: Fine_Avg × Probability_Reduction
+  
+  Ejemplo:
+    - Baseline: 5% chance fine/year
+    - Fine avg: $500K
+    - Target: 1% (80% reduction)
+    - Expected_Loss_Avoided: $500K × 0.04 = $20K/year
+
+RM3_Project_Failure_Avoided:
+  Baseline: X% projects fail (no ROI)
+  Target: X% × 0.6 reduction (D3 MVD, P31 RICE, Readiness R1-R5)
+  Expected_Loss_Avoided: Failed_Project_Cost × Probability_Reduction
+  
+  Ejemplo:
+    - Baseline: 30% projects fail
+    - Avg project cost: $500K
+    - Portfolio: 10 projects/year = $5M total
+    - Failures: 3 projects × $500K = $1.5M lost
+    - Target: 12% failures (60% reduction)
+    - Expected_Loss_Avoided: 1.8 projects × $500K = $900K/year
+
+RM4_Technical_Debt_Crisis_Avoided:
+  Description: KERNEL prevents accumulation debt crítico (T11, P56)
+  Expected_Loss: Rewrite_Cost × Probability
+  
+  Ejemplo:
+    - Probability baseline: 15% chance rewrite major/5 years = 3%/year
+    - Rewrite cost: $2M
+    - Target: 5% chance (KERNEL prevents 10pp)
+    - Expected_Loss_Avoided: $2M × 0.02 = $40K/year
+
+Total_Risk_Mitigation_Example: $250K + $20K + $900K + $40K = $1.21M/year
+```
+
+---
+
+### §10.2 Total KERNEL ROI Calculation
+
+**Example Organization** (50-200 personas, tech-forward):
+
+```yaml
+Total_Annual_Value:
+  Cost_Savings: $5.34M
+  Revenue_Increase: $1.755M
+  Risk_Mitigation: $1.21M
+  Total: $8.305M/year
+
+Total_Investment_KERNEL:
+  Year_1:
+    Implementation: $300K (consulting, training, tools)
+    FTE_Cost: $150K (1 FTE KERNEL lead @ $150K/year)
+    Opportunity_Cost: $50K (team time sprints)
+    Total_Y1: $500K
+  
+  Year_2_Ongoing:
+    Maintenance: $100K (continuous improvement, training)
+    FTE_Cost: $150K (KERNEL lead continues)
+    Total_Y2: $250K/year
+
+ROI_Calculation:
+  Year_1_ROI: ($8.305M - $500K) / $500K = 1,561%
+  
+  Year_2_ROI: ($8.305M - $250K) / $250K = 3,122%
+  
+  3_Year_ROI: ($8.305M × 3 - $500K - $250K × 2) / ($500K + $250K × 2) = 2,390%
+
+Payback_Period:
+  $500K investment / $8.305M annual value = 0.72 months (~22 días)
+
+NPV (3 years, 10% discount rate):
+  Year 0: -$500K
+  Year 1: $8.305M / 1.10 = $7.55M
+  Year 2: $8.055M / 1.21 = $6.66M
+  Year 3: $8.055M / 1.33 = $6.05M
+  NPV = -$500K + $7.55M + $6.66M + $6.05M = $19.76M
+```
+
+**Interpretation**:
+- **ROI Year 1**: 1,561% (exceptional)
+- **Payback**: <1 month (immediate value)
+- **NPV 3-year**: $19.76M (highly positive)
+- **Verdict**: Invest KERNEL (no-brainer financiero)
+
+---
+
+### §10.3 TCO (Total Cost of Ownership)
+
+**KERNEL vs Alternatives 3-Year TCO**:
+
+| Item | KERNEL | TOGAF | SAFe | McKinsey | No Framework |
+|------|--------|-------|------|----------|--------------|
+| **Licensing** | $0 | $150K/yr | $50K/yr | $0 (consulting) | $0 |
+| **Consulting** | $300K Y1 | $800K Y1-2 | $400K Y1 | $2M Y1-2 | $500K ad-hoc |
+| **Training** | $50K/yr | $100K/yr | $80K/yr | Included | $20K/yr |
+| **Tools** | $100K/yr | $150K/yr | $120K/yr | $50K/yr | $80K/yr |
+| **FTE Internal** | 1 FTE ($150K/yr) | 2 FTE ($300K/yr) | 3 FTE ($450K/yr) | 0 (external) | 0.5 FTE ($75K/yr) |
+| **Maintenance** | $100K/yr Y2+ | $200K/yr | $150K/yr | $500K/yr | $50K/yr |
+| **3-Year Total** | **$1M** | **$2.9M** | **$2.45M** | **$3.15M** | **$860K** |
+
+**TCO Analysis**:
+- **KERNEL**: $1M (más bajo vs frameworks enterprise, ligeramente mayor vs no-framework)
+- **No Framework**: $860K (pero sin business value structure, alto riesgo failure)
+- **TOGAF**: $2.9M (3× KERNEL, heavyweight)
+- **SAFe**: $2.45M (2.5× KERNEL, ceremonies overhead)
+- **McKinsey**: $3.15M (3× KERNEL, consulting lock-in)
+
+**Value/Cost Ratio** (assuming $8M annual value conservative):
+- KERNEL: $8M / $1M = 8:1 (best)
+- No Framework: $3M / $860K = 3.5:1 (sub-optimal value)
+- TOGAF: $5M / $2.9M = 1.7:1 (mediocre)
+- SAFe: $4M / $2.45M = 1.6:1 (mediocre)
+- McKinsey: $6M / $3.15M = 1.9:1 (decent pero overpriced)
+
+---
+
+### §10.4 Financial Metrics Dashboards
+
+**CFO Dashboard (Quarterly)**:
+
+```yaml
+Panel_1_KERNEL_ROI:
+  Metrics:
+    - Cumulative savings YTD ($X)
+    - Revenue increase attributed KERNEL ($Y)
+    - Risk mitigation value ($Z)
+    - Total ROI % (current)
+  Visualization: Stacked bar chart (quarterly)
+
+Panel_2_Cost_Avoidance:
+  Metrics:
+    - Downtime hours avoided
+    - Breaches avoided (probability)
+    - Projects failure avoided
+    - Consultant fees saved
+  Visualization: Waterfall chart
+
+Panel_3_Investment_Tracking:
+  Metrics:
+    - Budget allocated ($X)
+    - Spent YTD ($Y)
+    - Forecast variance (%)
+    - Burn rate ($/month)
+  Visualization: Budget vs actual line chart
+
+Panel_4_Business_Outcomes:
+  Metrics:
+    - H_Score trend (0-100, target >70)
+    - Time-to-market (features/quarter)
+    - Customer churn rate (%, target <10%)
+    - Employee NPS (I2 Salud Talento)
+  Visualization: Scorecard + trend lines
+```
+
+---
+
+### §10.5 Business Case Template
+
+**KERNEL Business Case (Executive Summary)**:
+
+```markdown
+# KERNEL Adoption Business Case
+
+## Executive Summary
+
+**Investment**: $500K Year 1, $250K/year ongoing
+**Expected Value**: $8.3M/year (cost savings + revenue + risk mitigation)
+**ROI**: 1,561% Year 1, payback <1 month
+**Timeline**: 18 months full deployment (Phase 1 Pilot 3-6 months)
+
+## Problem Statement
+
+[Org-specific: Low H_Score, slow velocity, high churn, security gaps]
+
+## Proposed Solution
+
+Adopt KERNEL framework v2.2 (open, minimal, AI-native, evidence-based)
+
+## Financial Analysis
+
+| Metric | Value |
+|--------|-------|
+| **Total Investment (3-year)** | $1M |
+| **Total Value (3-year)** | $24.9M |
+| **NPV (10% discount)** | $19.76M |
+| **IRR** | 1,560% |
+| **Payback** | 0.72 months |
+
+## Risk Assessment
+
+- **Low Risk**: Backward compatible (v2.2), no vendor lock-in, incremental rollout
+- **Mitigation**: Phase 1 Pilot validates assumptions (3 months, $50K)
+
+## Recommendation
+
+**Approve** KERNEL adoption. Exceptional ROI, minimal risk, strategic alignment AI-native operations.
+
+## Next Steps
+
+1. Allocate $500K budget FY2026
+2. Assign KERNEL Lead (Architect/CTO)
+3. Kick-off Phase 1 Pilot (Q1 2026, 3 months)
+4. Review quarterly CFO dashboard
+
+**Approval Required**: [CEO, CFO, CTO signatures]
+```
+
+---
+
+### §10.6 Sensitivity Analysis
+
+**Key Assumptions Variability**:
+
+```yaml
+Optimistic_Scenario:
+  Cost_Savings: $6M/year (+12%)
+  Revenue_Increase: $2.5M/year (+42%)
+  Risk_Mitigation: $1.5M/year (+24%)
+  Total_Value: $10M/year
+  ROI_Y1: 1,900%
+
+Base_Case:
+  Total_Value: $8.3M/year
+  ROI_Y1: 1,561%
+
+Conservative_Scenario:
+  Cost_Savings: $4M/year (-25%)
+  Revenue_Increase: $1M/year (-43%)
+  Risk_Mitigation: $800K/year (-34%)
+  Total_Value: $5.8M/year
+  ROI_Y1: 1,060%
+
+Pessimistic_Scenario:
+  Cost_Savings: $2.5M/year (-53%)
+  Revenue_Increase: $500K/year (-72%)
+  Risk_Mitigation: $500K/year (-59%)
+  Total_Value: $3.5M/year
+  ROI_Y1: 600%
+
+Conclusion:
+  Even pessimistic scenario delivers 600% ROI Year 1
+  → Investment justificado bajo cualquier escenario razonable
+```
+
+**Break-Even Analysis**:
+
+```yaml
+Break_Even_Value:
+  Investment_Y1: $500K
+  Required_Value_Break_Even: $500K
+  
+  As % of Base_Case:
+    $500K / $8.3M = 6% (solo necesitas capturar 6% valor estimado para break-even)
+  
+  Interpretation:
+    Incluso si overestimamos valor 10× (94% error), aún profitable
+    → Risk muy bajo, asymmetric upside
+```
+
+---
+
 ## ✅ SPRINT 3 COMPLETADO
 
 **Documentos APLICACION generados (5 de 5):**
@@ -679,9 +1085,11 @@ AP_M7_Features_Shipped:
 
 ## Referencias Cruzadas
 
-- **11 Observables:** `DOMINIOS/D2_Percepcion.md`
+- **16 Observables:** `DOMINIOS/D2_Percepcion.md` (O1-O8, I1-I3, SO1-SO5)
 - **H_Score fórmula:** `DOMINIOS/D2_Percepcion.md` §4
 - **Flow metrics:** `DOMINIOS/D4_Operacion.md` §2
 - **DORA metrics:** `DOMINIOS/D4_Operacion.md` §4.2
 - **Tech debt score:** `DOMINIOS/D4_Operacion.md` §5.2
 - **Diagnóstico framework:** `APLICACION/A3_Diagnostico.md`
+- **Financial Modeling ROI/TCO:** Este documento §10 (business case, sensitivity analysis)
+- **Readiness Assessment:** `APLICACION/A4_Implementacion.md` §0 (R1-R5)

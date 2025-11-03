@@ -1,9 +1,13 @@
-# E2_Sector_Público (Gobierno Digital TDE Chile)
+# E2_Chile_TDE (Transformación Digital del Estado - Chile)
 
-**Versión:** 2.0.0  
+**Versión:** 2.1.0  
 **Estado:** Production  
-**Audiencia:** Directivos Sector Público, Coordinadores TD, CDOs Gobierno, Arquitectos SI Públicos  
-**Dependencias**: CORE/01-08, DOMINIOS/D1-D4, APLICACION/A1-A5, E7-E8
+**Audiencia:** Directivos Sector Público Chile, Coordinadores TD, CDOs Gobierno, Arquitectos SI Públicos  
+**Dependencias**: CORE/01-08, DOMINIOS/D1-D4, APLICACION/A1-A5, **E2_Gov_Digital_Base.md** (principios universales), E7-E8
+
+**Scope Geográfico**: Chile (Ley 21.180 TDE + Marco Legal Chileno)
+
+**Nota Internacional**: Este documento es implementación Chile-specific. Para principios universales gobierno digital, ver `E2_Gov_Digital_Base.md`. Para adaptar a otro país, ver `E2_Template_Gov.md`.
 
 ---
 

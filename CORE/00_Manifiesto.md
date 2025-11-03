@@ -1,8 +1,92 @@
 # 00_Manifiesto
 
-**Versión:** 1.0.0  
+**Versión:** 2.2.0  
 **Estado:** Definitivo  
 **Audiencia:** Todos
+
+---
+
+## §0. POSITIONING STATEMENT
+
+### ¿Qué es KERNEL?
+
+**KERNEL es el sistema operativo para organizaciones adaptativas.**
+
+Un meta-framework minimal que integra Enterprise Architecture, Digital Transformation, AI/ML Engineering y Agile Operations en un modelo ejecutable, instrumentado y basado en evidencia. No es metodología (no prescribe procesos rígidos), no es consultoría (no vende servicios), no es software (aunque habilita automatización). **KERNEL es la gramática formal que permite diseñar, operar y evolucionar organizaciones como si fueran sistemas computables**.
+
+---
+
+### ¿Para quién es KERNEL?
+
+**Audiencia primaria** (deciden adoptar):
+- **CTOs, Arquitectos Enterprise**: Necesitan coherencia end-to-end (tech stack → business value)
+- **CEOs, C-Suite**: Requieren visibilidad real-time health organizacional (H_Score)
+- **Consultores Senior**: Buscan framework riguroso para transformaciones (no frameworks pop management)
+
+**Audiencia secundaria** (ejecutan):
+- **Product Managers**: Instrumentar customer journey (P_CX patterns)
+- **ML/AI Engineers**: Delegación M1-M6 estructurada, no AI caos
+- **Engineering Managers**: Patterns implementables (P01-P64), no buzzwords
+
+**NO es para**:
+- Orgs <20 personas (overhead alto vs benefit)
+- Consultorías buscando lock-in cliente (KERNEL es open, no propietario)
+- Audiencias buscando "quick fix" sin inversión (requiere rigor, disciplina)
+
+---
+
+### ¿Por qué KERNEL vs otros frameworks?
+
+**Diferenciadores únicos**:
+
+| Aspecto | KERNEL | TOGAF/Zachman | SAFe/Scrum | McKinsey Frameworks |
+|---------|--------|---------------|------------|---------------------|
+| **Scope** | End-to-end (EA + Digital + AI + Ops) | Solo EA técnica | Solo delivery | Solo strategy |
+| **AI Integration** | Nativo (M1-M6 delegation) | No contempla | Add-on tardío | Consultoría manual |
+| **Ejecutabilidad** | Instrumentado (O1-O16 metrics) | Conceptual (diagramas) | Parcial (sprints) | Presentaciones |
+| **Minimalidad** | 7 primitivos, 4 dominios | 100+ artifacts | 20+ roles/ceremonies | N frameworks propietarios |
+| **Evidencia** | H_Score cuantitativo (0-100) | Compliance checkboxes | Velocity points | Qualitative insights |
+| **Costo Licensing** | Open (gratuito) | $50K-500K/año | $10K-100K/año | $500K-5M/proyecto |
+| **Lock-in** | Zero (adoptable incremental) | Alto (certificaciones) | Medio (coaches) | Muy alto (partner-dependent) |
+
+**Cuándo usar KERNEL**:
+- ✅ Org 50-5,000 personas (sweet spot)
+- ✅ Tech-forward (digital products, AI adoption)
+- ✅ C-level commitment (transformación requiere mandate)
+- ✅ Mindset evidence-based (data > opinions)
+- ✅ Timeline 12-24 meses acceptable (no silver bullets)
+
+**Cuándo NO usar KERNEL**:
+- ❌ Startup <20 (usa Lean Startup, no frameworks)
+- ❌ Legacy 100% offline (modernizar infra primero)
+- ❌ No buy-in C-level (fracasará sin sponsor)
+- ❌ Budget zero (mínimo $50K-150K Phase 1)
+- ❌ Buscas certificaciones vendor (TOGAF, SAFe certifications)
+
+---
+
+### Elevator Pitch (30 segundos)
+
+> "KERNEL es el meta-framework que permite operar tu organización como un sistema computable: 7 primitivos universales, 4 dominios ortogonales, 64 patterns implementables, y un health score cuantitativo que conecta tech stack con business outcomes. Integra EA, Digital Transformation, AI/ML y Ops en un modelo minimal ejecutable. Think 'operating system for your org' — open, evidence-based, AI-native desde diseño."
+
+**TL;DR**: Sistema operativo organizacional. Minimal, ejecutable, AI-native, evidence-based.
+
+---
+
+### Principios Fundacionales
+
+KERNEL se rige por 3 invariantes no negociables y 10 principios operacionales (detalle §1-§2 abajo).
+
+**Invariantes** (leyes inmutables):
+- **I1 Minimalidad**: Irreducibilidad (7 primitivos, 4 dominios, nada más)
+- **I2 Ortogonalidad**: Sin overlaps (responsabilidades únicas, claras)
+- **I3 Trazabilidad**: Causalidad explícita (propósito → valor)
+
+**Principios** (guías aplicación):
+- P1-P10: Parsimonia, Pragmatismo, Evidencia, Reversibilidad, Incrementalidad, Transparencia, Autonomía, Ética, Legibilidad, Evolvabilidad
+
+**Si violas invariantes** → No estás usando KERNEL (framework inconsistent)  
+**Si ignoras principios** → Estás usando KERNEL mal (implementación subóptima)
 
 ---
 
