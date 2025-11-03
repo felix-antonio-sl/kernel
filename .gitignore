@@ -4,4 +4,6 @@
 # Archivos de configuración de IDEs
 .vscode/
 .idea/
-DEV/**
+
+# Directorio de desarrollo
+DEV/
