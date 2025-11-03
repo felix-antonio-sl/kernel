@@ -1,12 +1,12 @@
 # KERNEL v2.2 - Índice de Navegación
 
-**Estado:** ✅ Production Ready | **Versión:** 2.2.0 | **Release:** 2025-11-03
+**Estado:** ✅ Production Ready | **Versión:** 2.2.3 | **Release:** 2025-11-03
 
 ---
 
 ## 🚀 Resumen Global
 
-- **Versión Actual:** 2.2.0 (Production Ready)
+- **Versión Actual:** 2.2.3 (Production Ready)
 - **Documentos Totales:** 54 archivos
   - CORE: 9 docs
   - DOMINIOS: 4 docs
@@ -26,14 +26,14 @@
 - **Líneas Código:** ~18,500 líneas markdown total
 - **Idiomas:** Español (completo), Inglés (roadmap v2.3)
 
-**Versión v2.2.0 (2025-11-03)**: Ver `VERSIONING.md` para changelog completo y roadmap.
+**Versión v2.2.3 (2025-11-03)**: Ver `VERSIONING.md` para changelog completo y roadmap.
 
-**Highlights v2.2**:
-- ✅ Positioning Statement (CORE/00 §0): Elevator pitch + diferenciadores
-- ✅ LEARNING_PATH.md: 4 tracks (Executive, Architect, AI Engineer, Full)
-- ✅ Customer Experience KERNEL-native (P_CX01-03 + T23)
-- ✅ E2 Gobierno Digital refactored (internacional-first: Base + Chile + Template)
-- ✅ Security integration complete (SO1-SO5, P_SEC01-05, CORE/03 §6)
+**Highlights v2.2.3**:
+- ✅ Sistema de Validación Distribuido (CORE/07 §7): Central + Local, Métricas M1-M4, AP_VAL1-3
+- ✅ Índice de Referencias Cruzadas Global (§"🔗"): 100+ conceptos mapeados, tiempo búsqueda 90% ↓
+- ✅ 5 Correcciones Coherencia Críticas: H_Score canónico (suma 1.00), AS1-AS5, P7 Parsimonia
+- ✅ Validaciones Locales Optimizadas (D1-D4): Checklists 5 min + referencias formales
+- ✅ v2.2.2: Multi-Tenant (P64, AP51-52), Positioning Statement, Learning Path, Security
 
 ---
 

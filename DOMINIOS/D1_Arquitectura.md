@@ -421,12 +421,13 @@ A_Score: Métrica agregada health arquitectura
 
 Fórmula_Base (CORE/03):
   A_Score = (
-    0.25 * A1_Cohesion +
-    0.20 * A2_Coupling +
-    0.15 * A3_Modularity +
-    0.20 * A4_Testability +
-    0.20 * A5_Deployability
+    0.25 * AS1_Cohesion +
+    0.20 * AS2_Coupling +
+    0.15 * AS3_Modularity +
+    0.20 * AS4_Testability +
+    0.20 * AS5_Deployability
   )
+  # Nota: AS = Architecture Score components (evita colisión con Axiomas A1-A5)
 
 Fórmula_Extended_D1 (agrega org dimensions):
   A_Score_Extended = (
@@ -451,7 +452,7 @@ Típico_MVA: 60-70
 Típico_excelencia: 80-90
 
 Vinculación_D2:
-  A_Score alimenta H_Score (org health agregado D2 §3)
+  A_Score influye H_Score indirectamente a través de IN1/IN2/IN3 (D2 §3)
 ```
 
 ---

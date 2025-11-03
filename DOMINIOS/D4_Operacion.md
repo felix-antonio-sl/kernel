@@ -239,7 +239,7 @@ High: Daily
 Medium: Weekly
 Low: <Monthly
 
-Vinculación: D2 O_Score componente (30%)
+Vinculación: O_Score (D4) alimenta IN3_Eficiencia_Flujo (D2)
 ```
 
 ### Lead Time for Changes

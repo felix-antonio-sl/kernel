@@ -1,6 +1,6 @@
 # CONTRIBUTING (Guía Contribuciones KERNEL)
 
-**Versión:** 2.2.0  
+**Versión:** 2.2.3  
 **Estado:** Open for Contributions  
 **Última Actualización:** 2025-11-03
 
@@ -40,9 +40,10 @@ Gracias por tu interés en contribuir a KERNEL. Este documento establece guideli
 
 **Verifica**:
 - [ ] Tu propuesta no existe ya (buscar en A1_Patrones.md para patterns base, E3-E5 para domain-specific, R6_Templates)
-- [ ] Tu propuesta alineada con invariantes I1-I3
+- [ ] Tu propuesta alineada con invariantes I1-I3 (ver `CORE/07_Validacion.md` para pruebas formales)
 - [ ] Tienes evidencia empírica (al menos 1 caso aplicación real)
-- [ ] Tu propuesta no duplica antipatrón existente (A2_Antipatrones.md para base, E3-E5 §10 para domain-specific)
+- [ ] Tu propuesta no duplica antipatrón existente (A2_Antipatrones.md para base, E3-E5 §10 for domain-specific)
+- [ ] Si modificas métricas (H_Score, A_Score, D_Score, O_Score), verifica que pesos suman 1.00
 
 ---
 

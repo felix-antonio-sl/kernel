@@ -1,15 +1,15 @@
 # KERNEL v2.2: El Sistema Operativo para Organizaciones Adaptativas
 
-![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.2.3-blue.svg)
 ![Status](https://img.shields.io/badge/status-production_ready-green.svg)
 ![License](https://img.shields.io/badge/license-open-brightgreen.svg)
-![Patterns](https://img.shields.io/badge/patterns-64-orange.svg)
+![Patterns](https://img.shields.io/badge/patterns-72-orange.svg)
 ![Observables](https://img.shields.io/badge/observables-16-purple.svg)
 ![Contributors](https://img.shields.io/badge/contributors-welcome-ff69b4.svg)
 
-**Versión:** 2.2.0 | **Estado:** Production Ready | **Release:** 2025-11-03
+**Versión:** 2.2.3 | **Estado:** Production Ready | **Release:** 2025-11-03
 
-> **Nuevo en v2.2**: Positioning Statement, Learning Path (4 tracks), Customer Experience KERNEL-native, E2 Gobierno Digital internacional, Security enterprise-grade. Ver `VERSIONING.md` para changelog completo.
+> **Nuevo en v2.2.3**: Sistema de Validación Distribuido, Índice de Referencias Cruzadas Global (100+ conceptos), 5 correcciones críticas de coherencia (H_Score canónico, interfaces D1-D4 limpias). Ver `VERSIONING.md` para changelog completo.
 
 ---
 

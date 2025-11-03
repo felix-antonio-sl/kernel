@@ -1,6 +1,6 @@
 # LEARNING_PATH (KERNEL Framework)
 
-**Versión:** 2.2.0  
+**Versión:** 2.2.3  
 **Estado:** Production  
 **Audiencia:** Todos (4 tracks especializados)
 

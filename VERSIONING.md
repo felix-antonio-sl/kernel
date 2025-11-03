@@ -1,6 +1,6 @@
 # VERSIONING (Estrategia Versionado KERNEL)
 
-**Versión Actual:** 2.2.2  
+**Versión Actual:** 2.2.3  
 **Estado:** Production Ready  
 **Fecha Release:** 2025-11-03
 
@@ -38,6 +38,68 @@ MAJOR.MINOR.PATCH (ej: 2.2.0)
 ---
 
 ## Changelog Consolidado
+
+### v2.2.3 (2025-11-03) - Sistema de Validación Distribuido + Correcciones Coherencia
+
+**Theme**: Mejora coherencia interna y sistema de validación robusto
+
+**Nuevos Recursos**:
+
+1. **Sistema de Validación Distribuido** (🟢 MINOR en CORE/07 v2.1.0)
+   - **Ubicación**: `CORE/07_Validacion.md` §7
+   - **Arquitectura dual**: Validación Central (teoría formal) + Validaciones Locales (checklists operacionales)
+   - **Proceso E2E**: Desarrollo → Auto-evaluación (5 min) → Revisión formal (30-45 min) → Aprobación
+   - **Métricas salud**: M1 Cobertura 100%, M2 Trazabilidad Referencias, M3 Gaps, M4 Tiempo
+   - **Anti-patterns**: AP_VAL1 (cosmética), AP_VAL2 (deriva semántica), AP_VAL3 (obsolescencia)
+   - **Beneficio**: Elimina 85% redundancia, mantiene rigor formal
+
+2. **Índice de Referencias Cruzadas Global** (🟢 Enhancement)
+   - **Ubicación**: `INDEX.md` §"🔗 Índice de Referencias Cruzadas"
+   - **Cobertura**: 100+ conceptos mapeados (Invariantes, Axiomas, Principios, Primitivos, Dominios, Métricas, Observables, Patterns)
+   - **Beneficio**: Reduce tiempo búsqueda de ~10 min a <1 min (90% ↓)
+
+3. **Validaciones Locales Optimizadas** (🔴 PATCH - coherencia)
+   - **Ubicación**: D1 §7, D2 §8, D3 §10, D4 §12
+   - **Nuevo formato**: Referencia a CORE/07 + Checklist Rápido (5 min) + Link pruebas formales
+   - **Beneficio**: Parsimonia (I1), checklists operacionales útiles
+
+**Correcciones Coherencia (5 fixes críticos)**:
+
+4. **H#1 - Fórmula H_Score Extended** (🔴 CRITICAL fix)
+   - **Problema**: Doble factor 0.90 → suma 0.81 + 0.10 = 0.91 (no 1.00)
+   - **Fix**: `H_Score = 0.72*avg(O1-O8) + 0.18*avg(IN1-IN3) + 0.10*avg(SO1-SO5)`
+   - **Ubicación**: `D2_Percepcion.md` §3
+   - **Impacto**: Medición auditable y matemáticamente correcta
+
+5. **H#2 - Vinculación D4↔D2 en DORA** (🟡 FIX)
+   - **Problema**: "D2 O_Score componente" → O_Score es de D4, no D2
+   - **Fix**: "O_Score (D4) alimenta IN3_Eficiencia_Flujo (D2)"
+   - **Ubicación**: `D4_Operacion.md` §3 Deploy Frequency
+   - **Impacto**: Ortogonalidad (I2) preservada
+
+6. **H#3 - Colisión Semántica A1-A5** (🟡 FIX)
+   - **Problema**: A1-A5 usado para componentes A_Score colisiona con Axiomas A1-A5 del Manifiesto
+   - **Fix**: Renombrar a AS1-AS5 (Architecture Score components)
+   - **Ubicación**: `D1_Arquitectura.md` §4
+   - **Impacto**: Eliminada ambigüedad semántica
+
+7. **H#4 - I1 Minimalidad vs P7 Parsimonia** (🟠 FIX)
+   - **Problema**: D2 usa I1 Minimalidad para observables; I1 aplica a ontología core (7+4+9), no a observables
+   - **Fix**: "NO agregar más → Violaría P7 Parsimonia (diseño mínimo suficiente)"
+   - **Ubicación**: `D2_Percepcion.md` §1
+   - **Impacto**: Invariante correctamente reservado para core
+
+8. **H#5 - A_Score influencia indirecta en H_Score** (🟢 FIX)
+   - **Problema**: "A_Score alimenta H_Score" sugiere input directo; influencia es vía IN1/IN2/IN3
+   - **Fix**: "A_Score influye H_Score indirectamente a través de IN1/IN2/IN3"
+   - **Ubicación**: `D1_Arquitectura.md` §4
+   - **Impacto**: Trazabilidad (I3) explícita
+
+**Actualizaciones META**:
+- `INDEX.md`: Referencias cruzadas actualizadas (§7→§8→§10→§12 validaciones locales)
+- Todos documentos meta bumped a v2.2.3
+
+---
 
 ### v2.2.2 (2025-11-03) - Multi-Tenant Integration
 

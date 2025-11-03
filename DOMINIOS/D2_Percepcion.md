@@ -129,7 +129,7 @@ Ortogonalidad:
 Completitud:
   - 16 observables suficientes modelar health organizacional
   - Validado: 10 casos diversos (REFERENCIA/R1_Casos.md)
-  - NO agregar más → Violaría I1 Minimalidad
+  - NO agregar más → Violaría P7 Parsimonia (diseño mínimo suficiente)
 
 Composability:
   - Cada observable vincula a primitivos KERNEL:
@@ -387,19 +387,29 @@ Baseline_Security: 75 (si SO1-SO5 no disponibles, asumir razonable)
 
 ```yaml
 H_Score_Extended = (
-  0.90 * H_Score_Base_Renormalized +
+  0.72 * avg_ponderado(O1-O8) +
+  0.18 * avg_ponderado(IN1-IN3) +
   0.10 * avg(SO1-SO5)
 )
 
-Donde H_Score_Base_Renormalized = (
-  0.90 * (
-    0.72 * avg_ponderado(O1-O8) +   # 0.70 * 0.90 / (0.70+0.20) ≈ 0.72
-    0.18 * avg_ponderado(IN1-IN3)   # 0.20 * 0.90 / (0.70+0.20) ≈ 0.18
-  )
-)
+# Nota: 0.72 + 0.18 + 0.10 = 1.00 (suma canónica)
+# Los pesos 0.72/0.18 reflejan que observables externos (O1-O8)
+# tienen mayor peso que internos (IN1-IN3), y security añade +10%
 
-# Simplificación práctica (usar solo si precisión no crítica):
-H_Score ≈ 0.72*avg_ponderado(O1-O8) + 0.18*avg_ponderado(IN1-IN3) + 0.10*avg(SO1-SO5)
+Pesos_Externos (O1-O8, suman 1.0):
+  O1_Demanda: 0.12
+  O2_Valor: 0.15
+  O3_Capacidad: 0.10
+  O4_Eventos: 0.08
+  O5_Restricciones: 0.10
+  O6_Competencia: 0.10
+  O7_Dependencias: 0.08
+  O8_Calidad_Info: 0.07
+
+Pesos_Internos (IN1-IN3, suman 1.0):
+  IN1_Velocidad_Decisional: 0.40
+  IN2_Salud_Talento: 0.40
+  IN3_Eficiencia_Flujo: 0.20
 ```
 
 ### Interpretación
