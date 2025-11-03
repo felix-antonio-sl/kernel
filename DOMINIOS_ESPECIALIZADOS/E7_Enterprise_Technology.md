@@ -929,11 +929,3 @@ Puntuacion_Salud_Tecnica = (Salud_Infraestructura + Salud_Seguridad + Salud_Obse
 
 - **E8_Intelligent_Systems**: Data/AI/Process/Knowledge (orthogonal, minimal overlap infra K8s/OpenTelemetry)
 - **E2_Público §6**: Gov UX requirements (sector-specific)
-
-### REFERENCIA
-
-- **R6_Templates**:
-  - T13_ADR (existente)
-  - T19_App_Inventory (nuevo v2.0)
-  - T15_Contrato_Datos (nuevo v2.0)
-  - T20_Data_Product_Spec (nuevo v2.0)

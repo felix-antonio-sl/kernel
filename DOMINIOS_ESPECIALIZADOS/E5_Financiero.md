@@ -41,7 +41,7 @@
 
 ## §1. OVERVIEW SECTOR + REGULACIÓN
 
-### Financiero Chile (30 líneas)
+### Financiero Chile
 
 **Sectores**:
 
@@ -58,7 +58,7 @@
 - Real-time payments (24/7, <10s settlement)
 - AML/CFT compliance (lavado, financiamiento terrorismo) - costos altos
 
-### Regulación Financiera (30 líneas)
+### Regulación Financiera
 
 **Basilea III** (Capital Requirements):
 
@@ -109,7 +109,7 @@
 
 ## §3. STACK TECNOLÓGICO FINANCIERO
 
-### Core Banking & Payments (20 líneas)
+### Core Banking & Payments
 
 **Core Banking**: Temenos (T24/Transact), FIS (Profile, Horizon), Oracle FLEXCUBE  
 **Payments**: FIS (PayNet), ACI Worldwide, SWIFT network (cross-border)  
@@ -117,7 +117,7 @@
 
 **Chile**: Transbank (acquirer líder), Redcompra (ATM network), TEF (Transferencia Electrónica Fondos)
 
-### Trading Systems (20 líneas)
+### Trading Systems
 
 **Execution Platforms**:
 
@@ -145,7 +145,7 @@
 
 ## §4-§9. PATRONES FINANCIEROS (8 Patterns)
 
-### P_FIN1: Fraud Detection Real-Time (30 líneas)
+### P_FIN1: Fraud Detection Real-Time
 
 **Problema**: Fraud post-facto detection → Losses $500K-$5M/año, customer trust loss.
 
@@ -163,7 +163,7 @@
 
 **Conexión**: P60 HITL (high-value HITL investigator), E8 §5 ML (real-time scoring)
 
-### P_FIN2: Rigorous Backtesting (Trading Strategies) (30 líneas)
+### P_FIN2: Rigorous Backtesting (Trading Strategies)
 
 **Problema**: Strategies optimized in-sample → Overfit, fail out-sample (production losses).
 
@@ -194,7 +194,7 @@
 
 ---
 
-## §10. ANTIPATRONES (40 líneas)
+## §10. ANTIPATRONES
 
 **AP_FIN1**: Overfitting Backtest  
 **AP_FIN2**: Ignoring Slippage  
@@ -238,12 +238,3 @@
 **Tech**: FIX, Bloomberg, Numerix, Murex, Kafka (streaming), TimescaleDB (time-series).
 
 ---
-
-## METADATA
-
-**Líneas**: 550  
-**DIS**: 86%  
-**Calidad**: 9.6/10  
-**Versión**: 2.0.0
-
-**E5_FINANCIERO COMPLETO** ✅

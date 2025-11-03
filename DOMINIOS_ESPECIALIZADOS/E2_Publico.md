@@ -465,7 +465,7 @@
 - **E8 §4**: Data-as-Product operationaliza principios MGDE
 - **P57 Data Product Pattern**: Implementación técnica principios 2-4
 
-### Ciclo Vida Datos (8 Etapas) (20 líneas)
+### Ciclo Vida Datos (8 Etapas)
 
 1. **Generación**: Creación (dentro/fuera organización)
 2. **Recolección**: Captura (formularios, apps, interoperabilidad, streaming)
@@ -742,7 +742,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Límite L3**: Licencia como límite legal uso datos
 - **Recurso R1**: Open license como característica recurso público
 
-### Catálogos Institucionales (20 líneas)
+### Catálogos Institucionales
 
 **Requisitos Portal Datos Abiertos Institucional** (kb_tde_910 §6):
 
@@ -897,7 +897,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Dato D2** (CORE/01 §2): Metadatos como datos sobre datos
 - **E8 §6.3**: Metadata enrichment (analogía docs gov + knowledge chunks)
 
-### Trazabilidad Mínima (Art. 11 NT DS 10) (20 líneas)
+### Trazabilidad Mínima (Art. 11 NT DS 10)
 
 **Registros Obligatorios** (plataformas GD deben incluir):
 
@@ -2002,7 +2002,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 
 ## §13-§19. CONCLUSIÓN Y METADATA
 
-### Templates Gov-Specific (20 líneas)
+### Templates Gov-Specific
 
 **T36_Tramite_Digital** (Week 5 - REFERENCIA v2.0):
 
@@ -2050,7 +2050,7 @@ Pje(OAE) = ∑ (Pje(Dimensión_j) × Ponderación(Dimensión_j))
 - **Acuerdos**: N acuerdos activos Gestor Acuerdos (SLAs vigentes)
 - **Ejemplo**: Municipio Chillán 0 → 8 consumidos, 2 provistos (18m)
 
-### Integración KERNEL (20 líneas)
+### Integración KERNEL
 
 **E2 extiende**:
 
@@ -2163,58 +2163,3 @@ Términos críticos sector público (alphabetical):
 - **SGD**: Secretaría de Gobierno Digital (Min. Hacienda, desde 2024-03-01)
 - **SRCeI**: Servicio Registro Civil e Identificación
 - **TDE**: Transformación Digital del Estado
-
----
-
-## VALIDACIÓN CHECKLIST
-
-- ✅ kb_tde_910 cubierto 100% (MGDE, Datos Abiertos, Metadatos, Anonimización, Calidad Web, Voz/Tono)
-- ✅ kb_tde_920 cubierto 100% (4 Estrategias Nacionales: GobDigital, Datos, Identidad, Capacitación)
-- ✅ kb_tde_940 cubierto 100% (Institucionalidad, Sistema TD PMG, EVALTIC, Proyectos TIC)
-- ✅ kb_tde_960 cubierto 100% (9 Leyes vigentes, 6 NTs, 2 futuras: Ley IA, Ley 21.719)
-- ✅ 47 Invariantes TDE procesados (principles, standards, requirements embedded)
-- ✅ Forward-compatible Ley IA 2026 (§9 clasificación riesgo, principios, sandboxes)
-- ✅ Forward-compatible Ley 21.719 vigencia 2026 (§9 ARCO+, EIPD, decisiones automatizadas)
-- ✅ 3 Casos gobierno completos (GORE, Municipio, Ministerio con H_Score + ROI)
-- ✅ Templates gov-specific 3 (T36, T37, T38 estructurados)
-- ✅ Coherencia KERNEL 100% (primitivos, dominios, patterns, delegation, invariantes)
-- ✅ No duplica E7-E8 (cross-references systematic, sector-specific content only)
-- ✅ DIS >90%: 92% (L1 CORE ✓, L2 DOMINIOS ✓, L3 APLICACION ✓, L4 Métricas ✓, L5 Casos ✓)
-- ✅ Parsimonia >95%: 95% (tablas, listas controladas, YAML examples, cross-refs)
-
----
-
-## METADATA
-
-**Líneas**: 1,850 (target 1,800, +2.8% variance - TDE comprehensiveness justified)  
-**Sources coverage**:
-
-- kb_tde_910: 100% (2,984 líneas → 40% usado: MGDE, Datos Abiertos, Docs Metadata, Anonimización, Calidad, Voz/Tono)
-- kb_tde_920: 100% (estrategias: GobDigital 2030, Datos, Identidad, Capacitación)
-- kb_tde_940: 100% (institucionalidad, Sistema TD, EVALTIC, proyectos TIC)
-- kb_tde_960: 100% (Ley 21.658, 21.180, 19.880, DS 4/2020, 6 NTs, Ley IA proyecto, Ley 21.719)
-
-**Total sources**: ~10,000 líneas kb_tde → **1,850 líneas E2** (selection ratio 18.5%, parsimonia extrema invariantes)
-
-**Invariantes TDE Chile**: 47 identificados, 100% embedded (laws, NTs, strategies, standards, best practices)
-
-**Signal/noise ratio**: 95%  
-**Cross-references**: 45+ (CORE, DOMINIOS, APLICACION, E7, E8)  
-**Coherencia v1.4**: 100%  
-**DIS**: 92% (superior target 88%)
-
-**Versión**: 2.0.0  
-**Fecha creación**: 2025-11-03  
-**Autor**: Pensador Estructural-Analítico v2.0  
-**Status**: Production  
-**Calidad proyectada**: 9.7/10
-
-**Único en industria**: Primer framework EA 100% TDE Chile compliant, forward-compatible Ley IA + Ley 21.719 (2026), generalizable otros países (estructura adaptable).
-
----
-
-**DOCUMENTO E2_PÚBLICO v2.0 COMPLETO** ✅  
-**Week 3 objetivo completado** ✅  
-**100% TDE Chile Compliant** ✅  
-**Forward-Compatible 2026** ✅  
-**Listo para Week 4 → E3-E5 Sectores Verticales** ⏭️
